@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/group_project/static/css/create_active.css">
+    <script src="/group_project/static/js/wangEditor.js"></script>
+    <script src="/group_project/static/img/"></script> 
+    <script src="jquery.min.js"></script>
+    <style>
+        body{
+            background-color: rgb(132, 220, 226);
+            opacity: 0.7;
+        }
+
+        #bbody{
+            position: relative;
+            width: 1202px;
+            height: 2000px;
+            overflow: hidden;
+        }
+        #header{
+            position: relative;
+            width: 1200px;
+            height: 150px;
+            overflow: hidden;
+            /* border: 1px solid red; */
+            margin: 0px;
+        }
+        #left{
+            width: 350px; 
+            height: 500px;
+            position: relative;
+            width: 900px;
+            height: 800px;
+            margin: 10px;
+            /* border: 1px solid red; */
+            overflow: hidden;
+        }
+        /* #right{
+            position: absolute;
+            top: 160px;
+            right: 0px;
+            height: 1000px;
+            width: 250px;
+            border: 1px solid red;
+        } */
+
+        #left>#act_title,#left>#act_message,#left>#act_content{
+            float: left;
+        }
+        #left>#act_title{
+            width: 100%;
+            height: 100px;
+            text-align: center;
+        }
+        #left>#act_message{
+            /* position: absolute;
+            left: 50%;
+            top: 100px; */
+            width: 400px;
+            margin-left: 200px;
+            /* border: 1px solid green; */
+        }
+        #left>#act_content{
+            /* position: absolute;
+            top:  */
+            /* border: solid 1px goldenrod9; */
+
+        }
+
+
+        #select{
+            height: 20px;
+        }
+        #title{
+            display: inline-block;
+            line-height: 1;
+            text-align: right;
+            margin-right: 20px;
+            margin-top: 9px;
+        }
+        label{
+            display: inline-block;
+            margin-right: 20px;
+            width: 70px;
+            height: 3px;
+            /* line-height: 1; */
+            text-align: right;
+            margin-top: 9px;
+            padding: 9px;
+            /* vertical-align: top; */  
+        }
+        #btn>button{
+            position: relative;
+            margin-left: 30px;
+            margin-bottom: 9px;
+        }
+        #local ul li{
+            list-style: none;
+            position: relative;
+            left: -40px;
+            top: -9px;
+        }
+        #active{
+            width: 350px;
+        }
+        #active_lable>label{
+            margin-top: -5px;
+            position: relative;
+            top: -5px;
+        }
+        .active{
+            margin-left: 12px;
+            margin-top: -5px;
+        }
+        #act_content>label{
+            margin-top: -10px;
+        }
+        #uploadimg{
+            margin-top: 5px;
+            padding: 12px;
+        }
+        #uploadimg>#editor{
+            width: 350px;
+        }
+        #btm{
+            /* padding: 9px; */
+            margin-left: 12px;
+        }
+       </style>
+</head>
+<body>
+<div id="bbody">
+    <div id="header"></div>
+    <div id="left">
+        <div id="act_title">
+            <h1>创建活动</h1>
+        </div>
+        <div id='act_message'>
+            <div class="kind">
+                <label>活动类别</label>
+                <select name="select_kind" id="select">
+                    <option value="v1">请选择</option>
+                    <option value="v2">跑步</option>
+                    <option value="v3">旅游</option>
+                </select>
+            </div>
+
+            <div>
+                <label>活动标题</label>
+                <input id="title" type="text" placeholder="必填" onfocus="javascript:this.value=''">
+            </div>
+            <div>
+                <label>发起人</label>
+                <input id="author" type="text" placeholder="必填" onclick="checkinput()">
+            </div>
+            <div >
+                <label>开始时间</label>
+                <input id="date" type="datetime-local">
+            </div>
+            <div >
+                <label>结束时间</label>
+                <input  id="endtime" type="datetime-local">
+            </div>
+            <div >
+                <label>是否收费</label>
+                <input type="checkbox" name="money" id="money">是
+                <input type="checkbox" name="no_money" id="money">否
+            </div>
+            <div id="local">
+                <ul>
+                    <li>
+                        <label id="lable">活动地点</label>
+                        <select name="pro" id="pro">
+                            <option value="p1">请选择</option>
+                            <option value="p2">四川省</option>
+                            <option value="p3">北京市</option>
+                        </select>
+                        <select name="city" id="city">
+                            <option value="c">请选择</option>
+                            <option value="c1">成都市</option>
+                            <option value="c2">绵阳市</option>
+                            <option value="c3">内江市</option>
+                            <option value="c4">德阳市</option>
+                        </select>
+                        <select name="erea" id="erea">
+                            <option value="e">请选择</option>
+                            <option value="e1">高新区</option>
+                            <option value="e2">金牛区</option>
+                            <option value="e3">锦江区</option>
+                            <option value="e4">青羊区</option>
+                            <option value="e5">武侯区</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+
+        <div id="act_content">
+            <label>活动详情</label>
+        </div>
+        <div id="uploadimg">
+                <input type="file" name="file" multiple id="inputs" 
+                accept="image/*" class='fileTest' multiple="multiple">
+                <textarea name="editor" id="editor" cols="30" rows="10" placeholder="请输入活动详情(不能为空)"></textarea>
+        </div>
+        <div >
+            <button id="btm">提交</button>
+            <button>取消</button>
+        </div>
+        </div>
+    </div>
+    <div id="right"></div>
+</div>
+<div id="editor"></div>
+
+    <script> 
+        function checkinput(){
+            if (document.getElementById('author').value.length == 0){
+                alert('输入不能为空')
+                document.getElementById('author').focus()
+                return false
+            }
+        }
+        // var data = []
+        // // 增加日期
+        // $('#data_add').on('click',function(){
+        //     data.push($('#data').val)
+        // })
+        // // 删除日期
+        // $('#data_reduce').on('click',function(){
+        //     data.pop($('#data').val)
+        // })
+        // 提交前验证非空，非空再提交
+        // $('#title').on('click',function(){
+        //     // var type = $('#type').val;
+        //     var title = $('#title').val();
+        //     if (title==null || title=='' || title==undefined){
+        //         $(this).css('borderColor','red')
+        //     }else{
+        //         $('#title').css('borderColor','')
+        //     }
+        // $('#btm').on('click',function(){
+            
+        // })
+            // var author = $('#author').val
+            // var endtime = $('#endtime').val
+            // var money = $('#money').val
+            // var erea = $('#erea').val
+            // var noa = $('#noa').val
+            // var content = $('#content').val
+        // })
+    </script>
+</body>
+</html>

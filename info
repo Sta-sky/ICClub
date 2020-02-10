@@ -1,0 +1,591 @@
+[2019-12-23 08:56:33,788: WARNING/MainProcess] /usr/local/lib/python3.6/dist-packages/celery/fixups/django.py:202: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
+[2019-12-23 08:56:33,878: WARNING/ForkPoolWorker-3] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=YmRzYV8yMDM4" target="blank">请点击激活</a></p>
+[2019-12-23 13:57:09,702: ERROR/MainProcess] Received unregistered task of type 'ICClub.send_msm'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["122321", "18419360851"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (100b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'ICClub.send_msm'
+[2019-12-23 13:57:10,987: ERROR/ForkPoolWorker-4] Task celery_tasks.user_celery.send_msm[6066e5e4-4e7f-475a-a9f4-d1b7cc6ab50c] raised unexpected: TypeError("send_msm() missing 1 required positional argument: 'phone_number'",)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+TypeError: send_msm() missing 1 required positional argument: 'phone_number'
+[2019-12-23 13:57:32,997: ERROR/MainProcess] Received unregistered task of type 'ICClub.send_msm'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["122321", "18419360851"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (100b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'ICClub.send_msm'
+[2019-12-23 13:57:33,520: ERROR/ForkPoolWorker-3] Task celery_tasks.user_celery.send_msm[24039013-372f-479d-b841-699709e0aa18] raised unexpected: TypeError("send_msm() missing 1 required positional argument: 'phone_number'",)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+TypeError: send_msm() missing 1 required positional argument: 'phone_number'
+[2019-12-23 13:57:41,574: ERROR/MainProcess] Received unregistered task of type 'ICClub.send_msm'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["122321", "18419360851"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (100b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'ICClub.send_msm'
+[2019-12-23 13:57:42,575: ERROR/ForkPoolWorker-4] Task celery_tasks.user_celery.send_msm[c90dc552-e319-4f2d-a63a-f92c11fb301d] raised unexpected: TypeError("send_msm() missing 1 required positional argument: 'phone_number'",)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+TypeError: send_msm() missing 1 required positional argument: 'phone_number'
+[2019-12-23 13:57:47,338: ERROR/MainProcess] Received unregistered task of type 'ICClub.send_msm'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["122321", "18419360851"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (100b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'ICClub.send_msm'
+[2019-12-23 13:57:47,748: ERROR/ForkPoolWorker-3] Task celery_tasks.user_celery.send_msm[b926bb4f-6774-4081-b6aa-319ddd8920b0] raised unexpected: TypeError("send_msm() missing 1 required positional argument: 'phone_number'",)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+TypeError: send_msm() missing 1 required positional argument: 'phone_number'
+[2019-12-23 14:03:33,024: ERROR/ForkPoolWorker-4] Task celery_tasks.user_celery.send_msm[bd92d428-f68e-4c97-9af6-69a1cb2a19e2] raised unexpected: TypeError("send_msm() missing 1 required positional argument: 'self'",)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+TypeError: send_msm() missing 1 required positional argument: 'self'
+[2019-12-23 14:04:19,654: ERROR/ForkPoolWorker-3] Task celery_tasks.user_celery.send_msm[79bc6c1f-88d6-4145-88ca-838e46efe660] raised unexpected: TypeError("send_msm() missing 1 required positional argument: 'self'",)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+TypeError: send_msm() missing 1 required positional argument: 'self'
+[2019-12-23 20:08:55,027: WARNING/MainProcess] /usr/local/lib/python3.6/dist-packages/celery/fixups/django.py:202: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
+[2019-12-23 20:09:09,245: WARNING/ForkPoolWorker-3] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=c2pqXzYwOTI=" target="blank">请点击激活</a></p>
+[2019-12-24 13:11:44,616: WARNING/MainProcess] /usr/local/lib/python3.6/dist-packages/celery/fixups/django.py:202: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
+[2019-12-25 17:28:57,902: WARNING/MainProcess] /usr/local/lib/python3.6/dist-packages/celery/fixups/django.py:202: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
+[2019-12-25 17:28:58,016: WARNING/ForkPoolWorker-3] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=eGlhb25hbzk5OV8zNjMx" target="blank">请点击激活</a></p>
+[2019-12-25 17:28:58,020: WARNING/ForkPoolWorker-4] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=Y29kZTEyXzU3NjM=" target="blank">请点击激活</a></p>
+[2019-12-25 17:28:59,004: ERROR/ForkPoolWorker-3] Task celery_tasks.user_celery.send_act_email[e3c8b0a1-28db-4ed2-88a1-9a8424d81cf1] raised unexpected: SMTPRecipientsRefused({'abc@qq.com': (550, b'Mailbox not found or access denied')},)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/home/tarena/桌面/ICClub/celery_tasks/user_celery.py", line 17, in send_act_email
+    send_mail(subject, '', '1361704733@qq.com', html_message=html_message, recipient_list=[email])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/__init__.py", line 62, in send_mail
+    return mail.send()
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/message.py", line 348, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 111, in send_messages
+    sent = self._send(message)
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 127, in _send
+    self.connection.sendmail(from_email, recipients, message.as_bytes(linesep='\r\n'))
+  File "/usr/lib/python3.6/smtplib.py", line 881, in sendmail
+    raise SMTPRecipientsRefused(senderrs)
+smtplib.SMTPRecipientsRefused: {'abc@qq.com': (550, b'Mailbox not found or access denied')}
+[2019-12-25 17:33:24,805: WARNING/ForkPoolWorker-3] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=c3Nzc3NzXzg1NDA=" target="blank">请点击激活</a></p>
+[2019-12-25 18:11:03,367: WARNING/ForkPoolWorker-4] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=ZmRsa3NfNjIxMg==" target="blank">请点击激活</a></p>
+[2019-12-25 18:32:19,118: WARNING/ForkPoolWorker-3] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=Y29kZTExXzU3OTU=" target="blank">请点击激活</a></p>
+[2019-12-25 18:32:19,593: ERROR/ForkPoolWorker-3] Task celery_tasks.user_celery.send_act_email[1fea8251-fd37-413f-ab9c-f0fdfa8fa743] raised unexpected: SMTPServerDisconnected('Connection unexpectedly closed',)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/home/tarena/桌面/ICClub/celery_tasks/user_celery.py", line 17, in send_act_email
+    send_mail(subject, '', '1361704733@qq.com', html_message=html_message, recipient_list=[email])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/__init__.py", line 62, in send_mail
+    return mail.send()
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/message.py", line 348, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 104, in send_messages
+    new_conn_created = self.open()
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 71, in open
+    self.connection.login(force_str(self.username), force_str(self.password))
+  File "/usr/lib/python3.6/smtplib.py", line 721, in login
+    initial_response_ok=initial_response_ok)
+  File "/usr/lib/python3.6/smtplib.py", line 631, in auth
+    (code, resp) = self.docmd("AUTH", mechanism + " " + response)
+  File "/usr/lib/python3.6/smtplib.py", line 421, in docmd
+    return self.getreply()
+  File "/usr/lib/python3.6/smtplib.py", line 394, in getreply
+    raise SMTPServerDisconnected("Connection unexpectedly closed")
+smtplib.SMTPServerDisconnected: Connection unexpectedly closed
+[2019-12-26 11:31:32,388: WARNING/MainProcess] /usr/local/lib/python3.6/dist-packages/celery/fixups/django.py:202: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
+[2019-12-26 11:31:32,587: WARNING/ForkPoolWorker-3] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=Y29kZTk5XzQyNzg=" target="blank">请点击激活</a></p>
+[2019-12-26 11:31:32,594: WARNING/ForkPoolWorker-4] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=Y3Jhenljb2RlXzQ3NTI=" target="blank">请点击激活</a></p>
+[2019-12-26 11:31:32,594: WARNING/ForkPoolWorker-2] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=eGlhb25hbzExMV80Njg0" target="blank">请点击激活</a></p>
+[2019-12-26 11:31:33,374: ERROR/ForkPoolWorker-2] Task celery_tasks.user_celery.send_act_email[ca4545bb-79f1-4848-b5af-7d03bcba6613] raised unexpected: SMTPRecipientsRefused({'abc@qq.com': (550, b'Mailbox not found or access denied')},)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/home/tarena/桌面/ICClub/celery_tasks/user_celery.py", line 17, in send_act_email
+    send_mail(subject, '', '1361704733@qq.com', html_message=html_message, recipient_list=[email])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/__init__.py", line 62, in send_mail
+    return mail.send()
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/message.py", line 348, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 111, in send_messages
+    sent = self._send(message)
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 127, in _send
+    self.connection.sendmail(from_email, recipients, message.as_bytes(linesep='\r\n'))
+  File "/usr/lib/python3.6/smtplib.py", line 881, in sendmail
+    raise SMTPRecipientsRefused(senderrs)
+smtplib.SMTPRecipientsRefused: {'abc@qq.com': (550, b'Mailbox not found or access denied')}
+[2019-12-26 12:59:15,087: WARNING/ForkPoolWorker-4] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=5YWa6biz6bivXzEzMTU=" target="blank">请点击激活</a></p>
+[2019-12-26 13:11:32,980: WARNING/ForkPoolWorker-3] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=Y29kZV85NDQ4" target="blank">请点击激活</a></p>
+[2019-12-26 15:34:00,847: WARNING/ForkPoolWorker-4] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=cXExMjNfMjgyMQ==" target="blank">请点击激活</a></p>
+[2019-12-26 15:34:01,889: ERROR/ForkPoolWorker-4] Task celery_tasks.user_celery.send_act_email[b94c07e2-ab25-4d90-b0e8-7f476c483293] raised unexpected: SMTPRecipientsRefused({'123@qq.com': (550, b'Mailbox not found or access denied')},)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/home/tarena/桌面/ICClub/celery_tasks/user_celery.py", line 17, in send_act_email
+    send_mail(subject, '', '1361704733@qq.com', html_message=html_message, recipient_list=[email])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/__init__.py", line 62, in send_mail
+    return mail.send()
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/message.py", line 348, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 111, in send_messages
+    sent = self._send(message)
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 127, in _send
+    self.connection.sendmail(from_email, recipients, message.as_bytes(linesep='\r\n'))
+  File "/usr/lib/python3.6/smtplib.py", line 881, in sendmail
+    raise SMTPRecipientsRefused(senderrs)
+smtplib.SMTPRecipientsRefused: {'123@qq.com': (550, b'Mailbox not found or access denied')}
+[2019-12-26 15:39:12,016: WARNING/ForkPoolWorker-3] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=566h55CG5ZGYMV8yNTQ4" target="blank">请点击激活</a></p>
+[2019-12-26 15:39:15,026: ERROR/ForkPoolWorker-3] Task celery_tasks.user_celery.send_act_email[45c280ac-dfde-4f12-9245-e8491884488d] raised unexpected: SMTPRecipientsRefused({'abc@qq.com': (550, b'Mailbox not found or access denied')},)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/home/tarena/桌面/ICClub/celery_tasks/user_celery.py", line 17, in send_act_email
+    send_mail(subject, '', '1361704733@qq.com', html_message=html_message, recipient_list=[email])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/__init__.py", line 62, in send_mail
+    return mail.send()
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/message.py", line 348, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 111, in send_messages
+    sent = self._send(message)
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 127, in _send
+    self.connection.sendmail(from_email, recipients, message.as_bytes(linesep='\r\n'))
+  File "/usr/lib/python3.6/smtplib.py", line 881, in sendmail
+    raise SMTPRecipientsRefused(senderrs)
+smtplib.SMTPRecipientsRefused: {'abc@qq.com': (550, b'Mailbox not found or access denied')}
+[2019-12-26 16:13:08,742: WARNING/ForkPoolWorker-4] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=aGhoaGhoaF84NDMz" target="blank">请点击激活</a></p>
+[2019-12-27 20:50:23,184: WARNING/MainProcess] /usr/local/lib/python3.6/dist-packages/celery/fixups/django.py:202: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
+[2019-12-27 20:50:23,294: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["123@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=Y29kZTJfODUzNw=="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (168b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,302: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["12@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=5L2g54yc5oiR54ycY2FpXzYwMjU="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (179b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,308: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=dHR0dF82MjMy"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (171b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,313: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=dGVudF80OTY0"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (171b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,318: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=ZGFuZ18xODUw"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (171b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,323: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["12@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=5oiR6K-0XzkwMDg="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (167b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,328: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=ZGFuZ3NfMzA1NQ=="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (175b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,331: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=cHBwcHBwcHBfNjAxNQ=="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (179b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,334: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=Z2dnZ2dfMTQzMQ=="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (175b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,336: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=dGVudDJfNTkzNg=="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (175b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,338: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=dGVudDNfMzc2OQ=="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (175b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,340: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=aWlpaWlfMjc1Mw=="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (175b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,342: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=5Y2O5Li6XzYyNzE="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (175b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,344: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["12@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=5rWL6K-V5qCH562-MTIxXzMxMTc="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (179b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:50:23,346: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=ZHV1XzYwOTc="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (171b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:51:54,287: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=eGlhbmdxaW5nXzM5NjY="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (179b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:52:59,479: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=bXZrZGZfNjI1MQ=="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (175b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:57:40,665: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=dHR0Xzc2MDA="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (171b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 20:59:26,366: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=aGFoYWhhXzE3Njk="], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (175b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 21:06:43,866: ERROR/MainProcess] Received unregistered task of type 'celery_tasks.user_celery.send_act_email'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you're using relative imports?
+
+Please see
+http://docs.celeryq.org/en/latest/internals/protocol.html
+for more information.
+
+The full contents of the message body was:
+b'[["1361704733@qq.com", "http://176.209.104.17:7001/templates/email_activ.html?code=cHBwcF80MTkw"], {}, {"callbacks": null, "errbacks": null, "chain": null, "chord": null}]' (171b)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/worker/consumer/consumer.py", line 559, in on_task_received
+    strategy = strategies[type_]
+KeyError: 'celery_tasks.user_celery.send_act_email'
+[2019-12-27 21:28:03,003: WARNING/MainProcess] /usr/local/lib/python3.6/dist-packages/celery/fixups/django.py:202: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
+[2019-12-27 21:29:16,634: WARNING/MainProcess] /usr/local/lib/python3.6/dist-packages/celery/fixups/django.py:202: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
+[2019-12-27 21:41:00,336: WARNING/ForkPoolWorker-2] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=aGFoYV84MjM4" target="blank">请点击激活</a></p>
+[2019-12-27 21:41:00,337: WARNING/ForkPoolWorker-2] @@@@@@@@@@@@@@@@@@@######################
+[2019-12-27 21:59:28,435: WARNING/ForkPoolWorker-1] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=cXExMTFfNjMyMQ==" target="blank">请点击激活</a></p>
+[2019-12-27 21:59:28,436: WARNING/ForkPoolWorker-1] @@@@@@@@@@@@@@@@@@@######################
+[2019-12-27 22:06:08,000: WARNING/ForkPoolWorker-2] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=5rWL6K-V5qCH562-MTIyXzUyODM=" target="blank">请点击激活</a></p>
+[2019-12-27 22:06:08,000: WARNING/ForkPoolWorker-2] @@@@@@@@@@@@@@@@@@@######################
+[2019-12-27 22:08:44,237: WARNING/ForkPoolWorker-1] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=aGRoZGhkXzE2NTk=" target="blank">请点击激活</a></p>
+[2019-12-27 22:08:44,237: WARNING/ForkPoolWorker-1] @@@@@@@@@@@@@@@@@@@######################
+[2019-12-27 22:08:58,682: WARNING/ForkPoolWorker-2] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=5rWL6K-V5qCH562-MTIzXzE5Mzc=" target="blank">请点击激活</a></p>
+[2019-12-27 22:08:58,683: WARNING/ForkPoolWorker-2] @@@@@@@@@@@@@@@@@@@######################
+[2019-12-27 22:09:47,219: WARNING/ForkPoolWorker-1] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=YmFqZmJzXzQ0NzU=" target="blank">请点击激活</a></p>
+[2019-12-27 22:09:47,220: WARNING/ForkPoolWorker-1] @@@@@@@@@@@@@@@@@@@######################
+[2019-12-27 23:11:53,633: WARNING/ForkPoolWorker-2] <p>尊敬的用户 您好</p><p>ICClub激活地址为<a href="http://176.209.104.17:7001/templates/email_activ.html?code=Y29kZTFfNDI0NA==" target="blank">请点击激活</a></p>
+[2019-12-27 23:11:53,633: WARNING/ForkPoolWorker-2] @@@@@@@@@@@@@@@@@@@######################
+[2019-12-27 23:11:54,283: ERROR/ForkPoolWorker-2] Task celery_tasks.user_celery.send_act_email[9bba73cc-8cd0-4f10-ae25-9f623468add3] raised unexpected: SMTPRecipientsRefused({'123@qq.com': (550, b'Mailbox not found or access denied')},)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 385, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/celery/app/trace.py", line 648, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/home/tarena/桌面/team/ITEM/ICClub/celery_tasks/user_celery.py", line 21, in send_act_email
+    send_mail(subject, '', '1361704733@qq.com', html_message=html_message, recipient_list=[email])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/__init__.py", line 62, in send_mail
+    return mail.send()
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/message.py", line 348, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 111, in send_messages
+    sent = self._send(message)
+  File "/usr/local/lib/python3.6/dist-packages/django/core/mail/backends/smtp.py", line 127, in _send
+    self.connection.sendmail(from_email, recipients, message.as_bytes(linesep='\r\n'))
+  File "/usr/lib/python3.6/smtplib.py", line 881, in sendmail
+    raise SMTPRecipientsRefused(senderrs)
+smtplib.SMTPRecipientsRefused: {'123@qq.com': (550, b'Mailbox not found or access denied')}

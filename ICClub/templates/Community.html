@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>社区</title>
+    <link rel="stylesheet" href="../static/css/b_comu.css">
+    <link rel="stylesheet" href="../static/css/general.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/icclub.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+    <link rel="stylesheet" href="../static/css/admin_article.css">
+    <link rel="stylesheet" href="../static/css/active_user.css">
+    <link rel="stylesheet" href="../static/css/changelabel.css">
+    <script src="../static/js/base_con.js"></script>
+    <script src="../static/js/jquery.min.js"></script>
+</head>
+
+
+<body>
+
+<div id="head"></div>
+
+
+<div id="kj">
+
+    <div id="comu">
+    <!-- ================================= -->
+    <div id="adminArticle">
+        <span id="il">&lsaquo;</span>
+        <div id="article"></div>
+        <span id="ir">&rsaquo;</span>
+        <!-- <div class="slider-nav" id="btn">
+            <li class="selected"></li>
+            <li class="selected"></li>
+            <li class="selected"></li>
+            <li class="selected"></li>
+        </div> -->
+    </div>
+    <!-- ================================= -->
+    </div>
+
+
+    <!-- {#  左列  #} -->
+    <div id="comu_l">
+        <!-- {# 导航栏 #} -->
+        <div id="dh">
+            <ul>
+                <li id="l1">最新</li>
+                <li id="l2">最热</li>
+                <li id="l3">精华</li>
+            </ul>
+            <div>
+                搜索 <input type="text">
+            </div>
+        </div>
+        <!-- {# 帖子 #} -->
+        <div id="tz">
+            <div class="tz">
+                <ul>
+                    <li class="l1">[ <a href="">活动标签名</a> ] 标题 <span>发帖人昵称</span></li>
+                    <div>
+                        <span>浏览:100  发帖:2019-12-06</span>
+                        <span>回复:50  最新评论:2019-12-06</span>
+                    </div>
+                </ul>
+            </div>
+            <div class="tz">
+                <ul>
+                    <li class="l1">[ <a href="">活动标签名</a> ] 标题 <span>发帖人昵称</span></li>
+                    <div>
+                        <span>浏览量  发帖时间</span>
+                        <span>回复人数  最新评论时间</span>
+                    </div>
+                </ul>
+            </div>
+            <div class="tz">
+                <ul>
+                    <li class="l1">[ <a href="">活动标签名</a> ] 标题 <span>发帖人昵称</span></li>
+                    <div>
+                        <span>浏览量  发帖时间</span>
+                        <span>回复人数  最新评论时间</span>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- {#  右列  #} -->
+    <div id="comu_r">
+
+         <!-- box2右窗口 -->
+    <div id="box2_right">
+        <!-- box2右窗口上 -->
+        <div id="box2_right_up">
+            <!-- 右上标题 -->
+            <div class="b2_right1">
+                <p id="ac_c">活动推荐</p>
+                <div id="btn_l">
+                    <span id="lab_btn">换一换</span>
+                </div>
+                <div id="c_label">
+                    <ul id="lab">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- box2右窗口下 -->
+        <div id="box2_right_down">
+            <!-- 右下标题 -->
+            <div class="b2_right1">
+                <p>活跃达人</p>
+                <!-- 调试 显示8个 -->
+                <!-- <span id="_btn">测试添加8个</span> -->
+            </div>
+            <!-- 活跃达人列表 -->
+            <div id="b2_actv_user">
+                <!-- 用ajax请求渲染 -->
+            </div>
+        </div>
+    </div>
+
+        <!-- <div id="aa"></div>
+
+        <div class="hd">
+            <img src="../../../static/images/8.jpg" id="comu_r_img" width="300px" height="240px" alt="">
+            <h4>活动标题内容</h4>
+        </div>
+
+        <div class="hd">
+            <img src="../../../static/images/9.jpg" id="comu_r_img" width="300px" height="240px" alt="">
+            <h4>活动标题内容</h4>
+        </div> -->
+
+    </div>
+
+
+</div>
+
+<div id="foot"></div>
+
+<script>
+
+    $("#foot").load("footer.html");
+</script>
+<script src="../static/js/header.js"></script>
+<!--<script src="../static/js/index.js"></script>-->
+<script src="../static/js/active_user.js"></script>
+<script src="../static/js/admin_article.js"></script>
+<script src="../static/js/tips.js"></script>
+
+<script id="zj" src="../static/js/z_index.js"></script>
+
+
+<script>
+    getFocus($('#l2>a'));
+</script>
+
+</body>
+</html>

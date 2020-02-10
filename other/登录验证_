@@ -1,0 +1,5 @@
+能用到验证登录的地方都需要添加 : 一般在用户点击请求的ajax上面添加
+	发送ajax之前将token取出 : 
+		token = window.localStorage.getItem('user_token');
+	ajax 中添加请求头 :        
+		headers: {'Authorization': token},

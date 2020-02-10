@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>活动详情页面</title>
+    <link rel="stylesheet" href="../static/css/activity.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/comm.js"></script>
+    <script src="../static/js/details.js"></script>
+</head>
+<body>
+
+
+<div class="box">
+
+    <div id="top1">
+
+    </div>
+    <div id="box2">
+        <div id="vote">
+            <div>
+                <span onclick="send_ajax()" id="dj">活动投票</span>
+            </div>
+            <div id="boxb">
+
+                <div id="vott">
+                    <label for="">活动时间投票：</label>
+                    <select name="vote1" id="v0">
+                        <option selected value="">请选择</option>
+                        <option value="v1">3天</option>
+                        <option value="v2">7天</option>
+                        <option value="v3">10天</option>
+                        <option value="v4">10天及以上</option>
+                    </select>
+                </div>
+                <div id="votb">
+                    <label for="">活动地点投票：</label>
+                    <select name="vote2" id="v1">
+                        <option selected value="">请选择</option>
+                        <option value="1">锦江</option>
+                        <option value="2">高新</option>
+                        <option value="3">天府</option>
+                        <option value="4">其他</option>
+                    </select>
+                </div>
+                <input type="submit" name="" id="r1" value="确定">
+            </div>
+        </div>
+        <p id="top">>> 点击查看活动详情</p>
+        <div id="ac">
+            <div id="tip">活动主题
+                <span id="title"></span>
+            </div>
+            <div id="bj">活动简介
+
+            </div>
+        </div>
+        <div id="qr">
+            <span id="sc" onclick="changeVal(this)">收藏</span>
+            <div id="jr">
+                <span id="join">加入我们</span>
+                <input type="checkbox" id="read">我已阅读
+                <a href="/disclaimer">免责声明</a>
+            </div>
+        </div>
+        <div id="lyk">
+            <div>
+                <textarea autofocus
+                          name="intro"
+                          id="ly"
+                          cols="120"
+                          rows="2">
+            </textarea>
+
+            </div>
+            <div id="sly">
+                <button id="send">留言</button>
+            </div>
+        </div>
+        <!--        <div id="like">-->
+        <!--            <p>兴趣推荐:</p>-->
+        <!--        </div>-->
+    </div>
+
+</div>
+
+<script>
+    // 显示主题和详情
+    // 绑定按钮的单击事件
+    $("#top").on("click", function () {
+        //向服务器发送异步请求
+        $.ajax({
+            url: "/tes",
+            success: function (d) {
+                var HTML = "";
+                // 遍历元素对象
+                $.each(d, function (i, obj) {
+                    HTML += "<span>" + obj.title + "</span>"
+                });
+                $("#tip").append(HTML);
+            },
+            dataType: "json"
+        })
+    });
+</script>
+<script>
+    // 绑定按钮的单击事件
+    $("#top").on("click", function () {
+        //向服务器发送异步请求
+        $.ajax({
+            url: "/tes",
+            success: function (d) {
+                var HTML = "";
+                // 遍历元素对象
+                $.each(d, function (i, obj) {
+                    HTML += "<div><p id='jj'>" + obj.details + "</p></div>"
+                });
+                $("#bj").append(HTML);
+            },
+            dataType: "json"
+        })
+    });
+</script>
+<script>
+
+    //    收藏单击事件
+    function changeVal(obj) {
+        var val = document.getElementById("sc");
+        if (val.innerHTML == "收藏") {
+            obj.innerHTML = "已收藏";
+        } else if (val.innerHTML == "已收藏") {
+            obj.innerHTML = "收藏";
+        }
+    }
+</script>
+<script>
+    // 隐藏投票栏
+    document.getElementById("boxb").style.display = "none";
+    //显示投票框
+    $(document).ready(function (e) {
+        $("#dj").click(function (e) {
+            if ($("#boxb").hasClass("show")) {
+                // 执行隐藏
+                $("#boxb").hide().removeClass("show");
+                // 其他
+            } else {
+                // 显示
+                $("#boxb").show().addClass("show");
+            }
+        });
+    });
+    // var url = 'tes';
+    // var method = 'GET';
+    // var data = '<p></p>'
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+//首页地址Base_url_index = 'http://'+STSIP+'/index';//登录地址Base_url_regist = 'http://'+STSIP+'/user/login';//注册地址Base__url_login = 'http://'+STSIP+'/user/regist';//微博授权地址Base_url_weibo = 'http://'+STSIP+'/user/weibo';//404  页面地址Base_url_error = 'http://'+STSIP+'/error';
