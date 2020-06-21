@@ -383,3 +383,7 @@ def get_access_token(code):
     if res.status_code == 200:
         return json.loads(res.text)
     raise
+
+
+def haha():
+    pass
