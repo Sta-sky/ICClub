@@ -28,7 +28,7 @@ def regist_view(request):
         return render(request, '../templates/dyy/../regist.html')
 
     if request.method == 'POST':
-
+    
         # 前端使用了stringify  转换成了json的字符串 所以  需要loads（）一下  转换成json对象
         data = request.body
         print(data)
@@ -42,7 +42,7 @@ def regist_view(request):
         # 再次逐个判断前端传来的数据存在
         # TODO  邮箱正则
         # 定义 判断邮箱地址的正则
-
+    
         username = json_data.get('username')
         password = json_data.get('password')
         passwords = json_data.get('passwords')
@@ -53,7 +53,7 @@ def regist_view(request):
              return JsonResponse({'code': 10200, 'message':  '注册信息不完整'})
         if email_check(email) == False:
             return JsonResponse({'code': 10200, 'message':  '邮箱格式错误 '})
-
+    
         # TODO 此处加手机验证码 判断
         # try:
         #     # 取出code核对
@@ -70,28 +70,28 @@ def regist_view(request):
         # if user_code != redis_code:
         #     result = {'code': 10224, 'message': '验证码错误,'}
         #     return JsonResponse(result)
-
+    
         # 验证完 删除对应的code
         # s.hdel(username,phone)
 
 
         # 密码加密
         # 判断两次密码是否一致
-
+    
         m = hashlib.md5()
         m.update(password.encode())
         password = m.hexdigest()
-
+    
         ms = hashlib.md5()
         ms.update(passwords.encode())
         passwords = ms.hexdigest()
-
+    
         if passwords != password:
             result = {'code': 10200, 'message': '两次密码不一致'}
             return JsonResponse(result)
         # 从数据库中过滤  是否已经有了前端传来的username
         user = UserRegist.objects.filter(username=username)
-
+    
         #   用户已经存在 返回
         if user:
             result = {'code': 10201, 'message': '用户名已经存在,请换个昵称试试'}
@@ -105,7 +105,7 @@ def regist_view(request):
             print(e, '用户创建失败')
             result = {'code': 10210, 'message': '注册信息错误'}
             return JsonResponse(result)
-
+    
         # 签发token
         token = make_token(username)
         # TODO 激活邮件
@@ -114,19 +114,19 @@ def regist_view(request):
         base_code = base64.urlsafe_b64encode(code_random.encode()).decode('utf-8')
         # 将数据存入缓存中  等待用户发送请求验证  激活
         r.set('email_code%s' % username, base_code)
-
+    
         email_url = 'http://176.209.104.17:7001/templates/email_activ.html?code=%s' % base_code
         print(email_url)
         try:
             send_act_email.delay(email, email_url)
             print('###########')
         except Exception as e:
-
+    
             print(e)
             result = {'code':10220,'message':'邮箱发送失败 !请核对邮箱'}
             return JsonResponse(result)
         print('进来了222222')
-
+    
         result = {'code': 200, 'username': username, 'id': user.id, 'token': token.decode()}
         print('@@@@@@@@@@@@@######')
         print(result)
@@ -157,12 +157,12 @@ def email_active(request):
         email_code = base64.urlsafe_b64decode(code.encode())
         new_code = email_code.decode()
         username, rcode = new_code.split('_')
-
+    
     except Exception as e:
         print(e)
         result = {'code': 10201, 'message': '你的email_code是错误的'}
         return JsonResponse(result)
-
+    
     redis_code= r.get('email_code%s' % username).decode()
     if not redis_code:
         result = {'code': 10201, 'message': '你的redis code是错的'}
@@ -194,12 +194,12 @@ def weibo_regist_grant(request):
         except Exception as e:
             print(e)
             return JsonResponse({'code': 10206, 'message': '微博服务器繁忙'})
-
+    
         """
         微博发送的access_token数据	{access_token:"2.00uF2KpF0VuSON6966e9bef157Uq4D" , remind_in	"157679999" ,
         expires_in	157679999 , uid	"5336721666" , isRealName	"true"}
         """
-
+    
         # return JsonResponse({'code':200,'access_token':access_token})
         # 判断用户是否时第一次登录
         token = access_token.get('access_token')
@@ -212,7 +212,7 @@ def weibo_regist_grant(request):
             WeiboUser.objects.create(wuid=wuid, access_token=token)
             result = {'code': 201, 'uid': wuid}
             return JsonResponse(result)
-
+    
             # 否则用户不是第一次登录
         else:
             # 用户以前登录过
@@ -220,7 +220,7 @@ def weibo_regist_grant(request):
             # 微博用户外键一对一绑定 注册用户 所以 可以直接点语法查找有没有用户
             users = weibo_user.uid
             print(users)
-
+    
             if users:
                 # 以前登录过绑定过
                 # 正常签发token
@@ -232,7 +232,7 @@ def weibo_regist_grant(request):
                 # 之前微博登陆过，但是没有执行微博绑定注册
                 data = {'code': 201, 'uid': wuid}
                 return JsonResponse(data)
-
+    
     if request.method == "POST":
         pass
 
@@ -250,49 +250,49 @@ def weibo_bind(request):
         if not uid:
             result = {'code': 10206, 'message': {'error': '服务器繁忙 请稍等'}}
             return JsonResponse(result)
-
+    
         if not js_data:
             result = {'code': 10200, 'message': {'error': '请完善信息'}}
             return JsonResponse(result)
-
+    
         username = js_data.get('username')
         if not username:
             return JsonResponse({'code': 10200, 'message': {'error': 'username is not null  '}})
-
+    
         password = js_data.get('password')
         if not password:
             return JsonResponse({'code': 10200, 'message': {'error': 'password is not null'}})
         print(password)
-
+    
         passwords = js_data.get('passwords')
         if not passwords:
             return JsonResponse({'code': 10200, 'message': {'error': 'passwords is not null'}})
         print(passwords)
-
+    
         email = js_data.get('email')
         if not email:
             return JsonResponse({'code': 10200, 'message': {'error': 'email is not null'}})
         print(email)
-
+    
         phone = js_data.get('phone')
         if not phone:
             return JsonResponse({'code': 10200, 'message': {'error': 'phone is not null '}})
         elif type(phone) != int and len(phone) != 11:
             return JsonResponse({'code': 10200, 'message': {'error': '电话格式错误 '}})
         print(phone)
-
+    
         code = js_data.get('code')
         if not code:
             return JsonResponse({'code': 10200, 'message': {'error': 'code is not null'}})
         elif len(code) != 6:
-
+    
             return JsonResponse({'code': 10200, 'message': {'error': '验证码错误 请核对长度'}})
-
+    
         m = hashlib.md5()
         m.update(password.encode())
         password = m.hexdigest()
         print(password)
-
+    
         ms = hashlib.md5()
         ms.update(passwords.encode())
         passwords = ms.hexdigest()
@@ -300,28 +300,28 @@ def weibo_bind(request):
         if passwords != password:
             result = {'code': 10200, 'message': {'error': '密码不一致，请重新输入'}}
             return JsonResponse(result)
-
+    
         try:
             with transaction.atomic():
                 user = UserRegist.objects.create(username=username, password=password, phone=phone, email=email,
                                                  code=code)
                 print(user)
-
+    
                 # 用前端传过来的 uid 进行匹配
                 weibo_user = WeiboUser.objects.get(wuid=uid)
                 print()
                 #     关联用户表
                 weibo_user.uid = user
                 print(weibo_user)
-
+    
                 user.save()
-
+    
         except Exception as  e:
             # 用户创建不成功  返回错误信息
             print(e)
             result = {'code': 10207, 'message': {'error': 'user is existed'}}
             return JsonResponse(result)
-
+    
         # 签发token
         token = make_token(username)
         print(token)
@@ -385,5 +385,3 @@ def get_access_token(code):
     raise
 
 
-def haha():
-    pass
