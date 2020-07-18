@@ -115,7 +115,8 @@ def regist_view(request):
         # 将数据存入缓存中  等待用户发送请求验证  激活
         r.set('email_code%s' % username, base_code)
     
-        email_url = 'http://176.209.104.17:7001/templates/email_activ.html?code=%s' % base_code
+        email_url = 'http://127.0.0.1:7001/templates/email_activ.html' \
+                    '?code=%s' % base_code
         print(email_url)
         try:
             send_act_email.delay(email, email_url)

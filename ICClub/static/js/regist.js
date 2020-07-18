@@ -9,9 +9,9 @@ $(function () {
         var phone = $('#phone').val();
         var code = $('#code').val();
         console.log(typeof (code));
-        if (Isemail(email) !== true){
-            alert('邮箱格式有误，！请重新输入')
-        }
+        // if (Isemail(email) !== true){
+        //     alert('邮箱格式有误，！请重新输入')
+        // }
 
         result_data = {
             'username': username, 'password': password, 'passwords': passwords, 'email': email
@@ -33,7 +33,7 @@ $(function () {
                         window.localStorage.setItem('user_name', result.username);
                         window.localStorage.setItem('user_id', result.id);
                         window.localStorage.setItem('user_token', result.token);
-                        window.location.href = 'login.html'
+                        window.location.href = '127.0.0.1:8080/templates/login.html'
                     } else if (result.code === 10200) {
                         alert(result.message)
                     } else {
@@ -143,7 +143,7 @@ myCity.get(myFun);
 
 function Isemail(email){
     if (email !== '') {//判断
-    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,3})$/;
     if (!reg.test(email)) {
         return false
   }else {

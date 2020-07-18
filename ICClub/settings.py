@@ -42,12 +42,8 @@ INSTALLED_APPS = [
     # 'dwebsocket',
     'corsheaders',
     'ICClub',
-    # 'regist',
-
-    # 'bzhw',
     # 'error404',
     'activ',
-
     'users',
     # 'dtoken',
     'label',
@@ -97,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ICClub',
         # 'HOST': SERIP,
-        'HOST': '176.209.104.17',
+        'HOST': '127.0.0.1',
         'USER': 'root',
         'PORT': '3306',
         'PASSWORD': '123456',
@@ -150,7 +146,7 @@ JWT_TOKEN_KEY = 'dangyuanyang'
 # auth微博授权
 WEIBO_CLIENT_ID = '195501655'
 WEIBO_CLIENT_SECRET = 'da9024403990743e34536e05dbe451ab'
-WEIBO_REDIRECT_URI = 'http://' + SERIP + ':8000/user/bind'
+WEIBO_REDIRECT_URI = 'http://' + SERIP127 + ':8000/user/bind'
 
 # 跨域配置
 CORS_ORIGIN_ALLOW_ALL = True
@@ -189,7 +185,7 @@ APPEND_SLASH = False
 # 系统邮件地址
 SYSEMAIL = '1361704733@qq.com'
 
-DJREIDS_IP = 'redis://@' + SERIP + ':6379/'
+DJREIDS_IP = 'redis://@' + SERIP127 + ':6379/'
 # DJREIDS_IP = 'redis://@127.0.0.1:6379/'
 # django_redis缓存配置
 CACHES = {
@@ -244,7 +240,7 @@ CACHES = {
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'elasticstack.backends.ConfigurableElasticSearchEngine',
-        'URL': 'http://' + SERIP + ':9200/',
+        'URL': 'http://' + SERIP127 + ':9200/',
         # 'URL': 'http://127.0.0.1:9200/',
         'INDEX_NAME': 'djangotest',
     },

@@ -6,7 +6,7 @@ from urllib import parse
 import re
 from threading import Thread
 # from django.shortcuts import render
-# Create your views here.
+# Create your views here.get_redis_connection
 from django.db.models import F
 from django_redis import get_redis_connection
 from tools import chang_imgname
@@ -216,6 +216,7 @@ def get_new(request, page):
     :return:
     """
     if request.method == 'GET':
+        print('进来了')
         label = request.GET.get('tag', '')
         act_now_num = settings.ACTIVITY_NUM
         if request.is_websocket():

@@ -25,12 +25,12 @@ from celery_tasks.user_celery import *
 r = redis.Redis(host='localhost',port=6379,db=3)
 
 def login_view(request):
-    # if request.method == 'GET':
-    #     return render(request, '../templates/dyy/../login.html')
+    if request.method == 'GET':
+        return render(request, 'login.html')
 
     if request.method == 'POST':
 
-        # print(request.META.get('HTTP_AUTHORIZATION'))
+        print(request.META.get('HTTP_AUTHORIZATION'))
         # 取出前端发送的json对象
         data = request.body
 
@@ -81,6 +81,8 @@ def login_view(request):
 
         # 用户密码是否一致
         users = user[0]
+        print(password)
+        print(users.password)
         if password != users.password:
             result = {'code': 10202, 'message': 'username or password is wrong'}
             return JsonResponse(result)
