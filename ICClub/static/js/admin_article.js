@@ -12,13 +12,13 @@ function adminArticle() {
         success: function (response) {
             if (response.code == 200) {
                 articleData = response.data
-                // console.log('aaaaaaaaaaaa',articleData)
-                // alert('Ajax 渲染了')
+//                 console.log('aaaaaaaaaaaa',articleData)
+//                 alert('Ajax 渲染了')
                 var i = 0;
                 var html = ''
                 html += '<div class="article">'
                 html += '<span id="il">&lsaquo;</span>'
-                html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&article=' + articleData[i].article_id + '"><img src="' + OFF_URL + articleData[i].act_img + '" alt="" class="act_img" width="600px" height="320px"></a>'
+                html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&article=' + articleData[i].article_id + '"><img src="' + OFF_IMG_URL + articleData[i].act_img + '" alt="" class="act_img" width="600px" height="320px"></a>'
                 html += '<div class="tip"><p class="p1">热点</p>'
                 html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&article=' + articleData[i].article_id + '"><div class="subject"><h3>' + articleData[i].subject + '</h3></div>'
                 html += '<p style="table-layout: fixed" class="content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + articleData[i].content + '</p></a>'
@@ -43,7 +43,7 @@ function adminArticle() {
 function articleHtml(i) {
     var html = ''
     html += '<div class="article">'
-    html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&article=' + articleData[i].article_id + '"><img src="' + OFF_URL + articleData[i].act_img + '" alt="" class="act_img" width="600px" height="320px"></a>'
+    html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&article=' + articleData[i].article_id + '"><img src="' + OFF_IMG_URL + articleData[i].act_img + '" alt="" class="act_img" width="600px" height="320px"></a>'
     html += '<div class="tip"><p class="p1">热点</p>'
     html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&article=' + articleData[i].article_id + '"><div class="subject"><h3>' + articleData[i].subject + '</h3></div>'
     html += '<p style="table-layout: fixed" class="content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + articleData[i].content + '</p></a>'

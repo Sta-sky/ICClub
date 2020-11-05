@@ -33,7 +33,7 @@ $(function () {
                         window.localStorage.setItem('user_name', result.username);
                         window.localStorage.setItem('user_id', result.id);
                         window.localStorage.setItem('user_token', result.token);
-                        window.location.href = '127.0.0.1:8080/templates/login.html'
+                        window.location.href = 'login.html'
                     } else if (result.code === 10200) {
                         alert(result.message)
                     } else {
@@ -68,10 +68,10 @@ $(function () {
 
 //登录注册切换js
 $('#login2').click(function () {
-    window.location.href = STS_URL + 'login.html'
+    window.location.href = STIC_URL + 'login.html'
 });
 $('#regist1').click(function () {
-    window.location.href = STS_URL + 'regist.html'
+    window.location.href = STIC_URL + 'regist.html'
 });
 
 

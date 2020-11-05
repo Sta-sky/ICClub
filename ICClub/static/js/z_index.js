@@ -82,7 +82,7 @@ act_nh = 'new'
                 $.each(message, function (index, val) {
                     res += '<div id="new_act_">'
                     res += '<a href="activity.html?act_id=' + val.id + '">'
-                    res += '<img src="' + ACTIMG_URL + val.actimg + '" alt="" act_id="' + val.id + '">'
+                    res += '<img src="' + ACT_IMG_URL + val.actimg + '" alt="" act_id="' + val.id + '">'
                     res += '</a>'
                     res += '<div id="new_content">'
                     res += '<div id="n_tit" act_id="' + val.id + '">'
@@ -172,7 +172,7 @@ webrequestpage('1')
 //                 $.each(message, function (index, val) {
 //                     res += '<div id="new_act_">'
 //                     res += '<a href="activity.html?act_id=' + val.id + '">'
-//                     res += '<img src="' + ACTIMG_URL + val.actimg + '" alt="" act_id="' + val.id + '">'
+//                     res += '<img src="' + ACT_IMG_URL + val.actimg + '" alt="" act_id="' + val.id + '">'
 //                     res += '</a>'
 //                     res += '<div id="new_content">'
 //                     res += '<div id="n_tit" act_id="' + val.id + '">'
@@ -211,7 +211,7 @@ function makeresult(data) {
     $.each(data, function (index, val) {
         res += '<div id="new_act_">'
         res += '<a href="activity.html?act_id=' + val.id + '">'
-        res += '<img src="' + ACTIMG_URL + val.actimg + '" alt="" act_id="' + val.id + '">'
+        res += '<img src="' + ACT_IMG_URL + val.actimg + '" alt="" act_id="' + val.id + '">'
         res += '</a>'
         res += '<div id="new_content">'
         res += '<div id="n_tit" act_id="' + val.id + '">'

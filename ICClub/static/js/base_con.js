@@ -1,29 +1,42 @@
-// 不要调用下面这两个
-// SERIP = '176.209.104.17:8000'
-SERIP = '127.0.0.1:8000';
-// SERIP = '176.209.104.17:8000'
-var STSIP = '127.0.0.1:8080';
+// 静态页面的url
 
-// ================================================================
+var SER_IP = '127.0.0.1:8000';
+var STIC_IP = '127.0.0.1:7000';
 // 服务器地址（请求数据）
-var SER_URL = 'http://' + SERIP + '/';
+
+
+
+
 // websocket服务器地址 上传云 换8001
 // var WEBSOCKET_URL = 'ws://' + SERIP + ':8001/';
-var WEBSOCKET_URL = 'ws://' + SERIP + '/';
+var WEBSOCKET_URL = 'ws://' + SER_IP + '/';
 
 
-// 静态文件地址(请求网页)
-var STS_URL = 'http://' + STSIP + '/templates/';
+// 服务器请求地址(请求api)
+var SER_URL = 'http://' + SER_IP + '/';
+// 静态页面地址(请求网页)
+var STIC_URL = 'http://' + STIC_IP + '/templates/';
 
+
+
+
+//   静态图片地址
 // 用户头像图片地址(请求图片)
 // var IMG_URL = 'http://' + STSIP + '/static/images/userhead/';
-var IMG_URL = 'http://' + STSIP + '/static/';
+var IMG_URL = 'http://' + STIC_IP + '/static/';
+
 // 官方活动图片地址
-// var OFF_URL = 'http://' + STSIP + '/static/images/official/';
-var OFF_URL = 'http://' + STSIP + '/static/';
+// var OFF_IMG_URL = 'http://' + STSIP + '/static/images/official/';
+var OFF_IMG_URL = 'http://' + STIC_IP + '/static/';
+
 // 活动图片位置
-// var ACTIMG_URL = 'http://' + STSIP + '/static/images/activity/';
-var ACTIMG_URL = 'http://' + STSIP + '/static/';
+// var ACT_IMG_URL = 'http://' + STSIP + '/static/images/activity/';
+var ACT_IMG_URL = 'http://' + STIC_IP + '/static/';
+
+
+
+
+
 
 // 地图检索region行政区域,限成都
 var REGION = '成都市';

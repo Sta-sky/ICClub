@@ -22,7 +22,7 @@ function imgChange() {
                 var msg = '';
                 $.each(data, function (index, element) {
                     msg += '<div class="b2_left2"><div><a href="activity.html?act_id=' + element.act_id + '"><img class="b2_left2_img" act_id="' + element.act_id + '" src="';
-                    msg += encodeURI(ACTIMG_URL + element.imgurl) + '" alt=""></a>';
+                    msg += encodeURI(ACT_IMG_URL + element.imgurl) + '" alt=""></a>';
                     msg += '</div><p class="b2_left2_text" act_id="' + element.act_id + '">' + element.subject + '</p></div>';
                     if (index == 3) {
                         return false;
@@ -36,6 +36,7 @@ function imgChange() {
         }
     });
 }
+
 
 
 //最热活动图片、标题自动切换
@@ -138,7 +139,7 @@ function search_data({state, cond = '1', mes = '', acttag = ''}) {
                 $.each(data, function (index, val) {
                     res += '<div id="new_act_">';
                     res += '<a href="activity.html?act_id=' + val.act_id + '">';
-                    res += '<img src="' + encodeURI(ACTIMG_URL + val.imgurl) + '" alt="" act_id="' + val.act_id + '">';
+                    res += '<img src="' + encodeURI(ACT_IMG_URL + val.imgurl) + '" alt="" act_id="' + val.act_id + '">';
                     res += '</a>';
                     res += '<div id="new_content">';
                     res += '<div id="n_tit" act_id="' + val.act_id + '">';

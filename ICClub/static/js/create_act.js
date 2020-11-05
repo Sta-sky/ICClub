@@ -6,6 +6,7 @@ $('#quxiao').on('click', function () {
 // 提交页面
 $('#add_act').on('click', function () {
     var token = window.localStorage.getItem('user_token');
+    alert(token)
     if (token !== '') {
         console.log('提交中')
     } else {
@@ -51,20 +52,20 @@ $('#add_act').on('click', function () {
     }
     console.log(11111111111111111111111)
     var img = ''
-
+    var data = {
+        'kind': kind,
+        'title': title,
+        'content': actintro,
+        'addr': addr,
+        'condition': condition,
+        'starttime': starttime,
+        'endtime': endtime,
+        'img': img,
+         }
+    alert(SER_URL + 'active/create')
     function request() {
         $.ajax({
-            data: JSON.stringify(
-                {
-                    'kind': kind,
-                    'title': title,
-                    'content': actintro,
-                    'addr': addr,
-                    'condition': condition,
-                    'starttime': starttime,
-                    'endtime': endtime,
-                    'img': img,
-                }),
+            data: JSON.stringify(data),
             enctype: 'multipart/form-data',
             headers: {'Authorization': token},
             type: 'POST',

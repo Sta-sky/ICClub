@@ -97,7 +97,7 @@ class Activity(models.Model):
 # 官方活动创建表 官方 官方
 class AdminArticle(models.Model):
     user = models.ForeignKey(UserRegist, verbose_name='发起人')
-    # tag = models.ForeignKey(InterestTag, verbose_name='活动标签')
+    tag_id = models.ForeignKey(InterestTag, verbose_name='活动标签', default=None)
 
     subject = models.CharField(max_length=100, verbose_name='活动主题')
     content = models.TextField(verbose_name='活动内容')

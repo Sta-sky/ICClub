@@ -11,6 +11,7 @@ from django.db.models import F
 from django_redis import get_redis_connection
 from tools import chang_imgname
 from activ.models import UserInfo, AdminArticle
+from tools.static_data import ActiveUserData, AdminArticleData
 from users.models import UserRegist
 from response_code import code
 from tools.logging_checked import login_check
@@ -58,6 +59,7 @@ class Active(View):
         :return:
         '''
         data = request.body
+        print('》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》')
         res = json.loads(data)
         if not data:
             print('没有数据')
@@ -216,6 +218,7 @@ def get_new(request, page):
     :return:
     """
     if request.method == 'GET':
+        print('传达出的撒长达')
         print('进来了')
         label = request.GET.get('tag', '')
         act_now_num = settings.ACTIVITY_NUM
@@ -389,10 +392,10 @@ def active_users(request):
     set_active_users = set_users1 | set_users2  # miao!
 
     # 调试时传送静态数据在前端显示，数据库有数据时可以注释
-    # if 1 or len(users1) < 8 or len(users2) < 8 or set_active_users is None or len(set_active_users) < 8:
-    #     data = ActiveUserData
-    #     result = {'code': 200, 'data': data}
-    #     return JsonResponse(result)
+    if 1 or len(users1) < 8 or len(users2) < 8 or set_active_users is None or len(set_active_users) < 8:
+        data = ActiveUserData
+        result = {'code': 200, 'data': data}
+        return JsonResponse(result)
 
     # 从集合中随机取8个用户
     if len(set_active_users) >= 8:
@@ -464,10 +467,10 @@ def get_active_users(request):
     set_active_users = set_users1 | set_users2
 
     # # 调试时传送静态数据在前端显示，数据库有数据时可以注释
-    # if 1 or len(users1) < 8 or len(users2) < 8 or set_active_users is None or len(set_active_users) < 8:
-    #     data = ActiveUserData
-    #     result = {'code': 200, 'data': data}
-    #     return JsonResponse(result)
+    if 1 or len(users1) < 8 or len(users2) < 8 or set_active_users is None or len(set_active_users) < 8:
+        data = ActiveUserData
+        result = {'code': 200, 'data': data}
+        return JsonResponse(result)
 
     users_data = []
     # 从redis中获取所有数据
@@ -536,15 +539,18 @@ def get_admin_articles(request):
 
     # 从数据库获取管理员发布的最新四篇文章
     try:
-        admin_user = UserRegist.objects.get(username='管理员1')
+        admin_user = UserRegist.objects.get(id=5)
+        print('》》》》》》》》》》》》》》》》》》')
+        print(admin_user)
         # print(admin_user)
         obj_articles = AdminArticle.objects.filter(user=admin_user).order_by('updated_time')[:4]
-        # print('obj_article:', len(obj_articles))
+        # obj_articles = AdminArticle.objects.filter(id=5)
+        print(obj_articles)
+        print('obj_article:', len(obj_articles))
     except Exception as e:
         print("管理员用户数据取出错误：", e)
         return JsonResponse({'code': 201, 'error': '没有活动'})
-    # finally:
-    #     print('管理员还没注册')
+
 
     # 调试时传送静态数据在前端显示，数据库有数据时可以注释
     # if 1:
@@ -662,7 +668,6 @@ class ActivityDetailView(View):
 class ActivitySearchView(View):
     def post(self, request, pgnow):
         """首⻚查询功能"""
-        from haystack.query import SearchQuerySet
         # 127.0.0.1:8000/active/search/1
         data = request.POST.get('q')
         # print('*' * 50)
