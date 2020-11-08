@@ -28,20 +28,7 @@ class Label(View):
         print('进来了')
         try:
             time = request.GET.get('date')
-            # time = time.split('T')[0]
-            # print(time)
-            # time_t = time.split('T')[1].split('Z')[0]
-            # print(time_t)
-            # print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
 
-            # times = ''
-            # for t_sp in time.split('-'):
-            #     times += t_sp
-
-            # print(times)
-
-            # if type(int(times)):
-            #     return
         except Exception as e:
             print(e, '没有获取到有效参数')
             return JsonResponse(code[10004])
@@ -133,21 +120,9 @@ class Label(View):
             else:
                 label_list = random.sample(inst, 4)
 
-        # user_hobby = user.userinfo.interest.all()
-
-        # if not user_hobby:
-        #     lab_list = InterestTag.objects.all()[:100]
-        #     length = len(lab_list)
-        #     while len(label_list) < 8:
-        #         lab = lab_list[random.randint(0, length - 1)].interests
-        #         if lab not in label_list:
-        #             label_list.append(lab)
-        # else:
-
-        # for lab in user_hobby:
-        #     label_list.append(lab.interests)
         lab_list = InterestTag.objects.all()[:100]
-
+        print('///////////////////////////////')
+        print(lab_list)
         if len(label_list) < len(lab_list):
             # 不够8个标签补齐
             length = len(lab_list)
@@ -218,9 +193,6 @@ def option(request):
     return JsonResponse(result)
 
 
-# else:
-#     return JsonResponse(code[10202])
-
 
 class LabelLikeView(View):
     @login_check
@@ -233,9 +205,7 @@ class LabelLikeView(View):
 
         if not act_id:
             return JsonResponse({'code': 10401, 'error': '未找到活动'})
-
         ap_file = Activity.objects.get(id=act_id)
-
         if status == 'collection':
             if act_status == '已收藏':
                 ap_file.collection = ap_file.collection + 1

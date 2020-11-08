@@ -1,12 +1,3 @@
-// var citys = [{provence_name:'四川省',pid:1,city:[{city_name:'成都市',cid:101,
-//             area:[{area_name:'高新区',aid:1001},{area_name:'金牛区',aid:1002},
-//                 {area_name:'锦江区',aid:1003},{area_name:'武侯区',aid:1004},{
-//                 area_name:'青羊区',aid:1005},{area_name:'成华区',aid:1006},{
-//                 area_name:'龙泉驿区',aid:1007},{area_name:'温江区',aid:1008},{
-//                 area_name:'新都区',aid:1009},{area_name:'郫都区',aid:1010},{
-//                 area_name:'青白江区',aid:1011},{area_name:'天府新区',aid:1012},
-//                 {area_name:'双流区',aid:1013}]}]}];
-
 
 $("#act_intro").blur(function () {
     if (!this.value) {
@@ -90,5 +81,6 @@ $('#lab_btn').on('click', function () {
     get_label(loginName)
 })
 
-$('#lab_btn').click()
+get_label()
+
 

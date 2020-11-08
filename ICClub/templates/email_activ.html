@@ -69,20 +69,19 @@
     <!--<script src="../static/js/index.js"></script>-->
     <script src="../static/js/active_user.js"></script>
     <script src="../static/js/admin_article.js"></script>
-    <!--<script id="zj" src="../static/js/z_index.js"></script>-->
 
 
 <script>
 
     $('#email_yes').click(function () {
-        var code =  getUrlParam('code');
+        var code =  GetUrlString('code');
         $.ajax({
             type:'GET',
             url:SER_URL+'user/email_activ?code='+code,
             success:function (result) {
                 if (result === 200){
                     //alert(result.message);
-                    window.location.href = STS_URL+'index.html'
+                    window.location.href = STAC_URL+'index.html'
                 }else {
                     alert(result.message)
                 }
@@ -91,7 +90,7 @@
         })
     });
     $('#email_no').click(function () {
-        window.location.href = STS_URL+'index.html'
+        window.location.href = STAC_URL+'index.html'
     })
 
 </script>

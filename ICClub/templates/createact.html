@@ -20,7 +20,6 @@
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/base_con.js"></script>
     <script src="../static/js/tool_kit.js"></script>
-    <script src="../static/js/tips.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=GK8muKdwK0w3So6HW89F8KlHc5BKzdbL"></script>
 </head>
 <body>
@@ -143,39 +142,26 @@
 
 <div id="foot"></div>
 
-<script>
+    <script>
 
-    $("#foot").load("footer.html");
-</script>
-<script src="../static/js/header.js"></script>
-<script src="../static/js/active_user.js"></script>
-<script src="../static/js/anotherchange.js"></script>
-<script src="../static/js/baidu.js"></script>
-
-
-<script src="../static/js/create_act.js"></script>
+        $("#foot").load("footer.html");
+    </script>
+    <script src="../static/js/header.js"></script>
+    <script src="../static/js/active_user.js"></script>
+    <script src="../static/js/baidu.js"></script>
+    <script src="../static/js/tips.js"></script>
+    <script src="../static/js/create_act.js"></script>
 
 <script>
 
 
-    // 富文本编辑框
-    // var E = window.wangEditor;
-    // var editor = new E('#editor');
-    // editor.create();
-
-    // $('#editor').on('click',function(){
-    //     alert(editor.text.txt())
-    //     alert(editor.editor.html())
-    // })
 
     // 选择地址
     var $prov = $('#prov');
     var $city = $('#city');
     var $area = $('#area');
 
-    //    $.each(citys,function (i,d) {
-    //        $prov.append('<option value="'+d.pid+'">'+d.provence_name+'</option>');
-    //    })
+
 
     $prov.on('change', function () {
         $.each(city, function (i, d) {

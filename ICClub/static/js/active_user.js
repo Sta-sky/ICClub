@@ -45,10 +45,3 @@ $.ajax({
         console.log(err)
     }
 })
-//点击用户头像或这昵称时跳转至用户信息页面
-// $('#b2_actv_user .hd_pic,#b2_actv_user .nickname').on('click', function () {
-//     // alert('跳转到个人页面')
-//     // var act_id = $(this).attr('act_id')
-//     window.location.herf = 'user_info.html?id=' + user_id
-// })
-//=============

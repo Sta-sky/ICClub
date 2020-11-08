@@ -1,9 +1,8 @@
-var user_id = getUrlParam('id');
+var user_id = GetUrlString('id');
 token = window.localStorage.getItem('user_token');
 interest_list = [];
 
 $.ajax({
-
     type: "get",
     dataType: 'json',
     headers: {'Authorization': token},
@@ -61,44 +60,13 @@ $.ajax({
             if (result.code == 10104) {
                 window.location.replace('index.html')
             }
-            //if(result.code==404){
-            //    window.location.replace('404.html')
-            //}
-
         }
-
     }
-
 });
 
 
+// 用户修改密码
 $(function () {
-
-    //var user_id = getUrlParam('id');
-    //token = window.localStorage.getItem('user_token');
-    // $('#hobby').on('click', '#hobby>span', function () {
-    //     if (this.className == 'be_sel') {
-    //         this.className = 'not_sel';
-    //         interest_list.pop(this.innerText)
-    //     } else {
-    //         this.className = "be_sel";
-    //         interest_list.push(this.innerText)
-    //     }
-    // });
-    // var cns = document.getElementById("hobby").getElementsByTagName('span');
-    // for (var i = 0; i < cns.length; i++) {
-    //     cns[i].addEventListener('click', function () {
-    //         if (this.className == 'be_sel') {
-    //             this.className = 'not_sel';
-    //             interest_list.pop(this.innerText)
-    //         } else {
-    //             this.className = "be_sel";
-    //             interest_list.push(this.innerText)
-    //         }
-    //     });
-    // }
-
-
     $('#sub').click(function () {
         alert('正在上传数据');
         var nickname = $('#nickname').val();
@@ -141,7 +109,44 @@ $(function () {
             }
         })
     });
-
 });
 
+
+// 上传image 更新用户头像
+function uploadfile() {
+    let reads = new FileReader();
+    file = document.getElementById('file').files[0];
+    reads.readAsDataURL(file);
+    alert(reads);
+    reads.onload = function (e) {
+        document.getElementById('img').src = this.result;
+    };
+}
+
+
+// 上传头像
+$('#go').click(function () {
+    let reads = new FileReader();
+    file = document.getElementById('file').files[0];
+    alert(file.name)
+    reads.readAsDataURL(file);
+    reads.onload = function (e) {
+        var data = {'data': reads.result};
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            url: SER_URL + 'users/upload',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify(data),
+            success: function (result) {
+                //服务器传回的是一个json对象  可以用点语法直接获取到 key对应的值
+                if (result.code == 200) {
+                    alert('图片添加完成');
+                } else {
+                    alert(result.message)
+                }
+            }
+        })
+    };
+})
 

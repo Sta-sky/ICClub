@@ -6,6 +6,7 @@ $('#quxiao').on('click', function () {
 // 提交页面
 $('#add_act').on('click', function () {
     var token = window.localStorage.getItem('user_token');
+
     if (token !== '') {
         console.log('提交中')
     } else {
@@ -51,20 +52,20 @@ $('#add_act').on('click', function () {
     }
     console.log(11111111111111111111111)
     var img = ''
+    var data = {
+        'kind': kind,
+        'title': title,
+        'content': actintro,
+        'addr': addr,
+        'condition': condition,
+        'starttime': starttime,
+        'endtime': endtime,
+        'img': img,
+         }
 
     function request() {
         $.ajax({
-            data: JSON.stringify(
-                {
-                    'kind': kind,
-                    'title': title,
-                    'content': actintro,
-                    'addr': addr,
-                    'condition': condition,
-                    'starttime': starttime,
-                    'endtime': endtime,
-                    'img': img,
-                }),
+            data: JSON.stringify(data),
             enctype: 'multipart/form-data',
             headers: {'Authorization': token},
             type: 'POST',
@@ -111,36 +112,3 @@ $.ajax({
     }
 })
 
-
-//     $("#act_intros").blur(function(){
-// 	if (!this.value){
-// 		$(this).text('请输入活动标题');
-// 		$(this).css('color','red');
-// 		return false;
-//     }
-// });
-
-
-$('#go').click(function () {
-    let reads = new FileReader();
-    file = document.getElementById('file').files[0];
-    reads.readAsDataURL(file);
-    reads.onload = function (e) {
-        var data = {'data': this.result};
-        $.ajax({
-            type: "POST",
-            dataType: 'json',
-            url: SER_URL + 'users/upload',
-            contentType: 'application/json;charset=UTF-8',
-            data: JSON.stringify(data),
-            success: function (result) {
-                //服务器传回的是一个json对象  可以用点语法直接获取到 key对应的值
-                if (result.code == 200) {
-                    alert('图片添加完成');
-                } else {
-                    alert(result.message)
-                }
-            }
-        })
-    };
-})

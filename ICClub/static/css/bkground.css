@@ -6,7 +6,7 @@
     top: 0;
     bottom: 0;
     /* border: solid 1px red; */
-    background-image: url('../images/background_image/a1.png');
+    background-image: url('../images/background_img/a1.png');
     background-repeat:no-repeat;
     background-size: 100% 100%;
     margin-left: -600px;
@@ -21,7 +21,7 @@
     bottom: 0;
     margin-right: 600px;
     /* border: solid 1px blue; */
-    background-image: url('../images/background_image/a11.png');
+    background-image: url('../images/background_img/a11.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     z-index: 0;
@@ -35,7 +35,7 @@
     bottom: 0;
     margin-left: 600px;
     /* border: solid 1px blueviolet; */
-    background-image: url('../images/background_image/a9.png');
+    background-image: url('../images/background_img/a9.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     z-index: 0;

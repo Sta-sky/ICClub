@@ -2,7 +2,6 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    # url(r'^new$', views.N.as_view),
 
     url(r'^create$', views.Active.as_view()),
     url(r'^new/(\d+)$', views.get_new),

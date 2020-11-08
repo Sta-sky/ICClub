@@ -47,10 +47,10 @@ $(function () {
 
 //页面跳转
     $('#top_index').click(function () {
-        window.location.href = STS_URL+'index.html'
+        window.location.href = STAC_URL+'index.html'
     });
      $('#top_login').click(function () {
-        window.location.href = STS_URL+'login.html'
+        window.location.href = STAC_URL+'login.html'
     });
 
 

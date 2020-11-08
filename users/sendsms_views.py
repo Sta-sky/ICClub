@@ -49,37 +49,6 @@ class SendSms(View):
         return JsonResponse(result)
 
 
-    # def post(self,request):
-    #     """
-    #     发送信息
-    #     :param request:
-    #     :return:
-    #     """
-    #     data = request.body
-    #     data = json.loads(data)
-    #     if not data :
-    #         result = {'code':10222,'message':'没有有效的参数'}
-    #         return JsonResponse(result)
-    #     phone = data.get('phone')
-    #     user_code = data.get('code')
-    #     if len(phone) == 0 or len(user_code) == 0:
-    #         result = {'code': 10222, 'message': '没有有效的参数'}
-    #         return JsonResponse(result)
-    #     try:
-    #         redis_code = r.hget()
-    #     except Exception as e:
-    #         print(e)
-    #         result = {'code': 10223, 'message': 'rdis数据库繁忙'}
-    #         return JsonResponse(result)
-    #     if user_code != redis_code:
-    #         result = {'code': 10224, 'message': '验证码错误,'}
-    #         return JsonResponse(result)
-    #     result = {'code':200}
-    #     return JsonResponse(result)
-
-
-
-
 # 随机生成六位验证码
 def generate_sex_number(len = 6):
     code_list = []
