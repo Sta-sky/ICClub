@@ -16,3 +16,4 @@ import re
 # 看看这个 写好了
 imageurl = 'static/images/跑步.jpeg'
 image = re.findall(r'^.+[/\\](.+)\..+$', imageurl)[0]
+

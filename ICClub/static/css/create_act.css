@@ -2,7 +2,7 @@
 
 body{
     /*opacity: 0.7;*/
-    background-image: url("../../static/images/background_image/bind004.jpg");
+    background-image: url("../../static/images/background_img/bind004.jpg");
     background-size:100% 100%;
     /*background-attachment: fixed;*/
     /*background: skyblue;*/
@@ -157,7 +157,7 @@ body{
     /*background-color: rgba(23, 22, 22, 0.7);*/
     margin-right: 20px;
     opacity: 0.8;
-    background-image: url("../../static/images/background_image/b2.jpeg");
+    background-image: url("../../static/images/background_img/b2.jpeg");
     background-size: 100% 100%;
 
 }

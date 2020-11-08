@@ -27,6 +27,9 @@ SECRET_KEY = '6_ehqzashtw_a=ab#92y+z#w+1rkb)7yoxwz0u#q2$6)9x6x^l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# 数据库字段时间告警消除设置DateTimeField
+USE_TZ = False
+
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -165,7 +168,8 @@ CORS_ALLOW_HEADERS = (
     'origin',
     'user-agent',
     'x-csrftoken',
-    'x-requested-with',)
+    'x-requested-with',
+    'token',)
 
 CORS_PREFLIGHT_MAX_AGE = 86400
 CORS_EXPOSE_HEADERS = []
@@ -182,11 +186,14 @@ SERVER_EMAIL = '1361704733@qq.com'
 ADMINS = [('superman', '1361704733@qq.com'), ]
 APPEND_SLASH = False
 
+
+
+
 # 系统邮件地址
 SYSEMAIL = '1361704733@qq.com'
-
 DJREIDS_IP = 'redis://@' + SERIP127 + ':6379/'
-# DJREIDS_IP = 'redis://@127.0.0.1:6379/'
+
+
 # django_redis缓存配置
 CACHES = {
     # 'default': {
@@ -251,7 +258,7 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 8
 
-# HAYSTACK_HIGHLIGHT='haystack.utils.Highlighter'
+HAYSTACK_HIGHLIGHT='haystack.utils.Highlighter'
 
 #  websocket 配置
 # 'dwebsocket.middleware.WebSocketMiddleware',
@@ -274,7 +281,7 @@ ACTIMAGE_DIR = IMGBATH + DBACTIMG
 DBOFFIMG = 'images/official/'
 OFFICAIAL_DIR = IMGBATH + DBOFFIMG
 # 用户头像上传路径
-DBUSEIMG = 'images/userhead/'
+DBUSEIMG = 'images/user_head/'
 USERIMAGE_DIR = IMGBATH + DBUSEIMG
 
 # 静态默认图片位置
@@ -285,4 +292,5 @@ ACTIVITY_NUM = 0
 
 # 达成条件的活动
 ACTCONDITION = []
+
 

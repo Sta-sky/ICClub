@@ -28,7 +28,7 @@ class InterestTag(models.Model):
 
     def __str__(self):
         return 'id:%s nickname:%s' % (self.id, self.interests)
-
+    
 
 class UserInfo(models.Model):
     # 用户信息表
@@ -37,7 +37,7 @@ class UserInfo(models.Model):
     birth = models.DateTimeField(verbose_name='出生年月', null=True)
     city = models.CharField(max_length=100, verbose_name='常住城市', null=True)
     introduction = models.TextField(verbose_name='个人描述', null=True)
-    portrait = models.ImageField(upload_to=settings.DBUSEIMG, default='images/userhead/boy1.jpg', verbose_name='头像路径')
+    portrait = models.ImageField(upload_to=settings.DBUSEIMG, default='images/user_head/boy1.jpg', verbose_name='头像路径')
     credit = models.IntegerField(default=100, verbose_name='信誉积分')
     level = models.IntegerField(default=0, verbose_name='账号等级')
     login_days = models.IntegerField(default=0, verbose_name='登录天数')
@@ -97,8 +97,7 @@ class Activity(models.Model):
 # 官方活动创建表 官方 官方
 class AdminArticle(models.Model):
     user = models.ForeignKey(UserRegist, verbose_name='发起人')
-    # tag = models.ForeignKey(InterestTag, verbose_name='活动标签')
-
+    tag_id = models.ForeignKey(InterestTag, verbose_name='活动标签', default=None)
     subject = models.CharField(max_length=100, verbose_name='活动主题')
     content = models.TextField(verbose_name='活动内容')
     click_nums = models.IntegerField(default=0, verbose_name='点击量')
@@ -126,9 +125,8 @@ class AdminArticle(models.Model):
 
 class ActivityParticipant(models.Model):
     # 活动参与者表
-    user = models.ManyToManyField(UserInfo, verbose_name='参与者')
+    user = models.ManyToManyField(UserInfo, verbose_name='参与者', default=None)
     activity = models.OneToOneField(Activity, verbose_name='活动')
-
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     updated_time = models.DateTimeField(verbose_name='更新时间', auto_now=True)
 

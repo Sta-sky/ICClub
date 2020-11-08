@@ -37,6 +37,8 @@ def getALLDataStruct():
     # 用户自己添加的兴趣
     user_tmp = {}
     all_user = UserInfo.objects.values('id', 'interest')
+    print('############')
+    print(all_user)
 
     for line in all_user:
         userid = line['id']
@@ -205,6 +207,8 @@ def interestWeight(user_similar, N=1):
 # 给用户推荐
 def recommendList(user_data, uid, n=1, N=8):
     # 待推荐
+    print('>>>>>>>>>>>>>>>>>>>>>>>')
+    print(user_data)
     original_user = user_data[uid]
     if original_user=={}:
         return []
