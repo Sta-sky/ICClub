@@ -1,4 +1,4 @@
-var act_id = getUrlParam('act_id');
+var act_id = GetUrlString('act_id');
 var data = {'act_id': act_id};
 var token = window.localStorage.getItem('user_token');
 
@@ -8,7 +8,6 @@ var token = window.localStorage.getItem('user_token');
 $('#send').on('click', function () {
     // alert('此功能暂未开放')
     // return
-//    console.log(11111111111111111)
    var comment_text = $('#ly').val();
    var data={'comment_text':comment_text};
 //    console.log(comment_text);
@@ -23,7 +22,6 @@ $('#send').on('click', function () {
        data: JSON.stringify(data),
        success: function (response) {
            if (response.code == 201) {
-            //    console.log(222222222222)
                alert('评论成功');
                window.location.reload(); 
            }else{
@@ -42,17 +40,16 @@ $('#send').on('click', function () {
 // 点击回复，弹出回复下拉框
 //页面加载完毕后开始执行的事件
 // $(function(){
-    $("#comment-all").on('click','.review-btn',function(){
-        var review_id=$(this).attr('review_id');
-        var re_user_id=$(this).attr('re_user_id');
-        // alert(review_id)
-        // alert(re_user_id)
-        window.re_user_id=re_user_id;
-        window.review_id=review_id;
-        $(".review-textarea").remove();
-        $(this).parent().append("<div class='review-textarea'><textarea class='re-text' name='review_text' cols='50' rows='2'></textarea><br/><input class='re-submit-btn' type='submit' value='回复' /></div>");
-    });
-// });
+$("#comment-all").on('click','.review-btn',function(){
+    var review_id=$(this).attr('review_id');
+    var re_user_id=$(this).attr('re_user_id');
+    window.re_user_id=re_user_id;
+    window.review_id=review_id;
+    $(".review-textarea").remove();
+    $(this).parent().append("<div class='review-textarea'><textarea class='re-text' name='review_text' cols='50' rows='2'></textarea><br/><input class='re-submit-btn' type='submit' value='回复' /></div>");
+});
+
+
 $("#comment-all").on('click','.re-submit-btn',function(){
     // var review_id=$(this).attr('review_id');
     var comment_text=$('.re-text').val();

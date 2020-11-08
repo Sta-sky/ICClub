@@ -9,9 +9,9 @@ $(function () {
         var phone = $('#phone').val();
         var code = $('#code').val();
         console.log(typeof (code));
-        // if (Isemail(email) !== true){
-        //     alert('邮箱格式有误，！请重新输入')
-        // }
+         if (Isemail(email) !== true){
+             alert('邮箱格式有误，！请重新输入')
+         }
 
         result_data = {
             'username': username, 'password': password, 'passwords': passwords, 'email': email
@@ -107,47 +107,16 @@ $('#but_code').on('click', function () {
     }
 });
 
-
-//时间倒计时js
-function time(name) {
-    var step = 59;
-    var but_code = name;
-    var res = setInterval(function () {
-        but_code.css('backgroundColor', "#cccccc");
-        but_code.attr('disabled', true);
-        but_code.html('重新发送&nbsp;&nbsp;' + step);
-        step -= 1;
-        if (step <= 0) {
-            but_code.removeAttr('disabled');
-            but_code.html('点击获取验证码');
-            but_code.css('backgroundColor', "#21f6f9");
-            clearInterval(res);
-        }
-    }, 1000)
-}
-
-
 // 检测地址是否在服务区
 function myFun(result) {
     var cityName = result.name;
     if (cityName !== '成都市') {
         alert('系统检测到您当前地址不在服务区内,部分功能将会有所限制')
     }
-    // alert('欢迎使用')
+//     alert('欢迎使用')
 }
 
 var myCity = new BMap.LocalCity();
 myCity.get(myFun);
 
 
-
-function Isemail(email){
-    if (email !== '') {//判断
-    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,3})$/;
-    if (!reg.test(email)) {
-        return false
-  }else {
-        return true
-        }
-    }
-}

@@ -69,13 +69,12 @@
     <!--<script src="../static/js/index.js"></script>-->
     <script src="../static/js/active_user.js"></script>
     <script src="../static/js/admin_article.js"></script>
-    <!--<script id="zj" src="../static/js/z_index.js"></script>-->
 
 
 <script>
 
     $('#email_yes').click(function () {
-        var code =  getUrlParam('code');
+        var code =  GetUrlString('code');
         $.ajax({
             type:'GET',
             url:SER_URL+'user/email_activ?code='+code,

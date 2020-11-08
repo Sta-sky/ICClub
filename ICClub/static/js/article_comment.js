@@ -1,7 +1,6 @@
-var art_id = getUrlParam('article');
+var art_id = GetUrlString('act_id');
 var data = {'art_id': art_id};
 var token = window.localStorage.getItem('user_token');
-
 
 // ==============留言开始===================
 // 留言按钮

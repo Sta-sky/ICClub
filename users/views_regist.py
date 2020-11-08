@@ -70,8 +70,8 @@ def regist_view(request):
         # if user_code != redis_code:
         #     result = {'code': 10224, 'message': '验证码错误,'}
         #     return JsonResponse(result)
-    
-        # 验证完 删除对应的code
+        #
+        # # 验证完 删除对应的code
         # s.hdel(username,phone)
 
 
@@ -115,7 +115,7 @@ def regist_view(request):
         # 将数据存入缓存中  等待用户发送请求验证  激活
         r.set('email_code%s' % username, base_code)
     
-        email_url = 'http://127.0.0.1:7001/templates/email_activ.html' \
+        email_url = 'http://127.0.0.1:7000/templates/email_activ.html' \
                     '?code=%s' % base_code
         print(email_url)
         try:
