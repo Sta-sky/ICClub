@@ -18,9 +18,9 @@ function adminArticle() {
                 var html = ''
                 html += '<div class="article">'
                 html += '<span id="il">&lsaquo;</span>'
-                html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&article=' + articleData[i].article_id + '"><img src="' + OFF_IMG_URL + articleData[i].act_img + '" alt="" class="act_img" width="600px" height="320px"></a>'
+                html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&act_id=' + articleData[i].article_id + '"><img src="' + OFF_IMG_URL + articleData[i].act_img + '" alt="" class="act_img" width="600px" height="320px"></a>'
                 html += '<div class="tip"><p class="p1">热点</p>'
-                html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&article=' + articleData[i].article_id + '"><div class="subject"><h3>' + articleData[i].subject + '</h3></div>'
+                html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&act_id=' + articleData[i].article_id + '"><div class="subject"><h3>' + articleData[i].subject + '</h3></div>'
                 html += '<p style="table-layout: fixed" class="content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + articleData[i].content + '</p></a>'
                 html += '<div class="click_nums">浏览数:' + articleData[i].click_nums + '</div>'
                 html += '<div class="updated_time">' + articleData[i].updated_time + '</div></div>'
@@ -50,15 +50,12 @@ function articleHtml(i) {
     html += '<div class="click_nums">浏览数:' + articleData[i].click_nums + '</div>'
     html += '<div class="updated_time">' + articleData[i].updated_time + '</div></div>'
     html += '</div>'
+    $('#article').html(html)
     return html
     // 渲染页面
-    $('#article').html(html)
 }
 
 adminArticle()
-// var i = 0;
-// var articleData=new Array();
-// $('#article').html(articleHtml(i))
 
 // 点击左右屏切换
 //点击qi切屏
@@ -114,32 +111,3 @@ $(document).ready(function () {
         });
     });
 });
-// $('#il','#ir').css({
-//     'color': '#ff5c2a',
-// 'opacity': '0.8',
-// 'transform': 'scale(1.1)',
-// })
-// // rollRight()
-
-// var btnr=document.getElementById('#ir');
-// btnr.onclick=function(){
-//     $('#article').fadeOut(500,function(){
-//         if(i==3){
-//             i=0;
-//         }else{
-//             i++;
-//         }
-//         $('#article').html(articleHtml(i)).fadeIn(500);
-//     })
-// };
-// btnr.click()
-// setInterval(function(){
-// setTimeout(function(){
-// rollRight()
-// btnr.click()
-// },5000);
-// },5000);
-
-// setInterval(function(){
-//     alert('点击一下');
-// },3000)

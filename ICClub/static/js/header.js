@@ -1,22 +1,3 @@
-// //主页导航栏显示账户信息
-// $(function () {
-//     //$('#head').load('header.html', () => {
-//         var loginName = window.localStorage.getItem('user_name');
-//         console.log(loginName)
-//         if (loginName) {
-//             $('#login').on('click', (e) => {
-//                 e.preventDefault();
-//                 window.localStorage.clear();
-//                 alert('退出登录');
-//                 window.location.reload();
-//                 $('#login').html('登录')
-//             })
-//         }else{
-//
-//         }
-//     //})
-// });
-
 //主页导航栏显示账户信息
 $(function () {
     $('#head').load('header.html', () => {
@@ -28,17 +9,11 @@ $(function () {
 
         var loginName = window.localStorage.getItem('user_name');
         var userId = window.localStorage.getItem('user_id');
-
-
         if (loginName) {
-
             res = '<a id="login" href= "user_info.html?id=' + userId + '">' + loginName + '</a><span><b>|</b></span>';
             res += '<a id="logout" href="">注销</a><span><b>|</b></span>';
             reg = res + '<a id="reg" href="regist.html">注册</a>';
             $('.top_act').html(reg);
-
-
-
             $('#logout').on('click', (e) => {
                 e.preventDefault();
                 window.localStorage.clear();
@@ -53,11 +28,6 @@ $(function () {
 
             })
         }
-
-        // $('#logout').on('click',function () {
-        //
-        // };
-
     })
 });
 
@@ -86,6 +56,7 @@ function removeFocus() {
 }
 
 
+// 创建活动入口
 $('#l3>a').on('click', function () {
     var user_name = window.localStorage.getItem('user_name');
     if (user_name) {

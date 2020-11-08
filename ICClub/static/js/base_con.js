@@ -22,7 +22,7 @@ var STIC_URL = 'http://' + STIC_IP + '/templates/';
 
 //   静态图片地址
 // 用户头像图片地址(请求图片)
-// var IMG_URL = 'http://' + STSIP + '/static/images/userhead/';
+// var IMG_URL = 'http://' + STSIP + '/static/images/user_head/';
 var IMG_URL = 'http://' + STIC_IP + '/static/';
 
 // 官方活动图片地址
@@ -32,8 +32,6 @@ var OFF_IMG_URL = 'http://' + STIC_IP + '/static/';
 // 活动图片位置
 // var ACT_IMG_URL = 'http://' + STSIP + '/static/images/activity/';
 var ACT_IMG_URL = 'http://' + STIC_IP + '/static/';
-
-
 
 
 

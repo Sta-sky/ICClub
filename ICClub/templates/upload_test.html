@@ -5,74 +5,25 @@
     <title>上传文件测试</title>
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/base_con.js"></script>
-
-
 </head>
 <body>
 
-<div style="border: 1px solid red;">
+<div style="border: 1px solid white;">
     <h2>上传图片</h2>
     <input type="file" id="file" accept="image/*" onchange="uploadfile();"/>
-    <input type="submit" value="上传" id="go">
+    <input type="submit" value="上传cdsacda" id="go">
     <div id="result2">
         <img src="" alt="" id="img" width="200px" height="200px">
     </div>
 </div>
 
 
-<script>
-    // 上传image
-    function uploadfile() {
-        let reads = new FileReader();
-        file = document.getElementById('file').files[0];
-        reads.readAsDataURL(file);
-        alert(reads);
-        reads.onload = function (e) {
-            document.getElementById('img').src = this.result;
-        };
-    }
-
-
-    //var data = {'data': file};
-    //$.ajax({
-    //    type: 'POST',
-    //    dataType: 'json',
-    //    url: SER_URL + 'users/upload',
-    //    contentType: 'application/json;charset=UTF-8',
-    //    data: JSON.stringify(data),
-    //    success: function (response) {
-    //        if (response.code == 200) {
-    //            alert('OK')
-    //        } else {
-    //            alert(response.message)
-    //        }
-    //    }
-    //})
-    $('#go').click(function () {
-        let reads = new FileReader();
-        file = document.getElementById('file').files[0];
-        reads.readAsDataURL(file);
-        reads.onload = function (e) {
-            var data = {'data': this.result};
-            $.ajax({
-                type: "POST",
-                dataType: 'json',
-                url: SER_URL + 'users/upload',
-                contentType: 'application/json;charset=UTF-8',
-                data: JSON.stringify(data),
-                success: function (result) {
-                    //服务器传回的是一个json对象  可以用点语法直接获取到 key对应的值
-                    if (result.code == 200) {
-                        alert('图片添加完成');
-                    } else {
-                        alert(result.message)
-                    }
-                }
-            })
-        };
-    })
-
-</script>
+<a class="file">
+　　<form enctype="multipart/form-data">
+　　　　<input type="file" id="imgFile" name="files" accept="image/jpg,image/jpeg,image/png,image/PNG" />
+　　</form>
+</a>
+    <script src="../static/js/user_info_update.js"></script>
 
 </body>
 </html>

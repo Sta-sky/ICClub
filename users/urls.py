@@ -6,7 +6,7 @@ urlpatterns = [
     url(r'^home$', views.user_info),
     url(r'^update$', views.update_user_info),
     # 上传图片测试
-    url(r'^upload$', views.upload_test),
+    url(r'^upload$', views.upload_img),
     # url(r'^$', views.Users.as_view()),
      # 登录地址
     url(r'^login$', log_views.login_view, ),

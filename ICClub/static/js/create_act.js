@@ -6,7 +6,7 @@ $('#quxiao').on('click', function () {
 // 提交页面
 $('#add_act').on('click', function () {
     var token = window.localStorage.getItem('user_token');
-    alert(token)
+
     if (token !== '') {
         console.log('提交中')
     } else {
@@ -62,7 +62,7 @@ $('#add_act').on('click', function () {
         'endtime': endtime,
         'img': img,
          }
-    alert(SER_URL + 'active/create')
+
     function request() {
         $.ajax({
             data: JSON.stringify(data),
@@ -112,36 +112,3 @@ $.ajax({
     }
 })
 
-
-//     $("#act_intros").blur(function(){
-// 	if (!this.value){
-// 		$(this).text('请输入活动标题');
-// 		$(this).css('color','red');
-// 		return false;
-//     }
-// });
-
-
-$('#go').click(function () {
-    let reads = new FileReader();
-    file = document.getElementById('file').files[0];
-    reads.readAsDataURL(file);
-    reads.onload = function (e) {
-        var data = {'data': this.result};
-        $.ajax({
-            type: "POST",
-            dataType: 'json',
-            url: SER_URL + 'users/upload',
-            contentType: 'application/json;charset=UTF-8',
-            data: JSON.stringify(data),
-            success: function (result) {
-                //服务器传回的是一个json对象  可以用点语法直接获取到 key对应的值
-                if (result.code == 200) {
-                    alert('图片添加完成');
-                } else {
-                    alert(result.message)
-                }
-            }
-        })
-    };
-})
