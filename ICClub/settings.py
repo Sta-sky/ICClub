@@ -253,6 +253,9 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
+ELASTICSEARCH_DEFAULT_ANALYZER = 'ik' # 设置默认分词器为ik
+https://zhu327.github.io/2016/05/30/django-elasticsearch%E5%AE%9E%E7%8E%B0%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/
+
 # 实时
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
