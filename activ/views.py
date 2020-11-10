@@ -10,6 +10,8 @@ from threading import Thread
 import jwt
 from django.db.models import F
 from django_redis import get_redis_connection
+from haystack.inputs import Raw
+from haystack.query import SearchQuerySet
 
 from ICClub.settings import JWT_TOKEN_KEY
 from tools import chang_imgname
@@ -641,8 +643,9 @@ class ActivityDetailView(View):
         return JsonResponse(result)
 
 
-class ActivitySearchView(View):
-    def post(self, request, pgnow):
+RESULTS_PER_PAGE = getattr(settings, 'HAYSTACK_SEARCH_RESULTS_PER_PAGE', 8)
+
+def activitySearchView(request, load_all=True, form_class=ModelSearchForm, searchqueryset=None, extra_context=None, results_per_page=None):
         """首⻚查询功能"""
         # 127.0.0.1:8000/active/search/1
         data = request.POST.get('q')
@@ -657,65 +660,59 @@ class ActivitySearchView(View):
             print(e)
         print(form)
         if form.is_valid():
-            results = form.search().highlight()
-            #results = form.search()
+            # results = form.search().highlight()
+            results = form.search()
         else:
             return JsonResponse({'code': 40002, 'error': 'form表单数据错误'})
-        # print(results[0].highlighted['text'], 156)
-        #sqs = SearchQuerySet().filter(content=data).highlight()
+        print(655 ,results.all())
+        # print('--------------------------------')
+        # sqs = SearchQuerySet().filter(content=data)
+        # print(sqs)
 
         tag = request.POST.get('tag', '')
+        print('=================')
+        print(tag)
         if (tag):
             lab = parse.unquote(tag)
+            print('进来了')
             try:
-                # print("*" * 50)
-                # print(lab)
-                # print(results)
-                # for i in results:
-                #     print(i.tag,'tagtagtag')
                 obj = InterestTag.objects.get(interests=lab)
-
                 results = results.filter(tag=obj.id)
-                # for j in results:
-                #     print(j.highlighted['text'], 156)
-                # results = results.filter(tag=Raw(obj))
-                # print(results, 1111111111111111)
-                # for i in results:
-                #     print(results, 1566554)
-                # print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+                print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
             except Exception as e:
                 print(e, '非法标签')
                 result = {'code': 10006, 'error': '非法值'}
                 return JsonResponse(result)
 
-
-
         page_size = settings.HAYSTACK_SEARCH_RESULTS_PER_PAGE
-        paginator = Paginator(results, page_size)
-        # print(paginator)
+        paginator_obj = Paginator(results, page_size)
+        print(paginator_obj)
+        print(']]]]]]]]]]]]]]]]]]]]]]]]]')
+        print(page_size)
         try:
-            # c_page=int(request.POST.get(''))
-
             # 当前页的对象
-            # print(pgnow)
-            page = paginator.page(int(pgnow))
-            # print(page)
+
             ress = []
-            for i in page:
+            print(705 ,ress)
+            current_page = paginator_obj.page(pgnow)
+            print(current_page)
+            print(type(current_page))
+            for i in current_page:
+                print('###############')
                 ress.append(i.subject)
-                # print(i.subject, 'youdongxi ------------------------------------------------')
-            # print('###############')
-            allpage = paginator.num_pages
-            # print(allpage)
-            # print(type(allpage))
-            # print(type(pgnow))
+            # 获取页码总数
+            allpage = paginator_obj.num_pages
+            print(allpage)
+            print(type(allpage))
+            print(type(pgnow))
         except Exception as e:
+            print(e)
             result = {'code': 40001, 'error': '⻚数有误,小于0或者大于总⻚数'}
             return JsonResponse(result)
         activity_list = []
-
-        for result in page.object_list:
-
+        print(713 ,current_page.object_list)
+        for result in current_page.object_list:
+            print('[[[[[[[[[[[[[[[===========')
             act = {}
             content = result.object.content
             title = result.object.subject
@@ -739,4 +736,5 @@ class ActivitySearchView(View):
                   "data": activity_list,
                   'page': [int(pgnow), allpage]
                   }
+        print(result)
         return JsonResponse(result)

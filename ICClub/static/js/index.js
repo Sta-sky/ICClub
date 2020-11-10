@@ -70,9 +70,10 @@ let getQueryString = (searchKey) => {
 act_nh = ''
 
 //搜索事件
-function search_data({state, cond = '1', mes = '', acttag = ''}) {
+function search_data({state, cond = '1', mes = '', acttag = '音乐'}) {
     //let searchData = getQueryString('kw');
     var val = $('#keyword').val();
+    alert('进来了哇')
     var searchData = ''
     // var urls = ''
     if (mes) {
@@ -81,7 +82,7 @@ function search_data({state, cond = '1', mes = '', acttag = ''}) {
         searchData = decodeURI(decodeURI(val));
     }
     $.ajax({
-        url: urls = SER_URL + 'active/' + state + '/' + cond,
+        url: urls = SER_URL + 'active/' + 'search' + '/' + cond,
         type: 'post',
         data: {
             //q:unescape(searchData.replace(/\\/g, "%")),
@@ -128,6 +129,16 @@ function search_data({state, cond = '1', mes = '', acttag = ''}) {
         }
     })
 }
+
+// 首页搜索点击事件
+$('.btn-submit').on('click', function (){
+    alert('进来了')
+    search_data('search',2,3,4)
+})
+
+// 首页最热图片加载事件
 imgChange()
 getFocus($('#l1 a'));
+
+
 

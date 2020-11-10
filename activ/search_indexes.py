@@ -1,5 +1,3 @@
-
-
 from haystack import indexes
 from .models import Activity
 
@@ -10,6 +8,7 @@ class ActivityIndex(indexes.SearchIndex, indexes.Indexable):
     subject = indexes.CharField(model_attr='subject')
     tag = indexes.CharField(model_attr='tag')
     content = indexes.CharField(model_attr='content')
+    click_nums = indexes.CharField(model_attr='click_nums')
     def get_model(self):
         """返回建立索引的模型类"""
         return Activity
@@ -17,8 +16,6 @@ class ActivityIndex(indexes.SearchIndex, indexes.Indexable):
 
     def index_queryset(self, using=None):
         """返回要建立索引的数据查询集"""
-
-        # return self.get_model().objects.filter(is_visiable=True)
 
         return self.get_model().objects.all()
 
@@ -34,34 +31,35 @@ class ActivityIndex(indexes.SearchIndex, indexes.Indexable):
 
 """
 {
-  "djangotest": {
-    "mappings": {
-      "modelresult": {
-        "properties": {
-          "django_ct": {
-            "type": "text",
-            "index": "True",
-            "include_in_all": false
-          },
-          "django_id": {
-            "type": "text",
-            "index": "True",
-            "include_in_all": false
-          },
-          "id": {
-            "type": "text"
-          },
-          "subject": {
-            "type": "text",
-            "analyzer": "snowball"
-          },
-          "text": {
-            "type": "text",
-            "analyzer": "snowball"
-          }
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "ngram_analyzer": {
+          "tokenizer": "ngram_tokenizer"
+        }
+      },
+      "tokenizer": {
+        "ngram_tokenizer": {
+          "type": "ngram",
+          "min_gram": 1,
+          "max_gram": 30,
+          "token_chars": [
+            "letter",
+            "digit"
+          ]
         }
       }
     }
-  }
-}"""
-
+  },
+  "mappings": {
+        "_default_": {
+            "properties": {
+                "Name": {
+                    "type": "string",
+                    "analyzer": "ngram_analyzer"
+                }
+            }
+        }
+    }
+}
+"""

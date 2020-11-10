@@ -1,3 +1,4 @@
 {{ object.id }}
 {{ object.subject }}
 {{ object.content }}
+{{ object.click_nums }}

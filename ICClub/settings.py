@@ -42,13 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'haystack',
-    # 'dwebsocket',
+    'dwebsocket',
     'corsheaders',
     'ICClub',
-    # 'error404',
     'activ',
     'users',
-    # 'dtoken',
     'label',
     'baidumap',
     'comment',
@@ -186,9 +184,6 @@ SERVER_EMAIL = '1361704733@qq.com'
 ADMINS = [('superman', '1361704733@qq.com'), ]
 APPEND_SLASH = False
 
-
-
-
 # 系统邮件地址
 SYSEMAIL = '1361704733@qq.com'
 DJREIDS_IP = 'redis://@' + SERIP127 + ':6379/'
@@ -196,14 +191,7 @@ DJREIDS_IP = 'redis://@' + SERIP127 + ':6379/'
 
 # django_redis缓存配置
 CACHES = {
-    # 'default': {
-    #     'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-    #     'LOCATION': 'my_cache_table',
-    #     'OPTIONS': {
-    #         'MAX_ENTRIES': 300,
-    #         'CULL_FREQUENCY': 2,
-    #     }
-    # },
+
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': DJREIDS_IP + '1',
@@ -249,7 +237,7 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE': 'elasticstack.backends.ConfigurableElasticSearchEngine',
         'URL': 'http://' + SERIP127 + ':9200/',
         # 'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'djangotest',
+        'INDEX_NAME': 'django_search',
     },
 }
 

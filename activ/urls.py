@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from . import views
+from . import views, test_search
 
 urlpatterns = [
 
@@ -8,10 +8,10 @@ urlpatterns = [
     url(r'^history/(\d+)$', views.hyistorical_activities),
 
 
-    url(r'^index/hot$', views.ActIndexView.as_view()),
+    url(r'^index/hot$', views.activitySearchView),
 
     #http://127.0.0.1:8000/activ/search/1
-    url(r'^search/(\d+)$', views.ActivitySearchView.as_view()),
+    url(r'^search/(\d+)$', test_search.basic_search),
 
     url(r'^detail$', views.ActivityDetailView.as_view()),
 

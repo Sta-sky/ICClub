@@ -3,7 +3,6 @@ import os
 
 # 为celery设置环境变量
 from django.conf import settings
-
 if not os.getenv('DJANGO_SETTINGS_MODULE'):
     os.environ['DJANGO_SETTINGS_MODULE'] = 'ICClub.settings'
 
