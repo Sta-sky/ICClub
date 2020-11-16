@@ -18,7 +18,7 @@ def format_str(source_str):
 
 
 def upload_img_save(img_data, img_save_path):
-    file_path = os.path.realpath(settings.BASE_DIR + '/ICClub/static/' + img_save_path)
+    file_path = settings.ACTIMAGE_DIR + img_save_path
     print('文件保存路径')
     print(file_path)
     try:

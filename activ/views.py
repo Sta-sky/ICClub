@@ -63,29 +63,32 @@ class Active(View):
             print(e, '活动标签查询异常')
             return JsonResponse(code[10002])
         user = request.myuser
+        img_path = interest.img_url.name
+        try:
+            act = Activity.objects.create(user=user, tag=interest, subject=title, content=content,
+                                          status=1, act_img=img_path, end_time=endtime, beg_time=starttime,
+                                          condition=condition, activ_address=address)
+        except Exception as e:
+            print(e, '插入数据库异常')
+            return JsonResponse(code[10001])
+        
+        # 修改活动图片
         img_data = res.get('img_data')
         print('图片测试来了')
+        user_str_id = str(act.id)
         if img_data:
-            print('=================')
             file_data = base64.b64decode(img_data.split(',')[1])
-            filename = '%s' % title[:5] + '.jpg'
+            filename = user_str_id + settings.IMG_END
             print(filename)
             img_path = settings.DBACTIMG + filename
             save_res = upload_img_save(file_data, img_path)
             if save_res['code'] == 30001:
-                print('写入失败')
+                print('写入失败,使用默认图片')
                 print(save_res['message'])
-                img_path = interest.img_url.name
-        else:
-            img_path = interest.img_url.name
-        try:
-            act = Activity.objects.create(user=user, tag=interest, subject=title, content=content,
-                                          status=1, act_img=img_path, end_time=endtime, beg_time=starttime,
-                                          condition=condition, active_address=address)
-        except Exception as e:
-            print(e, '插入数据库异常')
-            return JsonResponse(code[10001])
- 
+            else:
+                img_sql_path = settings.DBACTIMG + user_str_id + settings.IMG_END
+                act.act_img = img_sql_path
+                act.save()
         try:
             newact = get_redis_connection('newact')
             newact.delete('new_act' + act.tag.interests)
@@ -186,13 +189,13 @@ def get_new(request, page):
             newact = get_redis_connection('newact')
             print(newact)
             # TODO 此处优化redis中拿去数据 ，要跟mysql中同步，
-            if newact.exists(redname):
-                paginator = pickle.loads(newact.get(redname))
-                result = make_result(paginator, page)
-            else:
-                result = get_result(page, label)
-                if not result:
-                    result = code[201]
+            # if newact.exists(redname):
+            #     paginator = pickle.loads(newact.get(redname))
+            #     result = make_result(paginator, page)
+            # else:
+            result = get_result(page, label)
+            if not result:
+                result = code[201]
             request.websocket.send(json.dumps(result))
 
             while True:
@@ -365,12 +368,6 @@ def get_active_users(request):
     # print('set_users2:', len(set_users2))
     # print(88888888888888)
     set_active_users = set_users1 | set_users2
-
-    # # 调试时传送静态数据在前端显示，数据库有数据时可以注释
-    # if 1 or len(users1) < 8 or len(users2) < 8 or set_active_users is None or len(set_active_users) < 8:
-    #     data = ActiveUserData
-    #     result = {'code': 200, 'data': data}
-    #     return JsonResponse(result)
 
     users_data = []
     # 从redis中获取所有数据

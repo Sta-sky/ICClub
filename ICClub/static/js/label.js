@@ -1,13 +1,13 @@
  var tag = GetUrlString('sub')
  var tags = encodeURI(encodeURI(tag))
 
-function webrequestpage() {
+function webrequestpage(page) {
     act_nh = 'new'
 // 页面加载初始化请求第一页
     if (typeof WebSocket != 'undefined') {
             console.log("您的浏览器支持Websocket通信协议")
         // 创建websockter对象
-        ws = new WebSocket(WEBSOCKET_URL + 'active/new/1' + '?tag=' + tag)
+        ws = new WebSocket(WEBSOCKET_URL + 'active/new/' + page + '?tag=' + tag)
 
         // 开始通信时的处理
         ws.onopen = function () {
@@ -15,7 +15,7 @@ function webrequestpage() {
             $('#z_new_act').on('click', function () {
                 act_nh = 'new'
                 ws.close()
-                webrequestpage()
+                webrequestpage('1')
             })
         }
 
@@ -60,7 +60,7 @@ function webrequestpage() {
     }
 }
 
-webrequestpage()
+webrequestpage('1')
 //=======================
 
 // 构造html

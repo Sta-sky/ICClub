@@ -1,15 +1,15 @@
 
-function webrequestpage() {
+function webrequestpage(page) {
 act_nh = 'new'
 // 页面加载初始化请求第一页
     if ('WebSocket' in window) {
-        ws = new WebSocket(WEBSOCKET_URL + 'active/new/1')
+        ws = new WebSocket(WEBSOCKET_URL + 'active/new/' + page)
         ws.onopen = function () {
             // 最新活动点击事件
             $('#z_new_act').on('click', function () {
                 act_nh = 'new'
                 ws.close()
-                webrequestpage()
+                webrequestpage('1')
             })
         }
 
@@ -50,7 +50,7 @@ act_nh = 'new'
     }
 }
 
-webrequestpage()
+webrequestpage('1')
 //=======================
 
 // 构造html
@@ -137,7 +137,7 @@ $('#l_num>#ul').on('click', '.page', function () {
     }
     if (act_nh === 'new') {
         ws.close()
-        webrequestpage()
+        webrequestpage(page)
     }
 })
 
