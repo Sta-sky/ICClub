@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 SERIP127 = '127.0.0.1'
-SERIP = '176.209.104.17'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6_ehqzashtw_a=ab#92y+z#w+1rkb)7yoxwz0u#q2$6)9x6x^l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # 数据库字段时间告警消除设置DateTimeField
 USE_TZ = False
@@ -41,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'haystack',
     'dwebsocket',
-    'corsheaders',
     'ICClub',
     'activ',
     'users',
@@ -130,7 +129,6 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -150,6 +148,7 @@ WEIBO_CLIENT_SECRET = 'da9024403990743e34536e05dbe451ab'
 WEIBO_REDIRECT_URI = 'http://' + SERIP127 + ':8000/user/bind'
 
 # 跨域配置
+CORS_ALLOW_CREDENTIALS = False
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_METHODS = (
     'DELETE',
@@ -157,8 +156,17 @@ CORS_ALLOW_METHODS = (
     'OPTIONS',
     'PATCH',
     'POST',
-    'PUT',)
+    'PUT',
+    'VIEW'
+)
+
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:8000',
+    'http://localhost:8000', #凡是出现在白名单中的域名，都可以访问后端接口
+)
+
 CORS_ALLOW_HEADERS = (
+    'accept',
     'accept-encoding',
     'authorization',
     'content-type',
@@ -171,7 +179,6 @@ CORS_ALLOW_HEADERS = (
 
 CORS_PREFLIGHT_MAX_AGE = 86400
 CORS_EXPOSE_HEADERS = []
-CORS_ALLOW_CREDENTIALS = False
 
 # 邮件配置
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # 固定写法
@@ -237,7 +244,7 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE': 'elasticstack.backends.ConfigurableElasticSearchEngine',
         'URL': 'http://' + SERIP127 + ':9200/',
         # 'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'django_search',
+        'INDEX_NAME': 'django_table',
     },
 }
 
@@ -262,18 +269,21 @@ IMGBATH = os.path.join(BASE_DIR, 'ICClub/static/')
 
 # 标签图片路径
 DBLABIMG = 'images/label/'
+
 # 用户上传的活动图片
 DBACTIMG = 'images/activity/'
 ACTIMAGE_DIR = IMGBATH + DBACTIMG
+
+
 # 官方活动图片
 DBOFFIMG = 'images/official/'
 OFFICAIAL_DIR = IMGBATH + DBOFFIMG
+
+
 # 用户头像上传路径
 DBUSEIMG = 'images/user_head/'
 USERIMAGE_DIR = IMGBATH + DBUSEIMG
 
-# 静态默认图片位置
-# ACTIVITY_DIR = 'static/images/'
 
 # 活动统计个数
 ACTIVITY_NUM = 0

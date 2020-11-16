@@ -5,7 +5,7 @@ import jwt
 from django.http import JsonResponse
 from ICClub.settings import JWT_TOKEN_KEY
 from activ.models import UserInfo, InterestTag, Activity
-from tools.util import DateEnconding
+from tools.util import DateEnconding, upload_img_save
 from users.models import UserRegist
 from ICClub import settings
 
@@ -295,7 +295,7 @@ def update_user_info(request):
 
 
 
-# 上传图片测试
+# 上传图片
 def upload_img(request):
     print(request.method)
     if request.method == 'POST':
@@ -307,20 +307,19 @@ def upload_img(request):
         json_data = request.body
         data = json.loads(json_data)
         file = data.get('data').split(',')
-        img = base64.b64decode(file[1])
-        # 用正则匹配出图片文件格式
-        # img_end = re.findall(r'^.+?/(.+?);base64', file[0])[0]
-        img_end = 'jpg'
+        img_data = base64.b64decode(file[1])
         # 服务器本地存储路径+图片名
-        filename = settings.USERIMAGE_DIR + username + '.' + img_end
-
-        # 通过token 获取登录对象 并添加头像的本地存储路径
-        user = UserRegist.objects.filter(username=username)[0]
-        user.userinfo.portrait = settings.DBUSEIMG + username + '.' + img_end
-        user.userinfo.save()
+        file_path = settings.USERIMAGE_DIR + username + '.jpg'
         # 将上传的头像存储到本地
-        with open(filename, 'wb') as f:
-            f.write(img)
-        return JsonResponse({'code': 200, 'message': '收到'})
-    return JsonResponse({'code': 200, 'message': '??????????'})
+        save_res = upload_img_save(img_data, file_path)
+        if save_res['code'] == 30001:
+            print('写入失败')
+            print(save_res['message'])
+            return JsonResponse({'code': 30002, 'message': '图片上传写入失败，请重新上传'})
+        # 通过token 获取登录对象 并添加头像的本地存储路径
+        else:
+            user = UserRegist.objects.filter(username=username)[0]
+            user.userinfo.portrait = settings.DBUSEIMG + username + '.jpg'
+            user.userinfo.save()
+        return JsonResponse({'code': 200, 'message': '头像修改成功'})
 

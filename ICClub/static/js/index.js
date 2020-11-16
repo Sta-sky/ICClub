@@ -70,24 +70,15 @@ let getQueryString = (searchKey) => {
 act_nh = ''
 
 //搜索事件
-function search_data({state, cond = '1', mes = '', acttag = '音乐'}) {
+function search_data(acttag) {
     //let searchData = getQueryString('kw');
-    var val = $('#keyword').val();
-    alert('进来了哇')
-    var searchData = ''
-    // var urls = ''
-    if (mes) {
-        searchData = mes
-    } else {
-        searchData = decodeURI(decodeURI(val));
-    }
+    var search_val = $('#keyword').val();
     $.ajax({
-        url: urls = SER_URL + 'active/' + 'search' + '/' + cond,
+        url: urls = SER_URL + 'active/search/1',
         type: 'post',
         data: {
-            //q:unescape(searchData.replace(/\\/g, "%")),
-            q: searchData,
-            tag: acttag
+            "q": search_val,
+            "tag": acttag
         },
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -95,31 +86,11 @@ function search_data({state, cond = '1', mes = '', acttag = '音乐'}) {
             console.log(response)
             // alert(1239999999999999999)
             if (response.code === 200) {
-                // alert(123456789);
-                var data = response.data;
-                var res = '';
-                $.each(data, function (index, val) {
-                    res += '<div id="new_act_">';
-                    res += '<a href="activity.html?act_id=' + val.act_id + '">';
-                    res += '<img src="' + encodeURI(ACT_IMG_URL + val.imgurl) + '" alt="" act_id="' + val.act_id + '">';
-                    res += '</a>';
-                    res += '<div id="new_content">';
-                    res += '<div id="n_tit" act_id="' + val.act_id + '">';
-                    res += '<a href="activity.html?act_id=' + val.act_id + '">' + val.subject;
-                    res += '</a></div>';
-                    res += '<div id="n_cont" act_id="' + val.act_id + '">';
-                    res += '<a href="activity.html?act_id=' + val.act_id + '"><p>' + val.content + '</p>';
-                    res += '</a></div>';
-                    res += '<div id="n_lt">';
-                    res += '<div id="n_lab">' + val.tag + '</div>';
-                    res += '<div id="n_time">' + val.date + '</div>';
-                    res += '</div></div></div>'
-                });
-                $('#b2_l2').html(res);
-                act_nh = 'search'
-                searchmes = searchData
-                var pagearr = response.page;
-                getpage(pagearr[0], pagearr[1]);
+                gengrate_search_page(response)
+            } else if (response.code === 20001){
+                alert(response.info)
+                gengrate_search_page(response)
+                
             } else {
                 alert(response.error)
             }
@@ -132,9 +103,43 @@ function search_data({state, cond = '1', mes = '', acttag = '音乐'}) {
 
 // 首页搜索点击事件
 $('.btn-submit').on('click', function (){
-    alert('进来了')
-    search_data('search',2,3,4)
+    var current_url = window.location.search
+    if (current_url == ''){
+        search_data('')
+    } else {
+        var key_word = GetUrlString('sub')
+        search_data(key_word)
+    }
 })
+
+function gengrate_search_page(response){
+    // alert(123456789);
+    var data = response.data;
+    var res = '';
+    $.each(data, function (index, val) {
+        res += '<div id="new_act_">';
+        res += '<a href="activity.html?act_id=' + val.act_id + '">';
+        res += '<img src="' + encodeURI(ACT_IMG_URL + val.imgurl) + '" alt="" act_id="' + val.act_id + '">';
+        res += '</a>';
+        res += '<div id="new_content">';
+        res += '<div id="n_tit" act_id="' + val.act_id + '">';
+        res += '<a href="activity.html?act_id=' + val.act_id + '">' + val.subject;
+        res += '</a></div>';
+        res += '<div id="n_cont" act_id="' + val.act_id + '">';
+        res += '<a href="activity.html?act_id=' + val.act_id + '"><p>' + val.content + '</p>';
+        res += '</a></div>';
+        res += '<div id="n_lt">';
+        res += '<div id="n_lab">' + val.tag + '</div>';
+        res += '<div id="n_time">' + val.date + '</div>';
+        res += '</div></div></div>'
+    });
+    $('#b2_l2').html(res);
+    act_nh = 'search'
+    // searchmes = searchData
+    var pagearr = response.page;
+    getpage(pagearr[0], pagearr[1]);   
+
+}
 
 // 首页最热图片加载事件
 imgChange()

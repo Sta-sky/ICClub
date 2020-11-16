@@ -8,10 +8,10 @@ urlpatterns = [
     url(r'^history/(\d+)$', views.hyistorical_activities),
 
 
-    url(r'^index/hot$', views.activitySearchView),
+    url(r'^index/hot$', views.ActIndexView.as_view()),
 
     #http://127.0.0.1:8000/activ/search/1
-    url(r'^search/(\d+)$', test_search.basic_search),
+    url(r'^search/(\d+)$', views.activitySearchView),
 
     url(r'^detail$', views.ActivityDetailView.as_view()),
 

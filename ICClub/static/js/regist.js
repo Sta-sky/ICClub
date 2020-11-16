@@ -111,7 +111,7 @@ $('#but_code').on('click', function () {
 function myFun(result) {
     var cityName = result.name;
     if (cityName !== '成都市') {
-        alert('系统检测到您当前地址不在服务区内,部分功能将会有所限制')
+//        alert('系统检测到您当前地址不在服务区内,部分功能将会有所限制')
     }
 //     alert('欢迎使用')
 }

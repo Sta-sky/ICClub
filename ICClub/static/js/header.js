@@ -20,7 +20,7 @@ $(function () {
                 alert('退出登录');
 
                 window.location.reload();
-                window.location.href = 'http://176.209.104.17:7001/templates/index.html';
+                window.location.href = 'index.html';
 
                 res = '<a id="login" href="login.html">' + 登录 + '</a><span><b>|</b></span>';
                 reg = res + '<a id="reg" href="regist.html">注册</a>';

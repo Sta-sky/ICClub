@@ -66,22 +66,19 @@ class Activity(models.Model):
     # 活动创建表
     user = models.ForeignKey(UserRegist, verbose_name='发起人')
     tag = models.ForeignKey(InterestTag, verbose_name='活动标签')
-
     subject = models.CharField(max_length=100, verbose_name='活动主题')
     content = models.TextField(verbose_name='活动内容')
     click_nums = models.IntegerField(default=0, verbose_name='点击量')
     act_img = models.ImageField(upload_to=settings.DBACTIMG,verbose_name='活动图片', default=None)
-
     beg_time = models.DateTimeField(verbose_name='开始时间', null=False, default=date.today)
     end_time = models.DateTimeField(verbose_name='结束时间', null=True)
-
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     updated_time = models.DateTimeField(verbose_name='更新时间', auto_now=True)
     status = models.SmallIntegerField(verbose_name='活动状态', choices=ACTIVITY_STATUS)
     version = models.IntegerField(default=0, verbose_name="库存版本")
     is_visiable = models.BooleanField(default=True, verbose_name='是否可见')
     condition = models.SmallIntegerField(verbose_name='活动人数条件', default=10)
-
+    activ_address = models.CharField(max_length=100, verbose_name='活动地点', default=None)
     likes = models.IntegerField(default=0, verbose_name='点赞数')
     collection = models.IntegerField(default=0, verbose_name='收藏数')
 

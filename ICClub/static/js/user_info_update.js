@@ -112,18 +112,6 @@ $(function () {
 });
 
 
-// 上传image 更新用户头像
-function uploadfile() {
-    let reads = new FileReader();
-    file = document.getElementById('file').files[0];
-    reads.readAsDataURL(file);
-    alert(reads);
-    reads.onload = function (e) {
-        document.getElementById('img').src = this.result;
-    };
-}
-
-
 // 上传头像
 $('#go').click(function () {
     let reads = new FileReader();

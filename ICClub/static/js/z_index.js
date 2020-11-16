@@ -1,23 +1,19 @@
-function webrequestpage(pag) {
-act_nh = 'new'
 
+function webrequestpage() {
+act_nh = 'new'
 // 页面加载初始化请求第一页
     if ('WebSocket' in window) {
-        ws = new WebSocket(WEBSOCKET_URL + 'active/new/'+pag)
-        // ws = new WebSocket(WEBSOCKET_URL + 'active/new/1')
-
+        ws = new WebSocket(WEBSOCKET_URL + 'active/new/1')
         ws.onopen = function () {
             // 最新活动点击事件
             $('#z_new_act').on('click', function () {
                 act_nh = 'new'
                 ws.close()
-                webrequestpage('1')
-                // ws.send(JSON.stringify({'page': '1'}))
+                webrequestpage()
             })
         }
 
         ws.onmessage = function (mes) {
-            // console.log(JSON.parse(mes.data).data)
             // 将数据转换成JSON格式
             var respon = JSON.parse(mes.data)
             if (respon.code === 200) {
@@ -54,7 +50,7 @@ act_nh = 'new'
     }
 }
 
-webrequestpage('1')
+webrequestpage()
 //=======================
 
 // 构造html
@@ -92,7 +88,6 @@ function request_data({state, cond = '1'}) {
         $.ajax({
             type: 'GET',
             contentType: 'application/json',
-            // url: SER_URL + 'active/' + state + '/' + cond + '?tag=' + tag,
             url: SER_URL + 'active/' + state + '/' + cond,
             success: function (response) {
                 if (response.code === 200) {
@@ -125,9 +120,6 @@ $('#z_his_act').on('click', function () {
 
 // 页码点击事件
 $('#l_num>#ul').on('click', '.page', function () {
-    // if (act_nh === 'new') {
-    //     return;
-    // }
     var page = $(this).text()
     var page_now = $('#page_now').text()
     if (page === '上一页') {
@@ -140,18 +132,12 @@ $('#l_num>#ul').on('click', '.page', function () {
         alert('您已经在当前页面')
         return
     }
-    if (act_nh === 'search') {
-        if (searchmes) {
-            search_data({state: 'search', cond: page, mes: searchmes})
-        }
-        return;
-    }
     if (act_nh === 'history') {
         request_data({state: act_nh, cond: page})
     }
     if (act_nh === 'new') {
         ws.close()
-        webrequestpage(page)
+        webrequestpage()
     }
 })
 
