@@ -3,14 +3,11 @@
     width: 290px;
     height: 80px;
     padding: 5px;
-    border-radius: 6px;
-    background-color: #be465b;
+    border-radius: 10px;
+    background-color: rgba(140, 29, 110, 0.9);
     margin: 8px 0 20px 0;
-    /* margin-bottom: 20px; */
     position: relative;
-    /* overflow: hidden; */
-    /* border: solid 1px royalblue; */
-    /* z-index: 5; */
+
 }
 
 .actv_user .hd_pic{
