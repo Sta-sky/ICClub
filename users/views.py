@@ -79,14 +79,14 @@ def get_date(data, user_id):
         return {'code': 10122, 'message': '该用户不存在'}
     # print(user_info.portrait)
     data["nickname"] = user_info.nickname
-    data["introduction"] = jg_data(user_info.introduction)
-    data["gender"] = jg_data(user_info.gender)
+    data["introduction"] = judge_null_data(user_info.introduction)
+    data["gender"] = judge_null_data(user_info.gender)
     if not user_info.birth:
         data["birth"] = user_info.created_time.strftime('%Y-%m-%d')
     else:
         data["birth"] = user_info.birth.strftime('%Y-%m-%d')
         print(data['birth'])
-    data["city"] = jg_data(user_info.city)
+    data["city"] = judge_null_data(user_info.city)
     data["url"] = user_info.portrait.name
     data["credit"] = user_info.credit
     data["level"] = user_info.level
@@ -133,11 +133,7 @@ def get_date(data, user_id):
 def get_active_join(data, user_info):
     # 获取该用户对象参与的所有活动对象
     try:
-        print('=============================')
-        print(user_info)
-        print(type(user_info))
         user_part = user_info.activityparticipant_set.all()
-        print(user_part)
         data["act_id_p"] = []
         data["tag_p"] = []
         data["subject_p"] = []
@@ -155,15 +151,16 @@ def get_active_join(data, user_info):
             data["create_time_p"].append(up.created_time)
             data["click_num_p"].append(up.activity.click_nums)
             data["update_time_p"].append(up.updated_time)
-            # data["collection"].append(up.collection)
+            data["collection"].append(up.activity.collection)
     except Exception as e:
         print(e)
         return {'code': 10112, 'message': e}
     print('-=-=-=-=-=-=-=******************')
+    print(data)
     return data
 
 
-def jg_data(data):
+def judge_null_data(data):
     if not data:
         return ''
     return data
