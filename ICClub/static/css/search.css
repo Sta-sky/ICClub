@@ -4,10 +4,10 @@
     padding: 0;
     float: right;
     position: relative;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 25px;
     /* overflow: hidden; */
     border: solid 2px rgb(0, 174, 255);
-    background-color: #fff;
+    background: -webkit-gradient(linear, 0% 0%, 0% 90%, from(#85c2c7), to(#9bc045));
     z-index: 5;
    }
 .search img{
@@ -18,21 +18,21 @@
     left: 3px;
 }
 #keyword{
-border: none;
-outline: none;
-display: inline-block;
-position: absolute;
-left: 30px;
-height: 32px;
-width: 260px;
-color: inherit;
-font: inherit;
-margin: 0;
-padding: 0;
-font-family: -apple-system, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
--webkit-font-smoothing: antialiased;
-font-size: 18px;
-background-color:#fff;
+    border: none;
+    outline: none;
+    display: inline-block;
+    position: absolute;
+    left: 30px;
+    height: 32px;
+    width: 210px;
+    color: inherit;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 90%, from(#85c2c7), to(#9bc045));
 }
 .search .btn-submit{
     width: 110px;
@@ -46,7 +46,15 @@ background-color:#fff;
     right: 0;
     height: 34px;
     line-height: 34px;
-    background: #61cc73;
+    background: rgb(44, 120, 190);
+    font-weight: 500;
+    font-size: 20px;
     z-index: 0;
+    border-radius: 25px;
 }
 
+.search .btn-submit:hover{
+    color: red;
+    transform: scale(0.9);
+    /* transition: all 1.3s ease; */
+}

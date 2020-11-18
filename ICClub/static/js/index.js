@@ -84,15 +84,13 @@ function search_data(acttag) {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (response) {
             console.log(response)
-            // alert(1239999999999999999)
             if (response.code === 200) {
                 gengrate_search_page(response)
-            } else if (response.code === 20001){
+            } else if (response.code === 10015){
                 alert(response.info)
                 gengrate_search_page(response)
-                
             } else {
-                alert(response.error)
+                alert(response.message)
             }
         },
         error: function (err) {
@@ -102,7 +100,7 @@ function search_data(acttag) {
 }
 
 // 首页搜索点击事件
-$('.btn-submit').on('click', function (){
+$('.btn-submit, .search_submit').on('click', function (){
     var current_url = window.location.search
     if (current_url == ''){
         search_data('')

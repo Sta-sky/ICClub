@@ -22,8 +22,12 @@ $.ajax({
                 html += '<p class="p">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + articleData.content[i] + '</p><br>'
             }
             html += '</div>'
+            $('#art_info').html(html)
+        } else if(response.code == 10003) {
+            alert(response.message)
+        } else {
+            alert('未知错误')
         }
-        $('#art_info').html(html)
     },
     error: function (err) {
         console.log(err)

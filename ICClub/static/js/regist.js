@@ -34,8 +34,6 @@ $(function () {
                         window.localStorage.setItem('user_id', result.id);
                         window.localStorage.setItem('user_token', result.token);
                         window.location.href = 'login.html'
-                    } else if (result.code === 10200) {
-                        alert(result.message)
                     } else {
                         alert(result.message)
                     }

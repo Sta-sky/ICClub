@@ -78,8 +78,9 @@ $.ajax({
                 $('#tz_r').html(res5);
             }
 
-        } else {
+        } else if (response.code === 10201){
             alert(response.message)
+            window.location.href = 'login.html'
         }
 
     },

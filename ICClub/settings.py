@@ -195,6 +195,9 @@ APPEND_SLASH = False
 SYSEMAIL = '1361704733@qq.com'
 DJREIDS_IP = 'redis://@' + SERIP127 + ':6379/'
 
+# 邮箱验证地址
+EMAIL_URL = 'http://' + SERIP127 + ':7000/templates/email_activ.html?code={}'
+
 
 # django_redis缓存配置
 CACHES = {

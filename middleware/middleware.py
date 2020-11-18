@@ -1,13 +1,5 @@
-import re
-
-from django.http import JsonResponse
 from django.utils.deprecation import MiddlewareMixin
-from response_code import code
-
-from django.utils.deprecation import MiddlewareMixin
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.core.cache import cache
-from django.utils.cache import get_cache_key
+from django.http import Http404
 
 
 class Mymiddle(MiddlewareMixin):

@@ -2,12 +2,10 @@
 from elasticsearch import Elasticsearch
 
 es = Elasticsearch(hosts='http://localhost:9200')
-# for i in range(100):
-# 	es.delete(index='djangotest', id='activ.activity.' + str(i+1))
+res = es.delete(index='django_table',  doc_type = 'modelresult',id='activ.activity.12')
 
-data = es.search(index='django_search')
-print(data)
-
+print(res
+      )
 
 # {
 # 	'took': 52,

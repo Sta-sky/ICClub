@@ -26,11 +26,11 @@ function adminArticle() {
                 html += '<div class="updated_time">' + articleData[i].updated_time + '</div></div>'
                 html += '<span id="ir">&rsaquo;</span>'
                 html += '</div>'
-            }
-            // console.log('aaaaaaaaa')
-            $('#article').html(html)
-            // articleHtml = articleData
-            htmldata = articleData
+                $('#article').html(html)
+                // articleHtml = articleData
+                htmldata = articleData
+            } else if (response.code === 10009)
+                alert(response.message)
         },
         error: function (err) {
             console.log(err)
@@ -43,9 +43,9 @@ function adminArticle() {
 function articleHtml(i) {
     var html = ''
     html += '<div class="article">'
-    html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&article=' + articleData[i].article_id + '"><img src="' + OFF_IMG_URL + articleData[i].act_img + '" alt="" class="act_img" width="600px" height="320px"></a>'
+    html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&act_id=' + articleData[i].article_id + '"><img src="' + OFF_IMG_URL + articleData[i].act_img + '" alt="" class="act_img" width="600px" height="320px"></a>'
     html += '<div class="tip"><p class="p1">热点</p>'
-    html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&article=' + articleData[i].article_id + '"><div class="subject"><h3>' + articleData[i].subject + '</h3></div>'
+    html += '<a href="adminarticle.html?uid=' + articleData[i].user_id + '&act_id=' + articleData[i].article_id + '"><div class="subject"><h3>' + articleData[i].subject + '</h3></div>'
     html += '<p style="table-layout: fixed" class="content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + articleData[i].content + '</p></a>'
     html += '<div class="click_nums">浏览数:' + articleData[i].click_nums + '</div>'
     html += '<div class="updated_time">' + articleData[i].updated_time + '</div></div>'

@@ -1,10 +1,9 @@
-from django.shortcuts import render
 import json
 
 from django.http import JsonResponse
 from django.views.generic.base import View
 from comment.models import ActivityComment, AdminArticleComment
-from response_code import code
+from tools.response_code import code
 from tools.logging_checked import login_check
 
 

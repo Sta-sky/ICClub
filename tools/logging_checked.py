@@ -2,7 +2,7 @@ import jwt
 from django.http import JsonResponse
 from ICClub.settings import JWT_TOKEN_KEY
 from users.models import UserRegist
-from response_code import code
+from tools.response_code import code
 
 
 def login_check(func):

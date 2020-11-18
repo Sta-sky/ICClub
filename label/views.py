@@ -2,15 +2,13 @@ import json
 import random
 
 from django.conf import settings
-from django.core.mail import send_mail
 from django.http import JsonResponse
-from django.shortcuts import render
 
 # Create your views here.
 from django.views import View
 from django_redis import get_redis_connection
-from activ.models import InterestTag, Activity, ActivityParticipant
-from response_code import code
+from activ.models import InterestTag, Activity
+from tools.response_code import code
 from tools.logging_checked import login_check
 from celery_tasks.user_celery import send_active_mail
 from tools.recommend import getALLDataStruct, recommendList
