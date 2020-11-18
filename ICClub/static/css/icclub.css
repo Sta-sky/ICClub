@@ -2,7 +2,7 @@
 
 body{
    /*opacity: 0.7;*/
-   background-image: url("../images/background_img/timg10.jpeg");
+   background: -webkit-gradient(linear, 20% 20%, 20% 100%, from(#749fc7), to(#b77fbe));
    background-size:100% 100%;background-attachment: fixed;
    /* background: skyblue; */
 }
@@ -152,13 +152,11 @@ body{
 #box2_left{
     border-radius: 8px 5px 5px 8px;
     width: 760px;
-    /*height: 2000px;*/
     padding: 32px 30px 0;
-    /*border: solid 2px green;*/
-    /* margin: 0 auto; */
+    border-radius: 10px;
     float: left;
     overflow: hidden;
-    background-color: rgba(0,0,0,0.5);
+    background: -webkit-gradient(linear, 0% 0%, 0% 90%, from(#43573b), to(#4fc2d1));
     margin-right: 20px;
 
 }
@@ -264,7 +262,6 @@ overflow: hidden;
 #box2_left_down .b2_left1{
         width: 760px;
         height: 34px;
-        /*border-bottom: solid 1px #ccc;*/
     }
 #box2_left_down .b2_left1 span{
         color: #e6edff;
@@ -272,15 +269,13 @@ overflow: hidden;
         font-size: 22px;
         width: 80px;
         height:28px;
-        /*border-bottom: solid 2px red;*/
         padding: 0 0 6px 0;
         margin-left: 20px;
         transition: all 1.4s;
-        /*transform: scale(1.1);*/
     }
 #box2_left_down .b2_left1 span:hover{
         transform: scale(1.3);
-        color: #6cffe4;
+        color: red;
     }
 #search{
         float: right;
@@ -290,7 +285,7 @@ overflow: hidden;
         height: 130px;
         float: left;
         overflow: hidden;
-        /*background-color: silver;*/
+        border-radius: 10px;
         background-color: #CCCCFF;
         margin: 15px 0;
     }
@@ -313,6 +308,8 @@ overflow: hidden;
         height: 100%;
         margin-left: 10px;
     }
+
+
     #new_act_ #new_content #n_tit{
         height: 20%;
         width: 100%;
@@ -321,7 +318,7 @@ overflow: hidden;
         line-height: 25px;
         text-align: center;
         font-size: 20px;
-        font-weight: 700;
+        font-weight: bolder
     }
 
     #new_act_ #new_content #n_tit a{
@@ -331,11 +328,12 @@ overflow: hidden;
     /*    color: darkblue;*/
     /*}*/
     #new_act_ #new_content #n_cont{
-        color: white;
+        color: black;
         width: 100%;
         height: 40%;
-        /* margin-bottom: 5px; */
+        font-weight: 600
     }
+
     #new_act_ #new_content #n_cont p{
         color: #181f28;
     }
@@ -344,6 +342,7 @@ overflow: hidden;
         height: 23%;
         overflow: hidden;
     }
+
     #new_act_ #new_content #n_lt #n_lab{
         width: 70px;
         height: 80%;
@@ -351,16 +350,23 @@ overflow: hidden;
         background-color: red;
         color: white;
         text-align: center;
-        line-height: 20px;
+        line-height: 25px;
         float: left;
-        margin-left: 30px;
+        margin-left: 5px;
         margin-bottom: 8px;
+        font-size: 15px;
+        font-weight: bolder
+
     }
+
+
     #new_act_>#new_content>#n_lt>#n_time{
-        color: black;
         float: right;
-        margin-right: 60px;
+        margin-right: 15px;
         line-height: 28px;
+        font-size: 15px;
+        color: crimson;
+        font-weight: 800
     }
 
 
@@ -381,7 +387,6 @@ overflow: hidden;
         width: 30px;
         height: 30px;
         border-radius: 10px;
-        /* background-color: aqua; */
         color: #2a1c40;
         background-color: #fff466;
         margin-left: 10px;
@@ -414,8 +419,8 @@ overflow: hidden;
     /* margin: 0 auto; */
     float: right;
     overflow: hidden;
-    background-color: rgba(0,0,0,0.7);
-    border-radius: 5px 8px 8px 5px;
+    background: -webkit-gradient(linear, 20% 20%, 20% 100%, from(#4e77ac), to(#aad16c));
+    border-radius: 20px;
 }
 
 
@@ -445,15 +450,23 @@ overflow: hidden;
     }
     #btn_l > #lab_btn {
         float: right;
-        width: 50px;
-        height: 20px;
-        border-radius: 6px;
-        background-color: #170;
+        width: 85px;
+        height: 25px;
+        border-radius: 40px;
+        background: -webkit-gradient(linear, 0% 0%, 0% 90%, from(#85c2c7), to(#9bc045));
         color: white;
-        font-size: 10px;
-        margin: 5px 5px 0 0;
+        font-size: 20px;
         text-align: center;
+
     }
+
+    #btn_l > #lab_btn:hover{
+        color: orangered;
+        transform: scale(1.1);
+        transition: all 1.3s ease;
+
+    }
+
     #c_label {
         position: relative;
         overflow: hidden;
