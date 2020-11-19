@@ -6,7 +6,7 @@ $.ajax({
     type: "get",
     dataType: 'json',
     headers: {'Authorization': token},
-    url: SER_URL + 'v1/activ/article_info?article_id=' + article_id,
+    url: SER_URL + 'v1/activitys/article_info?article_id=' + article_id,
     contentType: 'application/json;charset=UTF-8',
     success: function (response) {
         if (response.code == 200) {

@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('users', '0001_initial'),
-        ('activ', '0001_initial'),
+        ('activitys', '0001_initial'),
     ]
 
     operations = [
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('comment_text', models.CharField(max_length=320, verbose_name='评论内容')),
                 ('comment_time', models.DateTimeField(auto_now_add=True, verbose_name='评论时间')),
                 ('review_id', models.IntegerField(default=0, verbose_name='被回复的评论id')),
-                ('activity', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='activ.Activity', verbose_name='所属活动')),
+                ('activitys', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='activitys.Activity', verbose_name='所属活动')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.UserRegist', verbose_name='评论/回复人')),
             ],
             options={
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('comment_text', models.CharField(max_length=320, verbose_name='评论内容')),
                 ('comment_time', models.DateTimeField(auto_now_add=True, verbose_name='评论时间')),
                 ('review_id', models.IntegerField(default=0, verbose_name='被回复的评论id')),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='activ.AdminArticle', verbose_name='所属文章')),
+                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='activitys.AdminArticle', verbose_name='所属文章')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.UserRegist', verbose_name='评论/回复人')),
             ],
             options={

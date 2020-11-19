@@ -45,9 +45,10 @@
 }
 .actv_user ._user .gender{
     float: right;
-    width: 18px;
+    width: 20px;
     height: 18px;
     margin-right: 100px;
+    border-radius: 8px 3px 8px 8px;
 }
 
 .actv_user .sign_words{
@@ -59,6 +60,7 @@
     width: 180px;
     height: 18px;
     font-size: 14px;
+    font-weight: 600;
     text-overflow: -o-ellipsis-lastline;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -95,13 +97,14 @@
     font-size: 14px;
     width:55px;
     height: 18px;
-    color: yellow;
+    color: rgb(240, 245, 200);
     margin-right: 5px;
     line-height: 18px;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#411b46), to(#3fc5d6));
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#806cce), to(#16554c));
     /* border: solid 1px red; */
     border-radius: 9px;
     text-align: center;
+    font-weight: 600;
 
 }
 
@@ -113,6 +116,7 @@
     overflow: hidden;
     padding: 0;
     font-size:14px;
-    color: #c0ff29;
+    color: yellow;
+    font-weight: 600;
 }
 /* 活动达人标签结束 */

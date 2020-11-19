@@ -4,8 +4,7 @@
 $.ajax({
     type: 'get',
     contentType: 'application/json',
-    // url: SER_URL + 'v1/activ/actvuser2',
-    url: SER_URL + 'v1/activ/actvuser2',
+    url: SER_URL + 'v1/activitys/actvuser2',
     success: function (response) {
         var data = response.data
         if (response.code == 200) {

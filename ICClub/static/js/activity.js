@@ -40,7 +40,7 @@ $.ajax({
             }
             $('#opt').html(res)
         } else {
-            alert('服务器繁忙!')
+            alert(result.message)
         }
     }
 });

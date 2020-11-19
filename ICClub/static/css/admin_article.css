@@ -144,14 +144,12 @@
     position: absolute;
     margin: 20px 18px;
     text-align: left;
-
+    font-family: "楷体","楷体_GB2312"; 
     font-size: 18px;
     height: 105px;
     padding: 0 30px;
-    /* border:solid 1px blue; */
     overflow: hidden;
     text-overflow: ellipsis;
-    /* white-space:nowrap; */
 }
 
 

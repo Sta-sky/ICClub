@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from activ.models import Activity, AdminArticle
+from activitys.models import Activity, AdminArticle
 from users.models import UserRegist
 
 

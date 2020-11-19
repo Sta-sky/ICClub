@@ -238,6 +238,7 @@ overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    font-weight: bolder;
 }
 #box2_left_up>#b2_l1>.b2_left2>p:hover{
     color: yellow
@@ -322,7 +323,7 @@ overflow: hidden;
     }
 
     #new_act_ #new_content #n_tit a{
-        color: #335f82;
+        color: #2a1c40;
         width: 400px;
         text-overflow: -o-ellipsis-lastline;
         overflow: hidden;
@@ -336,14 +337,15 @@ overflow: hidden;
     /*    color: darkblue;*/
     /*}*/
     #new_act_ #new_content #n_cont{
-        color: black;
+        font-size: 15px;
         width: 100%;
         height: 40%;
-        font-weight: 600;
+        font-weight: 700;
+        font-family: "楷体","楷体_GB2312"; 
     }
 
     #new_act_ #new_content #n_cont p{
-        color: #181f28;
+        color: teal;
         width: 100%;
         text-overflow: -o-ellipsis-lastline;
         overflow: hidden;
@@ -405,11 +407,12 @@ overflow: hidden;
         height: 30px;
         border-radius: 10px;
         color: #2a1c40;
-        background-color: #fff466;
+        background: -webkit-gradient(linear, 20% 20%, 20% 100%, from(#b1c7e4), to(#aad16c));
         margin-left: 10px;
         text-align: center;
         line-height: 30px;
         border: 1px solid rgb(224, 215, 208);
+        font-weight: 800;
     }
     #l_num>#ul>#firstpage,#l_num>#ul>#lastpage{
         width: 60px;
@@ -478,9 +481,9 @@ overflow: hidden;
     }
 
     #btn_l > #lab_btn:hover{
-        color: orangered;
-        transform: scale(1.1);
-        transition: all 1.3s ease;
+        font-weight: 600;
+        color: red;
+        transform: scale(0.9);
 
     }
 

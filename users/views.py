@@ -1,17 +1,13 @@
-import jwt
 import json
 import base64
 from django.http import JsonResponse
-from ICClub.settings import JWT_TOKEN_KEY
-from activ.models import UserInfo, InterestTag, Activity
+from activitys.models import UserInfo, InterestTag, Activity
 from tools.response_code import code
 from tools.util import DateEnconding, upload_img_save, judge_token_expire
 from users.models import UserRegist
 from ICClub import settings
 
 
-
-# todo toekn过期后逻辑尚未处理??????
 def user_info(request):
     """
     用户信息详情获取

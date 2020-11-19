@@ -8,7 +8,7 @@ function adminArticle() {
     $.ajax({
         type: 'get',
         contentType: 'application/json',
-        url: SER_URL + 'v1/activ/article',
+        url: SER_URL + 'v1/activitys/article',
         success: function (response) {
             if (response.code == 200) {
                 articleData = response.data
