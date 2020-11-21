@@ -3,6 +3,7 @@
 body{
    /*opacity: 0.7;*/
    background: -webkit-gradient(linear, 20% 20%, 20% 100%, from(#749fc7), to(#b77fbe));
+   /* background-image: url('../images/background_img/25.jpg'); */
    background-size:100% 100%;background-attachment: fixed;
    /* background: skyblue; */
 }
@@ -141,7 +142,7 @@ body{
 
 /* box2窗口样式开始 */
 #box2{
-    width: 1200px;
+    width: 82%;
     /*height: 2000px;*/
     /*border: solid 1px red;*/
     margin: 30px auto 0 auto;
@@ -151,13 +152,15 @@ body{
 /* box2左窗口样式开始 */
 #box2_left{ 
     border-radius: 8px 5px 5px 8px;
-    width: 760px;
-    padding: 32px 30px 0;
+    width: 54%;
+    padding: 32px 35px 0px 30px;
     border-radius: 10px;
     float: left;
     overflow: hidden;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b083b6), to(#4fc2d1));
     margin-right: 20px;
+    margin-left: 7%;
+    
 
 }
 
@@ -203,8 +206,8 @@ overflow: hidden;
 #box2_left_up>#b2_l1>.b2_left2{
     position: relative;
     float: left;
-    width: 246px;
-    margin: 30px 4px 28px 3px;
+    width: 250px;
+    margin: 30px -32px 0px 0px;
     /*background-color: whitesmoke;*/
 
 }
@@ -216,8 +219,8 @@ overflow: hidden;
 
 
 #box2_left_up>#b2_l1>.b2_left2>div img{
-    width: 240px;
-    height: 171px;
+    width: 84%;
+    height: 170px;
     transition: all 0.7s ease;
 }
 
@@ -228,8 +231,8 @@ overflow: hidden;
 #box2_left_up>#b2_l1>.b2_left2>p{
     color: black;
     margin: 23px 10px;
-    font-size: 18px;
-    width: 220px;
+    font-size: 16px;
+    width: 70%;
     height: 77px;
     overflow: hidden;
     text-align: center;
@@ -252,7 +255,7 @@ overflow: hidden;
 /* box2左下窗口样式开始 */
 /*------------------------------------------------------------------*/
 #box2_left_down{
-    width: 760px;
+    width: 120%;
     /* height: 360px; */
     /*border: solid 1px rgb(189, 8, 165);*/
     margin: 0 auto;
@@ -282,7 +285,7 @@ overflow: hidden;
         float: right;
     }
 #new_act_{
-        width: 100%;
+        width: 85%;
         height: 130px;
         float: left;
         overflow: hidden;
@@ -293,7 +296,7 @@ overflow: hidden;
 
 
     #new_act_ img{
-        width: 28%;
+        width: 25%;
         height: 100%;
         float: left;
     }
@@ -303,10 +306,9 @@ overflow: hidden;
     #new_act_ #new_content{
         /*background-color: #000000;*/
 
-        float: left;
-        width: 65%;
+        float: right;
+        width: 70%;
         height: 100%;
-        margin-left: 10px;
     }
 
 
@@ -319,7 +321,7 @@ overflow: hidden;
         text-align: center;
         font-size: 20px;
         font-weight: bolder;
-        padding-right: 10px;
+        padding-right: 10%;
     }
 
     #new_act_ #new_content #n_tit a{
@@ -338,7 +340,7 @@ overflow: hidden;
     /*}*/
     #new_act_ #new_content #n_cont{
         font-size: 15px;
-        width: 100%;
+        width: 95%;
         height: 40%;
         font-weight: 700;
         font-family: "楷体","楷体_GB2312"; 
@@ -346,7 +348,7 @@ overflow: hidden;
 
     #new_act_ #new_content #n_cont p{
         color: teal;
-        width: 100%;
+        /* width: 110%; */
         text-overflow: -o-ellipsis-lastline;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -357,7 +359,7 @@ overflow: hidden;
     }
 
     #new_act_ #new_content #n_lt{
-        width: 100%;
+        width: 95%;
         height: 23%;
         overflow: hidden;
     }
@@ -381,7 +383,6 @@ overflow: hidden;
 
     #new_act_>#new_content>#n_lt>#n_time{
         float: right;
-        margin-right: 15px;
         line-height: 28px;
         font-size: 15px;
         color: crimson;
@@ -432,13 +433,14 @@ overflow: hidden;
 
 /* box2右窗口样式开始 */
 #box2_right{
-    width: 300px;
+    width: 20%;
     height: 1380px;
-    padding: 32px 25px 0;
-    /*border: solid 2px purple;*/
+    padding: 32px 25px 0 25px;
+    border: solid 2px purple;
     /* margin: 0 auto; */
     float: right;
     overflow: hidden;
+    margin-right: 7%;
     background: -webkit-gradient(linear, 20% 20%, 20% 100%, from(#4e77ac), to(#aad16c));
     border-radius: 20px;
 }
@@ -477,6 +479,7 @@ overflow: hidden;
         color: white;
         font-size: 20px;
         text-align: center;
+        margin-right: 25%;
 
     }
 
@@ -492,6 +495,7 @@ overflow: hidden;
         overflow: hidden;
         width: 280px;
         height: 275px;
+        margin-right: 10%;
     }
 
     #c_label > #lab {
@@ -508,7 +512,7 @@ overflow: hidden;
         height: 35px;
         border-radius: 40px;
         background-color: #7fa0ff;
-        margin: 15px 30px;
+        margin: 15px 22px;
         text-align: center;
         line-height: 40px;
         color: #191f2c;

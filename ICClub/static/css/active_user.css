@@ -1,6 +1,6 @@
 /* 活动达人标签开始 */
 .actv_user{
-    width: 290px;
+    width: 245px;
     height: 80px;
     padding: 5px;
     border-radius: 10px;
@@ -79,15 +79,11 @@
     height: 19px;
     margin: 0;
     padding: 0;
-    /* border: solid 1px red; */
 }
 .actv_user .us_tag{
-    /* position: absolute;
-    right: 15px;
-    bottom:20px; */
-    /* border:solid 1px red; */
+
     overflow: hidden;
-    padding: 0;
+    padding-left: 60px;
     margin: 0 auto;
     color: #fff;
 }
@@ -95,10 +91,9 @@
     list-style-type: none;
     float: left;
     font-size: 14px;
-    width:55px;
+    width:40px;
     height: 18px;
     color: rgb(240, 245, 200);
-    margin-right: 5px;
     line-height: 18px;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#806cce), to(#16554c));
     /* border: solid 1px red; */
@@ -110,7 +105,7 @@
 
 .actv_user .us_atv{
     position: absolute;
-    right: 30px;
+    right: 85px;
     bottom:3px;
     /* border:solid 1px red; */
     overflow: hidden;

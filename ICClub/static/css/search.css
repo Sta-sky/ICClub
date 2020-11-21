@@ -1,6 +1,6 @@
 .search{
     height: 34px;
-    width: 400px; 
+    width: 48%; 
     padding: 0;
     float: right;
     position: relative;
@@ -9,13 +9,14 @@
     border: solid 2px rgb(0, 174, 255);
     background: -webkit-gradient(linear, 0% 0%, 0% 90%, from(#85c2c7), to(#9bc045));
     z-index: 5;
+    margin-right: 150px;
    }
 .search img{
     width: 24px;
     position: absolute;
     top:17px;
     margin-top:-12px;
-    left: 3px;
+    left: 5px;
 }
 #keyword{
     border: none;
@@ -27,12 +28,11 @@
     width: 210px;
     color: inherit;
     font: inherit;
-    margin: 0;
-    padding: 0;
     font-family: -apple-system, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
     -webkit-font-smoothing: antialiased;
     font-size: 18px;
     background: -webkit-gradient(linear, 0% 0%, 0% 90%, from(#85c2c7), to(#9bc045));
+    overflow: hidden;
 }
 .search .btn-submit{
     width: 110px;
