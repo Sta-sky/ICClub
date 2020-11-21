@@ -3,42 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>社区</title>
-    <link rel="stylesheet" href="../static/css/b_comu.css">
+    <!-- <link rel="stylesheet" href="../static/css/b_comu.css"> -->
     <link rel="stylesheet" href="../static/css/general.css">
     <link rel="stylesheet" href="../static/css/header.css">
     <link rel="stylesheet" href="../static/css/icclub.css">
+    <link rel="stylesheet" href="../static/css/community.css">
     <link rel="stylesheet" href="../static/css/footer.css">
-    <link rel="stylesheet" href="../static/css/admin_article.css">
-    <link rel="stylesheet" href="../static/css/active_user.css">
-    <link rel="stylesheet" href="../static/css/changelabel.css">
+
     <script src="../static/js/base_con.js"></script>
     <script src="../static/js/jquery.min.js"></script>
 </head>
 
-
 <body>
 
 <div id="head"></div>
+    <div id="left_box">
+        <div id='dynamic_label'>
+            <ul><li class="comm_tag">情感</li></ul>
+            <ul><li class="comm_tag">小情绪</li></ul>         
+            <ul><li class="comm_tag">吐槽</li> </ul>           
+            <ul><li class="comm_tag">小开心</li></ul>            
+        </div>
+    </div>
     <div id="comm_box">
-        <div head_sidebar>
-            <div>
-                <span>最新内容</span>
-                <span>热评榜</span>
-                <span>好评榜</span>
-                <span>热搜榜</span>
-            </div>
+        <div id="head_sidebar">
+            <span class="title_sidebar">最新内容</span>
+            <span class="title_sidebar">热评榜</span>
+            <span class="title_sidebar">好评榜</span>
+            <span class="title_sidebar">热搜榜</span>
         </div>
-        <div id="left_sidebar">
-            <div >
-                <span>情感</span>            
-                <span>小情绪</span>            
-                <span>吐槽</span>            
-                <span>小开心</span>            
 
-            </div>
-
-        </div>
-        <div master_page>
+        <div id="master_page">
             <div id="every_box">
                 <div class="user_info_box">
                     <ul>
@@ -66,11 +61,10 @@
     </div>
 
 
-<div id="foot"></div>
+<!-- <div id="foot"></div> -->
 
 <script>
     $("#head").load("header.html");
-    $("#foot").load("footer.html");
 </script>
 <script src="../static/js/tool_kit.js"></script>
 <script src="../static/js/header.js"></script>
