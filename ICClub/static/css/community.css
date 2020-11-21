@@ -1,0 +1,62 @@
+
+#comm_box {
+    float: right;
+    width: 55%;
+    height: 20%;
+    background-color: brown;
+    margin-right: 25%
+
+}
+
+#left_box{
+    float: left;
+    margin-left: 15%;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b083b6), to(#4fc2d1));
+    width: 5%;
+    
+
+}
+
+
+/* 顶部样式 */
+#head_sidebar {
+    width: 80%;
+    height: 20%;
+    background-color:yellow;
+    color: rgb(63, 56, 48);
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+}
+
+
+
+
+/* 侧边栏 */
+.comm_tag{
+    margin-top: 50%;
+    margin-bottom: 20%;
+    height: 80%;
+    color: black;
+    font-size: 30px;
+    margin-left: 10%;
+
+
+}
+
+/* 顶部 内部样式 */
+
+.title_sidebar {
+    /* margin-left: 10%; */
+    width: 50%;
+    height: 20%;
+    background-color:yellow;
+    color: black;
+    font-size: 40px;
+    font-weight: 700
+}
+
+
+/* #foot{
+    margin-top: 100%;
+} */
