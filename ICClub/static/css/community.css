@@ -89,13 +89,3 @@
     
 }
 
-#box2_right_down>.b2_right1>span{
-    color: white;
-    font-size: 24px;
-    float: left;
-    width: 100%;
-    /* height:28px; */
-    /* border-bottom: solid 2px red; */
-    padding: 0 ;
-    margin-bottom:-2px; 
-}
