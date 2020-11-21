@@ -40,11 +40,9 @@ class UserInfo(models.Model):
     sponsor_num = models.IntegerField(default=0, verbose_name='发起活动数')
     # 参与活动数
     participate_num = models.IntegerField(default=0, verbose_name='参与活动数')
-
     likes = models.IntegerField(default=0, verbose_name='点赞数')
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     updated_time = models.DateTimeField(verbose_name='修改时间', auto_now=True)
-
     user = models.OneToOneField(UserRegist, verbose_name='注册信息id')
     interest = models.ManyToManyField(InterestTag, verbose_name='爱好标签', default=None)
 

@@ -19,9 +19,9 @@ $.ajax({
                 html += '<a href="user_info.html?id=' + user_info.user_id+'" class="nickname"><h3>' + user_info.nickname + '</h3></a>'
                 // html += '<h3 class="nickname">' + user_info.nickname + '</h3>'
                 if (user_info.gender == '男') {
-                    html += '<img src="../static/images/boy.png" alt="" class="gender"></div>'
+                    html += '<img src="../static/images/icon/boy.png" alt="" class="gender"></div>'
                 } else{
-                    html += '<img src="../static/images/girl.png" alt="" class="gender"></div>'
+                    html += '<img src="../static/images/icon/girl.png" alt="" class="gender"></div>'
                 };
                 html += '<p class="sign_words">' + user_info.sign_words + '</p>'
                 html += '<div class="us_atv">'

@@ -38,4 +38,7 @@ urlpatterns = [
     # 活动
     url('^active/', include('activitys.urls')),
     url(r'^label', include('activitys.urls')),
+    
+    # 论坛
+    url(r'community', include('community.urls')),
 ]

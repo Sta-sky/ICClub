@@ -256,6 +256,10 @@ HAYSTACK_HIGHLIGHT='haystack.utils.Highlighter'
 WEBSOCKET_ACCEPT_ALL = True
 
 
+
+# 配置 MEDIA_ROOT 作为你上传文件在服务器中的基本路径
+MEDIA_ROOT = os.path.join(BASE_DIR, 'ICClub\\static\\') # 注意此处不要写成列表或元组的形式
+
 # 上传图片文件夹  上传云端换第一个
 IMGBATH = os.path.join(BASE_DIR, 'ICClub/static/')
 

@@ -77,13 +77,9 @@ class Active(View):
         if img_data:
             file_data = base64.b64decode(img_data.split(',')[1])
             filename = user_str_id + settings.IMG_END
-            print(filename)
             img_path = settings.DBACTIMG + filename
-            print('++++++++++++++++++')
-            print(img_path)
             save_res = upload_img_save(file_data, img_path)
             if save_res['code'] == 10501:
-                print('写入失败,使用默认图片')
                 print(save_res['message'])
             else:
                 img_sql_path = settings.DBACTIMG + user_str_id + settings.IMG_END
@@ -181,13 +177,12 @@ def get_new(request, page):
         label = request.GET.get('tag', '')
         act_now_num = settings.ACTIVITY_NUM
         if request.is_websocket():
-            redname = 'new_act' + label
-            newact = get_redis_connection('newact')
-            print(newact)
+            # redis_activ = 'new_act' + label
+            # newact = get_redis_connection('newact')
+            # print(newact)
             # TODO 此处优化redis中拿去数据 ，要跟mysql中同步，
-            # if newact.exists(redname):
-            #     print('act是从数据路去除的')
-            #     paginator = pickle.loads(newact.get(redname))
+            # if newact.exists(redis_activ):
+            #     paginator = pickle.loads(newact.get(redis_activ))
             #     result = make_result(paginator, page)
             # else:
             result = get_result(page, label)
@@ -259,14 +254,10 @@ class ActHotIndex(View):
         保存数据 过期时间
         """
         # 0. 获取所有品类
-        print('及弄俩了')
-        print('==================')
-        all_list = ''
         try:
             all_list = Activity.objects.all().order_by('-click_nums')[:3]
         except Exception as e:
-            print(e)
-            print('==============----------------')
+            return JsonResponse[code[10507]]
         # 1. 首页最新活动默认显示三个
         index_data = []
         for item in all_list:
@@ -277,8 +268,6 @@ class ActHotIndex(View):
             index['imgurl'] = imgname
             index_data.append(index)
         code[200]['data'] = index_data
-        print(code[200])
-        print('==================')
         return JsonResponse(code[200])
 
 
@@ -353,7 +342,6 @@ def get_active_users(request):
 
     # 从数据库获取发起活动数前60名
     users1 = UserInfo.objects.order_by('-sponsor_num')
-    # print('users1:', len(users1))
     if len(users1) > 10:
         set_users1 = set(users1[:10])
     else:
@@ -373,7 +361,7 @@ def get_active_users(request):
 
     # 判断内存中有无数据
     if redis_index is None:
-        print("未使用缓存")
+
         for _user in set_active_users:
             user_info = {}
             user_info['user_id'] = _user.user.id
@@ -395,12 +383,8 @@ def get_active_users(request):
             # 写入缓存
         # 可考虑如缓存时压缩json串 zlib
         redis_conn.set("active_users", json.dumps(users_data), ex=30)
-        # print(redis_index.llen('active_users'))*
     else:
-        print("使用缓存 >>>>>>>>>>>>>>>." )
         users_data = json.loads(redis_index)
-
-    # 从集合中随机取8个用户
     if len(users_data) >= 8:
         data = random.sample(users_data, 8)
     else:
@@ -533,9 +517,10 @@ def activitySearchView(request, page_now):
         # 127.0.0.1:8000/active/search/1
         search_key = request.POST.get('q')
         tag_key = request.POST.get('tag')
+        print('进来了哇')
+        print(search_key, tag_key)
         if not search_key:
             return JsonResponse(code[10010])
-        
         # 如果传入的tag有值， 表明是从table页发过来的请求；获取对应tag中的所有带有关键字的活动
         if tag_key:
             # table页搜索
@@ -553,7 +538,7 @@ def activitySearchView(request, page_now):
                 res_data_list = parse_sqs_data(sqs)
             else:
                 return JsonResponse(code[10011])
-        
+
         # 主页搜索
         else:
             tag = None
@@ -574,6 +559,7 @@ def activitySearchView(request, page_now):
         result = {"code": 200, "data": res_data_list, 'page': [int(page_now), all_page]}
         print(result)
         return JsonResponse(result)
+
 
 
 def return_page_num(sqs):
@@ -608,7 +594,6 @@ def parse_sqs_data(sqs):
         res_search_dic = {}
         highlight_res_list = search_result_obj.highlighted
         parse_data = highlight_res_list[0].split('\n')
-        print(parse_data)
         if len(parse_data) != 5:
             continue
         res_search_dic["act_id"] = parse_data[0]
@@ -630,7 +615,10 @@ def parse_sqs_all_type(sqs):
         res_search_dic["tag"] = search_result_obj.tag.split(':')[2]
         res_search_dic["subject"] = search_result_obj.subject
         res_search_dic["content"] = search_result_obj.content
-        activ_model = Activity.objects.filter(id=res_search_dic["act_id"])[0]
+        try:
+            activ_model = Activity.objects.filter(id=res_search_dic["act_id"])[0]
+        except Exception:
+            return JsonResponse(code[10013])
         res_search_dic["imgurl"] = activ_model.act_img.name
         res_search_dic['date'] = activ_model.created_time.strftime('%Y-%m-%d')
         res_search_list.append(res_search_dic)

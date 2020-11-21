@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name_plural': '活动创建表',
-                'db_table': 'activitys',
+                'db_table': 'activity',
             },
         ),
         migrations.CreateModel(
@@ -128,12 +128,12 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(default=None, to='activitys.UserInfo', verbose_name='参与者'),
         ),
         migrations.AddField(
-            model_name='activitys',
+            model_name='activity',
             name='tag',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='activitys.InterestTag', verbose_name='活动标签'),
         ),
         migrations.AddField(
-            model_name='activitys',
+            model_name='activity',
             name='user',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.UserRegist', verbose_name='发起人'),
         ),
