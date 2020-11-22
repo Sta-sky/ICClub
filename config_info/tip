@@ -1,4 +1,3 @@
-
 """
 论坛规划：
     表;          ---------------发表内容可以更新
@@ -10,6 +9,35 @@
             click_num
             like
             lable               models.ForeignKey
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 54facc27d3afeed73ab44b7a22b44526bd5fb914
+
+        2、Emotion_lable
+           lable_name
+           id
+           img_url
+           创建时间
+
+        3、评论表：
+            id
+            commment_content
+            commnuity_id         -----论坛id
+            commmenttators       -----评论者
+            commented            -----被评论者
+
+        用户信息表需要更新：
+            添加论坛发表
+                commnuity_num
+
+    /commnuity/hot
+    论坛页面：
+        /commnuity/hot_commnet
+        热评榜， --------按评论 数量 为前10的取出来发出去
+<<<<<<< HEAD
+
+=======
 
         2、Emotion_lable
            lable_name
@@ -33,17 +61,38 @@
         /commnuity/hot_commnet
         热评榜， --------按评论 数量 为前10的取出来发出去
 
+>>>>>>> 54facc27d3afeed73ab44b7a22b44526bd5fb914
+=======
+
+>>>>>>> 54facc27d3afeed73ab44b7a22b44526bd5fb914
         /commnuity/like_commnet
         好评榜，---------按 点赞数 前十的拿出来展示
 
         /commnuity/search_hot
         热搜榜，---------按 搜索量 前十的取出来
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        /安装部署  安装部署的  driver  修改的那部分代码  是怎么样
+>>>>>>> 54facc27d3afeed73ab44b7a22b44526bd5fb914
+=======
+        /安装部署  安装部署的  driver  修改的那部分代码  是怎么样
+>>>>>>> 54facc27d3afeed73ab44b7a22b44526bd5fb914
         最新内容---------按创建 时间 取出前20
 
     /commnuity/lable?lable=''
     侧边栏将所有心情标签显示出来，作为搜索条件，展示到 页面上
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 54facc27d3afeed73ab44b7a22b44526bd5fb914
+=======
+    
+>>>>>>> 54facc27d3afeed73ab44b7a22b44526bd5fb914
 
 """
+
 
 
