@@ -210,10 +210,6 @@ def make_result(paginator, page):
 
 @accept_websocket
 def get_new(request, page):
-    print('页码')
-    print(request.get_full_path())
-    print(request.path_info)
-    print(page)
     """
     获取主页跟标签页的最新活动信息 优先读取djredis
     按时间排序 筛选最近发布的活动
@@ -222,6 +218,10 @@ def get_new(request, page):
     把对应page的内容返回
     :return:
     """
+    print('页码')
+    print(request.get_full_path())
+    print(request.path_info)
+    print(page)
     if request.method == 'GET':
         print('传达出的撒长达')
         print('进来了')
