@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from users import views, login_views, regist_views, sms_views
+from users import views, login_views, regist_views, sms_views, video
 
 urlpatterns = [
     url(r'^home$', views.user_info),
@@ -23,4 +23,5 @@ urlpatterns = [
     # 短信发送
     url(r'send_sms', sms_views.SendSms.as_view()),
     url(r'find_passwd', login_views.Find_passwd.as_view()),
+    url(r'video', video.video_play),
 ]
