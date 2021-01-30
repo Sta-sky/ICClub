@@ -9,8 +9,8 @@ class ActivityComment(models.Model):
     # 评论表
 
     # 评论id，作为主键，comment_id=
-    activity = models.ForeignKey(Activity, verbose_name='所属活动')
-    user = models.ForeignKey(UserRegist, verbose_name='评论/回复人')
+    activity = models.ForeignKey(Activity, verbose_name='所属活动', on_delete=models.CASCADE)
+    user = models.ForeignKey(UserRegist, verbose_name='评论/回复人', on_delete=models.CASCADE)
     comment_text = models.CharField(max_length=320, verbose_name='评论内容')
     comment_time = models.DateTimeField(verbose_name='评论时间', auto_now_add=True)
     review_id = models.IntegerField(default=0, verbose_name='被回复的评论id')
@@ -28,8 +28,8 @@ class AdminArticleComment(models.Model):
     # 评论表
 
     # 评论id，作为主键，comment_id=
-    article = models.ForeignKey(AdminArticle, verbose_name='所属文章')
-    user = models.ForeignKey(UserRegist, verbose_name='评论/回复人')
+    article = models.ForeignKey(AdminArticle, verbose_name='所属文章', on_delete=models.CASCADE)
+    user = models.ForeignKey(UserRegist, verbose_name='评论/回复人', on_delete=models.CASCADE)
     comment_text = models.CharField(max_length=320, verbose_name='评论内容')
     comment_time = models.DateTimeField(verbose_name='评论时间', auto_now_add=True)
     review_id = models.IntegerField(default=0, verbose_name='被回复的评论id')

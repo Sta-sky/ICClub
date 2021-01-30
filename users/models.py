@@ -26,7 +26,7 @@ class UserRegist(models.Model):
 
 class WeiboUser(models.Model):
     # 微博用户表
-    uid = models.OneToOneField(UserRegist, null=True)
+    uid = models.OneToOneField(UserRegist, null=True, on_delete=models.CASCADE)
     wuid = models.CharField(max_length=50, db_index=True, verbose_name='微博用户ID')
     access_token = models.CharField(max_length=100, verbose_name='授权令牌')
 

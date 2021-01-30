@@ -43,7 +43,7 @@ class UserInfo(models.Model):
     likes = models.IntegerField(default=0, verbose_name='点赞数')
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     updated_time = models.DateTimeField(verbose_name='修改时间', auto_now=True)
-    user = models.OneToOneField(UserRegist, verbose_name='注册信息id')
+    user = models.OneToOneField(UserRegist, verbose_name='注册信息id', on_delete=models.CASCADE)
     interest = models.ManyToManyField(InterestTag, verbose_name='爱好标签', default=None)
 
     class Meta:
@@ -57,8 +57,8 @@ class UserInfo(models.Model):
 
 class Activity(models.Model):
     # 活动创建表
-    user = models.ForeignKey(UserRegist, verbose_name='发起人')
-    tag = models.ForeignKey(InterestTag, verbose_name='活动标签')
+    user = models.ForeignKey(UserRegist, verbose_name='发起人', on_delete=models.CASCADE)
+    tag = models.ForeignKey(InterestTag, verbose_name='活动标签', on_delete=models.CASCADE)
     subject = models.CharField(max_length=100, verbose_name='活动主题')
     content = models.TextField(verbose_name='活动内容')
     click_nums = models.IntegerField(default=0, verbose_name='点击量')
@@ -86,8 +86,8 @@ class Activity(models.Model):
 
 # 官方活动创建表 官方 官方
 class AdminArticle(models.Model):
-    user = models.ForeignKey(UserRegist, verbose_name='发起人')
-    tag_id = models.ForeignKey(InterestTag, verbose_name='活动标签', default=None)
+    user = models.ForeignKey(UserRegist, verbose_name='发起人', on_delete=models.CASCADE)
+    tag_id = models.ForeignKey(InterestTag, verbose_name='活动标签', default=None, on_delete=models.CASCADE)
     subject = models.CharField(max_length=100, verbose_name='活动主题')
     content = models.TextField(verbose_name='活动内容')
     click_nums = models.IntegerField(default=0, verbose_name='点击量')
@@ -116,7 +116,7 @@ class AdminArticle(models.Model):
 class ActivityParticipant(models.Model):
     # 活动参与者表
     user = models.ManyToManyField(UserInfo, verbose_name='参与者', default=None)
-    activity = models.OneToOneField(Activity, verbose_name='活动')
+    activity = models.OneToOneField(Activity, verbose_name='活动', on_delete=models.CASCADE)
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     updated_time = models.DateTimeField(verbose_name='更新时间', auto_now=True)
 

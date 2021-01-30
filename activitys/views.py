@@ -1,13 +1,24 @@
 import json
+import os
 import time
 import base64
 import pickle
 import random
 from urllib import parse
+from urllib.parse import quote
+
+import html2text
 from django.shortcuts import render
 from django_redis import get_redis_connection
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Paragraph
+
 from tools import chang_imgname
 from activitys.models import UserInfo, AdminArticle
 from tools.util import upload_img_save
@@ -18,7 +29,7 @@ from dwebsocket.decorators import accept_websocket
 from django.conf import settings
 from haystack.forms import ModelSearchForm
 from django.core.paginator import Paginator
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from activitys.models import Activity, InterestTag
 from django.views.generic.base import View
 
@@ -624,3 +635,47 @@ def parse_sqs_all_type(sqs):
         res_search_list.append(res_search_dic)
         print(res_search_dic)
     return res_search_list
+
+
+def pdf_md_transform(request):
+        try:
+            print('进来了')
+            font_path = os.path.abspath('') + '/config/black.ttf'
+            pdfmetrics.registerFont(TTFont("song", font_path))
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'filename={}.pdf'.format('nihao')
+            p = canvas.Canvas(response)
+            # flag = 8
+            # print(len(note_obj.content))
+            # if len(note_obj.content) > 1000:
+            #     flag = -1
+            # if 1000 > len((note_obj.content)) > 400:
+            #     flag = 7
+            # print(flag)
+            p.translate(0.5 * inch, 10 * inch)
+            # 设置字体
+            p.setFont('song', 8)
+            styleSheet = getSampleStyleSheet()
+            style = styleSheet['Normal']
+            style.fontName = 'song'
+            style.fontSize = 12
+            # 设置行距
+            style.leading = 20
+            # 首行缩进
+            style.firstLineIndent = 32
+            # 设置自动换行
+            style.wordWrap = 'CJK'
+            Pa = Paragraph('vnfdjksnvkjdsnkvnkdfsnbklgsvf四大皆空v那块地方是', style)
+            Pa.wrapOn(p, 7 * inch, 10 * inch)
+            Pa.drawOn(p, 0.5, 0.7 * inch)
+            p.showPage()
+            p.save()
+            # response.write(note_obj.content)
+            return response
+        except Exception as e:
+            print(e)
+    # else:
+    #     response = HttpResponse(content_type='application/md')
+    #     response['Content-Disposition'] = 'attachment; filename="{}.md"'.format(quote(note_obj.note_name))
+    #     response.write(html2text.html2text(note_obj.content))
+    #     return response

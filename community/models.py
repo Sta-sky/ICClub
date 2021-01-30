@@ -12,8 +12,8 @@ class CommnuityLable(models.Model):
 		return 'id:%s lable_name:%s img_url:%s' % (self.id, self.lable_name, self.img_url)
 
 class Commnuity(models.Model):
-	commnuity_user = models.ForeignKey(UserInfo, verbose_name='发表文章用户')
-	lable = models.ForeignKey(CommnuityLable, verbose_name='文章标签')
+	commnuity_user = models.ForeignKey(UserInfo, verbose_name='发表文章用户', on_delete=models.CASCADE)
+	lable = models.ForeignKey(CommnuityLable, verbose_name='文章标签', on_delete=models.CASCADE)
 	commnuit_content = models.TextField(verbose_name='文章内容')
 	create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
 	update_time = models.DateTimeField(verbose_name='更新时间', auto_now_add=True)

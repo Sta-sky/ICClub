@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^actvuser2$', views.get_active_users),                    # lable页活动达人 http://127.0.0.1:8000/v1/activ/actvuser2
     url(r'^article$', views.get_admin_articles),                    # 管理员活动 http://127.0.0.1:8000/v1/activ/article
     url(r'^article_info$', views.article_info),                     # http://127.0.0.1:8000/v1/activ/article_info?...
+    url(r'^pdf_info$', views.pdf_md_transform),                     # http://127.0.0.1:8000/v1/activ/article_info?...
     
     # TODO lable_views  start
     # 活动投票 GET
