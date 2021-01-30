@@ -34,14 +34,14 @@ $('#add_act').on('click', function () {
     var year = starttime.split('-')[0]
     var mou = starttime.split('-')[1]
     var day = starttime.split('-')[2]
-    if (date.getFullYear() > year || date.getMonth() > mou) {
-        alert('本平台不支持穿越活动');
-        return;
-    }
-    if (date.getDate() + 2 > day) {
-        alert('时间有点仓促，请至少提前两天发布活动')
-        return;
-    }
+//    if (date.getFullYear() > year || date.getMonth() > mou) {
+//        alert('本平台不支持穿越活动');
+//        return;
+//    }
+//    if (date.getDate() + 2 > day) {
+//        alert('时间有点仓促，请至少提前两天发布活动')
+//        return;
+//    }
     if (isNaN(Number(condition))) {
         alert('请输入正确的数字格式')
         return;

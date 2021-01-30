@@ -48,9 +48,9 @@ def regist_view(request):
             return JsonResponse(code[10208])
     
         # TODO 此处加手机验证码 判断
-        verify_result = verify_sms_code(redis_obj, username, phone, user_code)
-        if verify_result:
-            return verify_result
+        # verify_result = verify_sms_code(redis_obj, username, phone, user_code)
+        # if verify_result:
+        #     return verify_result
         # 判断两次密码是否一致
         passwd_one = decode_md5(password)
         passwd_tow = decode_md5(passwords)
@@ -63,7 +63,7 @@ def regist_view(request):
             code[10208]['message'] = '用户名已经存在,请换个昵称试试'
             return JsonResponse(code[10208])
         try:
-            user = UserRegist.objects.create(username=username, password=password, email=email,
+            user = UserRegist.objects.create(username=username, password=passwd_one, email=email,
                                              phone=phone, code=user_code)
             UserInfo.objects.create(nickname=username, user_id=user.id)
         except Exception as e:

@@ -137,7 +137,6 @@ def get_result(page, label):
     else:
         # 如果没有label，表示是主页，不带tag，的页面刷新，所以：按创建时间倒叙取出活动
         activity = Activity.objects.filter(status=1).order_by('-created_time')
-        print(activity)
     if not activity:
         return code[201]
     # paginator 分页器对象， 第一个参数，对象列表，第二个此参数，每页显示的条数
@@ -186,7 +185,7 @@ def get_new(request, page):
     """
     if request.method == 'GET':
         label = request.GET.get('tag', '')
-        act_now_num = settings.ACTIVITY_NUM
+        act_now_num = 0
         if request.is_websocket():
             # redis_activ = 'new_act' + label
             # newact = get_redis_connection('newact')
@@ -204,8 +203,10 @@ def get_new(request, page):
             while True:
                 # 检查是否有新消息
                 if settings.ACTIVITY_NUM > act_now_num:
-                    act_now_num = settings.ACTIVITY_NUM
+                    settings.ACTIVITY_NUM -= 1
                     result = get_result(page, label)
+                    print(']]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]')
+                    print(result)
                     request.websocket.send(json.dumps(result))
                 time.sleep(1)
         return JsonResponse(code[10506])
@@ -526,51 +527,54 @@ def activitySearchView(request, page_now):
         TODO 待添加各种搜索，  根据 活动标题关键字，点击量最高排序，活动id等
         """
         # 127.0.0.1:8000/active/search/1
-        search_key = request.POST.get('q')
-        tag_key = request.POST.get('tag')
-        print('进来了哇')
-        print(search_key, tag_key)
-        if not search_key:
-            return JsonResponse(code[10010])
-        # 如果传入的tag有值， 表明是从table页发过来的请求；获取对应tag中的所有带有关键字的活动
-        if tag_key:
-            # table页搜索
-            form_obj = ModelSearchForm(request.POST, load_all=True)
-            tag_obj = InterestTag.objects.filter(interests=tag_key)[0]
-            # 根据标签名查询标签id
-            if form_obj.is_valid():
-                tag = "id:{} nickname:{}".format(str(tag_obj.id), tag_key)
-                first_sqs = SearchQuerySet().filter(content=tag)
-                sqs = first_sqs.filter(content=search_key).highlight(pre_tags=['<strong>'], post_tags=['</strong>'])
-                print(f'从tabl总共查询出了{len(sqs)}条数据')
-                if not len(sqs):
-                    results = return_all_activ(tag, page_now)
-                    return JsonResponse(results)
+        try:
+            search_key = request.POST.get('q')
+            tag_key = request.POST.get('tag')
+            print('进来了哇')
+            print(search_key, tag_key, '[[[[[[[[')
+            if not search_key:
+                return JsonResponse(code[10010])
+            # 如果传入的tag有值， 表明是从table页发过来的请求；获取对应tag中的所有带有关键字的活动
+            if tag_key:
+                # table页搜索
+                form_obj = ModelSearchForm(request.POST, load_all=True)
+                tag_obj = InterestTag.objects.filter(interests=tag_key)[0]
+                # 根据标签名查询标签id
+                if form_obj.is_valid():
+                    tag = "id:{} nickname:{}".format(str(tag_obj.id), tag_key)
+                    first_sqs = SearchQuerySet().filter(content=tag)
+                    sqs = first_sqs.filter(content=search_key).highlight(pre_tags=['<strong>'], post_tags=['</strong>'])
+                    print(f'从tabl总共查询出了{len(sqs)}条数据')
+                    if not len(sqs):
+                        results = return_all_activ(tag, page_now)
+                        return JsonResponse(results)
+                    res_data_list = parse_sqs_data(sqs)
+                else:
+                    return JsonResponse(code[10011])
+    
+            # 主页搜索
+            else:
+                tag = None
+                form_obj = ModelSearchForm(request.POST, load_all=True)
+                if form_obj.is_valid():
+                    query = form_obj.cleaned_data['q']
+                    sqs = SearchQuerySet().filter(content=AutoQuery(query)).highlight(pre_tags=['<strong>'], post_tags=['</strong>'])
+                    if not len(sqs):
+                        results = return_all_activ(tag, page_now)
+                        print(results)
+                        return JsonResponse(results)
+                else:
+                    return JsonResponse(code[10011])
+                print(f'当前从主页中查询出了{len(sqs)}条数据')
                 res_data_list = parse_sqs_data(sqs)
-            else:
-                return JsonResponse(code[10011])
-
-        # 主页搜索
-        else:
-            tag = None
-            form_obj = ModelSearchForm(request.POST, load_all=True)
-            if form_obj.is_valid():
-                query = form_obj.cleaned_data['q']
-                sqs = SearchQuerySet().filter(content=AutoQuery(query)).highlight(pre_tags=['<strong>'], post_tags=['</strong>'])
-                if not len(sqs):
-                    results = return_all_activ(tag, page_now)
-                    return JsonResponse(results)
-            else:
-                return JsonResponse(code[10011])
-            print(f'当前从主页中查询出了{len(sqs)}条数据')
-            res_data_list = parse_sqs_data(sqs)
-            if not res_data_list:
-                return JsonResponse(return_all_activ(tag, page_now))
-        all_page = return_page_num(sqs)
-        result = {"code": 200, "data": res_data_list, 'page': [int(page_now), all_page]}
-        print(result)
-        return JsonResponse(result)
-
+                if not res_data_list:
+                    return JsonResponse(return_all_activ(tag, page_now))
+            all_page = return_page_num(sqs)
+            result = {"code": 200, "data": res_data_list, 'page': [int(page_now), all_page]}
+            print(result)
+            return JsonResponse(result)
+        except Exception as e:
+            print(e)
 
 
 def return_page_num(sqs):
@@ -622,13 +626,15 @@ def parse_sqs_all_type(sqs):
     res_search_list = []
     for search_result_obj in sqs:
         res_search_dic = {}
+        print(search_result_obj.id.split('.')[2])
         res_search_dic["act_id"] = search_result_obj.id.split('.')[2]
         res_search_dic["tag"] = search_result_obj.tag.split(':')[2]
         res_search_dic["subject"] = search_result_obj.subject
         res_search_dic["content"] = search_result_obj.content
         try:
             activ_model = Activity.objects.filter(id=res_search_dic["act_id"])[0]
-        except Exception:
+        except Exception as e:
+            print(e, ']]]]]]]]]]]]]]]]]')
             return JsonResponse(code[10013])
         res_search_dic["imgurl"] = activ_model.act_img.name
         res_search_dic['date'] = activ_model.created_time.strftime('%Y-%m-%d')

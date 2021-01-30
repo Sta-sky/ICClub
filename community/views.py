@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from tools.response_code import code
-from .models import Commnuity
+from .models import Article
 from dwebsocket.decorators import accept_websocket
 from django.core.paginator import Paginator
 
@@ -8,8 +8,9 @@ from django.core.paginator import Paginator
 def community_index(request):
 	if request.is_websockte():
 		currnet_page = request.GET.get('page')
+		print(currnet_page)
 		try:
-			community_obj = Commnuity.objects.filter.all().order_by('create_time')[:80]
+			community_obj = Article.objects.filter.all().order_by('create_time')[:80]
 			page_obj = Paginator(community_obj, 8)
 			# 总页数
 			totle_page_num = page_obj.num_pages
