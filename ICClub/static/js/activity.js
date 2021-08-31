@@ -75,10 +75,12 @@ function changeVal(statu) {
                 } else {
                     $('#like').text(result.data)
                 }
+            } else {
+                alert('请先登录!!')
             }
         },
         error: function () {
-            alert('服务器繁忙!')
+            alert('服务器繁忙--!')
         }
     })
 }

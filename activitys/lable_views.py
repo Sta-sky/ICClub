@@ -195,12 +195,10 @@ def option(request):
 class LabelLikeView(View):
     @login_check
     def post(self, request, status):
-
         act = request.body
         act = json.loads(act)
         act_id = act.get('actid')
         act_status = act.get('collection')
-
         if not act_id:
             return JsonResponse({'code': 10401, 'error': '未找到活动'})
         ap_file = Activity.objects.get(id=act_id)
