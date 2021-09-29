@@ -168,11 +168,9 @@ class LabelHotView(View):
             index = {}
             index['act_id'] = str(item.id)
             index['subject'] = item.subject
-
             from tools import chang_imgname
             imgname = chang_imgname.parse_imgname(item.act_img.name)
             index['imgurl'] = imgname
-
             index_data.append(index)
         # index_img = json.loads(index_data)
         result = {"code": 200, "data": index_data}
@@ -180,7 +178,6 @@ class LabelHotView(View):
 
 
 def option(request):
-    # if request.method == 'GET':
     tag = InterestTag.objects.all()
     if not tag:
         return JsonResponse(code[201])

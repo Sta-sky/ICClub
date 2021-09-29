@@ -20,7 +20,7 @@ from django.contrib import admin
 from ICClub import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'admin', admin.site.urls),
     # http//127.0.0.1:8000/index
     url(r'^index$', views.index, name='index'),
     url(r'^cir$', views.circle),
@@ -29,12 +29,10 @@ urlpatterns = [
     url(r'^v1/activitys/', include('activitys.urls')),
     # 活动评论comment,公告文章评论comment
     url(r'v1/comment/', include('comment.urls')),
-
     # 登录注册地址
     url(r'^user/', include('users.urls')),
     # 保 测试地址
     url(r'^users/', include('users.urls')),
-
     # 活动
     url('^active/', include('activitys.urls')),
     url(r'^label', include('activitys.urls')),

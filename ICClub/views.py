@@ -1,8 +1,10 @@
+import os
+
 from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'lxj/templates/activitys.html')
+    return render(request, 'activity.html')
 
 
 def circle(request):

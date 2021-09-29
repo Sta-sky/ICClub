@@ -19,6 +19,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph
 
+from ICClub import settings
 from tools import chang_imgname
 from activitys.models import UserInfo, AdminArticle
 from tools.util import upload_img_save
@@ -26,7 +27,6 @@ from users.models import UserRegist
 from tools.response_code import code
 from tools.logging_checked import login_check
 from dwebsocket.decorators import accept_websocket
-from django.conf import settings
 from haystack.forms import ModelSearchForm
 from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponse
@@ -205,7 +205,6 @@ def get_new(request, page):
                 if settings.ACTIVITY_NUM > act_now_num:
                     settings.ACTIVITY_NUM -= 1
                     result = get_result(page, label)
-                    print(']]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]')
                     print(result)
                     request.websocket.send(json.dumps(result))
                 time.sleep(1)
@@ -416,8 +415,6 @@ def get_admin_articles(request):
     try:
         admin_user = UserRegist.objects.get(id=5)
         obj_articles = AdminArticle.objects.filter(user=admin_user).order_by('updated_time')[:4]
-        print(obj_articles)
-        print('obj_article:', len(obj_articles))
     except Exception as e:
         code[10009]['message'] = e
         return JsonResponse(code[10009])
@@ -512,6 +509,7 @@ class ActivityDetailView(View):
         result = {"code": 200, 'subject': act.subject, 'content': act.content,
                   'starttime': act.beg_time.strftime('%Y-%m-%d'),
                   'like': act.likes}
+        print(result)
         return JsonResponse(result)
 
 

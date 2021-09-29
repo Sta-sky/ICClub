@@ -11,10 +11,11 @@ $.ajax({
     success: function (response) {
         if (response.code == 200) {
             var articleData = response.data
+
             var html = ''
             html += '<div id="top"><p id="title">'+articleData.subject+'</p></div>'
-            html += '<div id="num"><div class="click_nums">'+ articleData.updated_time + '</div>'
-            html += '<div class="updated_time">浏览数:'+ articleData.click_nums + '</div></div>'
+            html += '<div id="num"><div class="updated_time">'+ articleData.updated_time + '</div>'
+            html += '<div class="click_nums">浏览数:'+ articleData.click_nums + '</div></div>'
             html += '<hr>'
             html += '<div id="img"><img src="' +IMG_URL+ articleData.act_img + '" alt="" class="act_img" width="600px" height="320px"></div>'
             html += '<div id="paragraph">'

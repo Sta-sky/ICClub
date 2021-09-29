@@ -20,6 +20,7 @@
     margin-top: 5px;
     width: 100%;
     font-size: 18px;
+    background-color: rgb(195, 195, 195)
 }
 
 #leave > #send {
@@ -45,14 +46,15 @@
     overflow: hidden;
 }
 #comment-all .cmt-list>li{
-    width: 740px;
+
+    width: 650px;
     position: relative;
     overflow: hidden;
     margin-bottom: 15px;
     padding: 8px;
-    border: solid 1px rgb(247, 202, 152);
-    opacity: 0.9;
+    border: solid 3px rgb(112, 128, 144);
 }
+
 #comment-all .cmt-list .cmt .cmt-nickname{
     left: 20px; 
     color: black;
@@ -65,23 +67,23 @@
     float: left;
     font-size: 18px;
     font-weight: 900;
-    color: rgb(70, 70, 70);
+    color: rgb(10, 25, 155)
 }
 
 #comment-all .cmt-list .cmt .cmt-time{
     float: right;
-    font-size: 18px;
+    font-size: 14px;
+    color: rgb(0 ,0, 0);
     margin: 0;
-    margin-right: 90px;
-    margin-bottom: 0;
+    margin-right: 105px;
+
 }
 #comment-all .cmt-list .cmt .cmt-text{
-    width: 680px;
-    font-size: 18px;
-    color: rgb(0, 0, 0)
-    padding: 5px 30px;
+    width: 650px;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+    padding: 15px 0px;
     overflow: hidden;
-    color: rgb(255, 255, 255);
 }
 }
 
@@ -104,14 +106,15 @@
     float: left;
     height: 30px;
     line-height: 30px;
+    padding-left: 10px;
 }
 
 #comment-all .review-all .review .nickname p {
     float: left;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 700;
-    color: rgb(255, 255, 255);
-    padding: 5px 10px;
+    color: rgb(0, 139, 139);
+    padding: 5px 5px;
 }
 
 #comment-all .review-all .review .nickname span{
@@ -120,28 +123,29 @@
 
 #comment-all .review-all .review .review-time{
     float: right;
-    font-size: 18px;
+    font-size: 14px;
     padding: 8px 10px;
+    color: rgb(0 ,0, 0);
     margin: 0;
-    margin-right: 15px;
+    margin-right: 45px;
     margin-bottom: 0;
 }
 
 #comment-all .review-all .review .review-text{
-    width: 640px;
+
+    width: 650px;
     color: black;
-    font-size: 18px;
-    padding: 10px 30px;
+    font-size: 15px;
+    padding: 15px 0px;
     overflow: hidden;
 }
 
 /* 回复样式结束 */
 /* 回复下拉窗样式开始 */
 #comment-all .review-btn{
-    font-size: 14px;
-    padding: 2px 8px;
-    margin-left: 8px;
-    color: khaki;
+    font-size: 12px;
+    float: right;
+    color: rgb(161, 23, 21);
 }
 
 #comment-all .re-text{

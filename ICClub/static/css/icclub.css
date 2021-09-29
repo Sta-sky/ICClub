@@ -1,11 +1,8 @@
 
 
 body{
-   /*opacity: 0.7;*/
    background: -webkit-gradient(linear, 20% 20%, 20% 100%, from(#749fc7), to(#b77fbe));
-   /* background-image: url('../images/background_img/25.jpg'); */
    background-size:100% 100%;background-attachment: fixed;
-   /* background: skyblue; */
 }
 
 #box1,#box2{
@@ -157,7 +154,7 @@ body{
     border-radius: 10px;
     float: left;
     overflow: hidden;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b083b6), to(#4fc2d1));
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b083b6), to(rgb(175, 215, 237)));
     margin-right: 20px;
     margin-left: 7%;
     
