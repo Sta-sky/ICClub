@@ -1,20 +1,21 @@
 var id = GetUrlString('act_id');
-var data = {'act_id': id};
 var token = window.localStorage.getItem('user_token');
 
 // 加载活动内容详情
 $.ajax({
-    type: 'POST',
-    url: SER_URL + 'active/detail',
+    type: 'GET',
+    url: SER_URL + 'active/detail?act_id=' + id,
     dataType: 'json',
     contentType: 'application/json',
     data: JSON.stringify(data),
     success: function (result) {
         if (result.code === 200) {
-            begtime = result.starttime;
-            $('#title').text(result.subject);
-            $('#nr').text(result.content);
-            $('#like').text(result.like);
+            console.log(result)
+            info = result.data
+            begtime = info.starttime;
+            $('#title').text(info.subject);
+            $('#nr').text(info.content);
+            $('#like').text(info.like);
             var res = '';
             var year = Number(begtime.split('-')[0]);
             var month = Number(begtime.split('-')[1]);

@@ -5,7 +5,7 @@ urlpatterns = [
     
     # TODO  活动相关
     url(r'^create$', views.Active.as_view()),                       # 创建活动
-    url(r'^new/(\d+)$', views.get_new),                             # 最新活动 http://127.0.0.1:8000/v1/activitys/index/hot
+    # url(r'^new/(\d+)$', views.get_new),                             # 最新活动 http://127.0.0.1:8000/v1/activitys/index/hot
     url(r'^history/(\d+)$', views.hyistorical_activities),          # 历史活动 http://127.0.0.1:8000/v1/activitys/history
     url(r'^index/hot$', views.ActHotIndex.as_view()),              # 最热活动
     url(r'^search/(\d+)$', views.activitySearchView),               # http://127.0.0.1:8000/v1/activitys//activ/search/1

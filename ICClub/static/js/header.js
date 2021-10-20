@@ -18,10 +18,8 @@ $(function () {
                 e.preventDefault();
                 window.localStorage.clear();
                 alert('退出登录');
-
                 window.location.reload();
                 window.location.href = 'index.html';
-
                 res = '<a id="login" href="login.html">' + 登录 + '</a><span><b>|</b></span>';
                 reg = res + '<a id="reg" href="regist.html">注册</a>';
                 $('.top_act').html(reg);
@@ -56,7 +54,6 @@ function removeFocus() {
 }
 
 
-// 创建活动入口
 $('#l3>a').on('click', function () {
     var user_name = window.localStorage.getItem('user_name');
     if (user_name) {
@@ -71,7 +68,7 @@ $('#l3>a').on('click', function () {
             },
             dataType: 'json',
             success: function (response) {
-                if (response.code != 200) {
+                if (response.code !== 200) {
                     alert(response.error)
                 } else {
                     window.location.href = 'createact.html'

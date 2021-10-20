@@ -19,10 +19,8 @@ class Mymiddle(MiddlewareMixin):
         import re
         import time
         target_time = time.time() - self.dic['time']
-        environment = request.environ
-        # print(environment)
+        environment = request.META
         target = environment['HTTP_USER_AGENT']
-        # print(target)
         id = request.META['REMOTE_ADDR']
         re_result = re.findall(r'^Mozilla/|^S', target, re.S | re.M)
         num = self.dic.get(id, 0)

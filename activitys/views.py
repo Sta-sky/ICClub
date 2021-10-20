@@ -5,13 +5,12 @@ import base64
 import pickle
 import random
 from urllib import parse
-from urllib.parse import quote
 
 import html2text
+from asgiref.sync import sync_to_async, async_to_sync
+from channels.layers import get_channel_layer
 from django.shortcuts import render
 from django_redis import get_redis_connection
-from haystack.inputs import AutoQuery
-from haystack.query import SearchQuerySet
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.pdfbase import pdfmetrics
@@ -26,8 +25,6 @@ from tools.util import upload_img_save
 from users.models import UserRegist
 from tools.response_code import code
 from tools.logging_checked import login_check
-from dwebsocket.decorators import accept_websocket
-from haystack.forms import ModelSearchForm
 from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponse
 from activitys.models import Activity, InterestTag
@@ -77,7 +74,7 @@ class Active(View):
         try:
             act = Activity.objects.create(user=user, tag=interest, subject=title, content=content,
                                           status=1, act_img=img_path, end_time=endtime, beg_time=starttime,
-                                          condition=condition, activ_address=address)
+                                          condition=condition, active_address=address)
         except Exception as e:
             print(e, '插入数据库异常')
             return JsonResponse(code[10001])
@@ -110,45 +107,46 @@ class Active(View):
                 print('redis写入失败', e)
                 act.delete()
                 return JsonResponse(code[10005])
-            # 每创建一个活动，全局活动数量 +1，便于websockte获取最新活动
-            settings.ACTIVITY_NUM += 1
             # 当前用户发起活动的数量增加一个
             userinfos = UserInfo.objects.get(id=user.userinfo.id)
             userinfos.sponsor_num = userinfos.sponsor_num + 1
             userinfos.save()
             result = {'code': 200, 'actid': act.id}
         except Exception as e:
-            print(e)
             act.delete()
             return JsonResponse(code[201])
+        channel_layer = get_channel_layer()
+        
+        online_list = get_result(page=1, label='')
+        async_to_sync(channel_layer.group_send)(f"active_1",
+                                                {"type": "send_info", "message": online_list})
         return JsonResponse(result)
 
 
 # 存取结果
 def get_result(page, label):
-    lab = parse.unquote(label)
-    if label:
-        # 根据传入的标签，查询对应的兴趣对象，最终根据兴趣id，去除活动表中的，创建相关兴趣的活动
-        labelobj = InterestTag.objects.filter(interests=lab)
-        if labelobj:
-            activity = Activity.objects.filter(status=1, tag=labelobj[0]).order_by('-created_time')[:80]
+    try:
+        if label:
+            # 根据传入的标签，查询对应的兴趣对象，最终根据兴趣id，去除活动表中的，创建相关兴趣的活动
+            labelobj = InterestTag.objects.filter(interests=label)
+            if labelobj:
+                activity = Activity.objects.filter(status=1, tag=labelobj[0]).order_by('-created_time')[:80]
+            else:
+                return code[10006]
         else:
-            return code[10006]
-    else:
-        # 如果没有label，表示是主页，不带tag，的页面刷新，所以：按创建时间倒叙取出活动
-        activity = Activity.objects.filter(status=1).order_by('-created_time')
-    if not activity:
-        return code[201]
-    # paginator 分页器对象， 第一个参数，对象列表，第二个此参数，每页显示的条数
-    paginator = Paginator(activity, 8)
+            # 如果没有label，表示是主页，不带tag，的页面刷新，所以：按创建时间倒叙取出活动
+            activity = Activity.objects.filter(status=1).order_by('-created_time')
+        # paginator 分页器对象， 第一个参数，对象列表，第二个此参数，每页显示的条数
+        paginator = Paginator(activity, 8)
+        # TODO 把 pagintor 存放在redis中 保存1天
+        redisname = 'new_act' + label
+        newact = get_redis_connection('newact')
+        newact.set(redisname, pickle.dumps(paginator), ex=60 * 60 * 24)
+        # 数据格式化，后返回结果
+        return make_result(paginator, page)
+    except Exception as e:
+        print(e)
     
-    # TODO 把 pagintor 存放在redis中 保存1天
-    redisname = 'new_act' + lab
-    newact = get_redis_connection('newact')
-    newact.set(redisname, pickle.dumps(paginator), ex=60 * 60 * 24)
-    # 数据格式化，后返回结果
-    return make_result(paginator, page)
-
 # 构造response并发送
 def make_result(paginator, page):
     # 页总数
@@ -162,53 +160,19 @@ def make_result(paginator, page):
         content = act.content
         title = act.subject
         imgname = chang_imgname.parse_imgname(act.act_img.name)
+        print(imgname)
         data.append({
             'id': act.id,
             'title': title,
             'content': content,
             'date': act.created_time.strftime('%Y-%m-%d'),
-            'actimg': imgname,
-            'label': act.tag.interests
+            'act_img': imgname,
+            'label': act.tag.interests,
+            'click_num': act.click_nums,
+            'update_time': act.updated_time.strftime('%Y-%m-%d')
         })
     result = {'code': 200, 'data': data, 'page': [now_page, numpages]}
     return result
-
-
-@accept_websocket
-def get_new(request, page):
-    """
-    获取主页跟标签页的最新活动信息 优先读取djredis
-    按时间排序 筛选最近发布的活动
-    把前80 名 放进django-redis
-    按每8条数据分页， 把对应page的内容返回
-    :return:
-    """
-    if request.method == 'GET':
-        label = request.GET.get('tag', '')
-        act_now_num = 0
-        if request.is_websocket():
-            # redis_activ = 'new_act' + label
-            # newact = get_redis_connection('newact')
-            # print(newact)
-            # TODO 此处优化redis中拿去数据 ，要跟mysql中同步，
-            # if newact.exists(redis_activ):
-            #     paginator = pickle.loads(newact.get(redis_activ))
-            #     result = make_result(paginator, page)
-            # else:
-            result = get_result(page, label)
-            if not result:
-                result = code[10007]
-            request.websocket.send(json.dumps(result))
-
-            while True:
-                # 检查是否有新消息
-                if settings.ACTIVITY_NUM > act_now_num:
-                    settings.ACTIVITY_NUM -= 1
-                    result = get_result(page, label)
-                    print(result)
-                    request.websocket.send(json.dumps(result))
-                time.sleep(1)
-        return JsonResponse(code[10506])
 
 
 def hyistorical_activities(request, page):
@@ -266,21 +230,25 @@ class ActHotIndex(View):
         """
         # 0. 获取所有品类
         try:
-            all_list = Activity.objects.all().order_by('-click_nums')[:3]
+            all_list = Activity.objects.all().order_by('-click_nums')
+            if len(all_list) > 2:
+                all_list = all_list[:3]
         except Exception as e:
-            return JsonResponse[code[10507]]
+            return JsonResponse(code[10507])
         # 1. 首页最新活动默认显示三个
-        index_data = []
-        for item in all_list:
-            index = {}
-            index['act_id'] = str(item.id)
-            index['subject'] = item.subject
-            imgname = chang_imgname.parse_imgname(item.act_img.name)
-            index['imgurl'] = imgname
-            index_data.append(index)
-        code[200]['data'] = index_data
-        return JsonResponse(code[200])
-
+        try:
+            index_data = []
+            for item in all_list:
+                index = {}
+                index['act_id'] = str(item.id)
+                index['subject'] = item.subject
+                imgname = chang_imgname.parse_imgname(item.act_img.name)
+                index['imgurl'] = imgname
+                index_data.append(index)
+            code[200]['data'] = index_data
+            return JsonResponse(code[200])
+        except Exception as e:
+            print(e, '===')
 
 # 直接从MySQL中获取数据
 def active_users(request):
@@ -413,10 +381,10 @@ def get_admin_articles(request):
     # 127.0.0.1:8000/v1/activitys/article
     # 从数据库获取管理员发布的最新四篇文章
     try:
-        admin_user = UserRegist.objects.get(id=5)
+        admin_user = UserRegist.objects.get(id=2)
         obj_articles = AdminArticle.objects.filter(user=admin_user).order_by('updated_time')[:4]
     except Exception as e:
-        code[10009]['message'] = e
+        code[10009]['message'] = str(e)
         return JsonResponse(code[10009])
 
     # 将数据封装在列表中
@@ -433,6 +401,7 @@ def get_admin_articles(request):
             article_info['user_id'] = article.user.id
             article_info['subject'] = article.subject
             article_info['content'] = article.content
+            article_info['label'] = article.tag_id.interests
             article_info['act_img'] = str(article.act_img)
             article_info['click_nums'] = article.click_nums
             article_info['created_time'] = str(article.created_time.date())
@@ -485,32 +454,43 @@ def article_info(request):
 
 class ActivityDetailView(View):
     def get(self, request):
-        pass
-
-    def post(self, request):
         """
-        活动详情信息获取
-        """
+          活动详情信息获取
+          """
         # 获取act_id
-        data = request.body
-        data = json.loads(data)
-        print('进来了')
-        act_id = int(data.get('act_id'))
+        act_id = request.GET.get('act_id')
         if act_id is None:
             return JsonResponse(code[10003])
         try:
             act = Activity.objects.get(id=act_id)
-            act.click_nums  = act.click_nums + 1
+            act.click_nums = act.click_nums + 1
             act.save()
         except Exception as e:
             print('进来', e)
             code[10003]['message'] = e
             return JsonResponse(code[10003])
-        result = {"code": 200, 'subject': act.subject, 'content': act.content,
-                  'starttime': act.beg_time.strftime('%Y-%m-%d'),
-                  'like': act.likes}
+        result = {
+            "code": 200,
+            'data': {
+                'subject': act.subject,
+                'user_id': act.user_id,
+                'content': act.content,
+                'starttime': act.beg_time.strftime('%Y-%m-%d'),
+                'like': act.likes,
+                'click_num': act.click_nums,
+                'updated_time': act.updated_time.strftime('%Y-%m-%d'),
+                'created_time': act.created_time.strftime('%Y-%m-%d'),
+                'act_img': act.act_img.name,
+            
+            },
+            'message': 'success'
+        }
         print(result)
         return JsonResponse(result)
+
+    def post(self, request):
+        pass
+  
 
 
 
@@ -529,7 +509,6 @@ def activitySearchView(request, page_now):
             search_key = request.POST.get('q')
             tag_key = request.POST.get('tag')
             print('进来了哇')
-            print(search_key, tag_key, '[[[[[[[[')
             if not search_key:
                 return JsonResponse(code[10010])
             # 如果传入的tag有值， 表明是从table页发过来的请求；获取对应tag中的所有带有关键字的活动
@@ -559,7 +538,6 @@ def activitySearchView(request, page_now):
                     sqs = SearchQuerySet().filter(content=AutoQuery(query)).highlight(pre_tags=['<strong>'], post_tags=['</strong>'])
                     if not len(sqs):
                         results = return_all_activ(tag, page_now)
-                        print(results)
                         return JsonResponse(results)
                 else:
                     return JsonResponse(code[10011])
@@ -569,7 +547,6 @@ def activitySearchView(request, page_now):
                     return JsonResponse(return_all_activ(tag, page_now))
             all_page = return_page_num(sqs)
             result = {"code": 200, "data": res_data_list, 'page': [int(page_now), all_page]}
-            print(result)
             return JsonResponse(result)
         except Exception as e:
             print(e)
@@ -624,7 +601,6 @@ def parse_sqs_all_type(sqs):
     res_search_list = []
     for search_result_obj in sqs:
         res_search_dic = {}
-        print(search_result_obj.id.split('.')[2])
         res_search_dic["act_id"] = search_result_obj.id.split('.')[2]
         res_search_dic["tag"] = search_result_obj.tag.split(':')[2]
         res_search_dic["subject"] = search_result_obj.subject
@@ -632,12 +608,10 @@ def parse_sqs_all_type(sqs):
         try:
             activ_model = Activity.objects.filter(id=res_search_dic["act_id"])[0]
         except Exception as e:
-            print(e, ']]]]]]]]]]]]]]]]]')
             return JsonResponse(code[10013])
         res_search_dic["imgurl"] = activ_model.act_img.name
         res_search_dic['date'] = activ_model.created_time.strftime('%Y-%m-%d')
         res_search_list.append(res_search_dic)
-        print(res_search_dic)
     return res_search_list
 
 
