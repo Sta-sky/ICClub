@@ -3,7 +3,6 @@ from django.contrib import admin
 # Register your models here.
 from users.models import UserRegist, WeiboUser
 
-print('============')
 class UserRegist_Manager(admin.ModelAdmin):
     # 定义列表也显示的字段
     list_display = ['id', 'username', 'email', 'phone', 'isActive', 'create_time', 'update_time']

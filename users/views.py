@@ -22,21 +22,19 @@ def user_info(request):
     if token == 'null':
         # 没有token
         user_id = request.GET.get('id')
-        print(user_id, '用户id')
         if not user_id:
             return JsonResponse({'code': 404, 'message': '页面不存在'})
         # 不是本人登录
         data['is_self'] = 'no'
         # 从数据库中提取数据
         res_data = get_date(data=data, user_id=user_id)
-        print(res_data)
         data = json.loads(json.dumps(dict(res_data), cls=DateEnconding))
         result = {'code': 200, 'data': data}
-        print(result)
         print('NOT 本人 登录返回')
         return JsonResponse(result, safe=False)
     # 有token 用户已登录
     elif token:
+        print('token')
         res = judge_token_expire(token)
         if not res:
             return JsonResponse(code[10201])
@@ -48,7 +46,6 @@ def user_info(request):
         # 获取用户对象
         try:
             user_1 = UserRegist.objects.filter(id=user_id)[0]
-            print(user_1.username)
             # 判断是否是本人登录
             if username == user_1.username:
                 data['is_self'] = 'yes'
@@ -68,60 +65,49 @@ def user_info(request):
 def get_date(data, user_id):
     try:
         user_info = UserInfo.objects.get(user_id=user_id)
-        print(user_info)
     except Exception as e:
         print(e, '3333333333')
         return {'code': 10122, 'message': '该用户不存在'}
-    # print(user_info.portrait)
-    data["nickname"] = user_info.nickname
-    data["introduction"] = judge_null_data(user_info.introduction)
-    data["gender"] = judge_null_data(user_info.gender)
+    user_dic = {}
+    user_dic["nickname"] = user_info.nickname
+    user_dic["introduction"] = judge_null_data(user_info.introduction)
+    user_dic["gender"] = judge_null_data(user_info.gender)
     if not user_info.birth:
-        data["birth"] = user_info.created_time.strftime('%Y-%m-%d')
+        user_dic["birth"] = user_info.created_time.strftime('%Y-%m-%d')
     else:
-        data["birth"] = user_info.birth.strftime('%Y-%m-%d')
-        print(data['birth'])
-    data["city"] = judge_null_data(user_info.city)
-    data["url"] = user_info.portrait.name
-    data["credit"] = user_info.credit
-    data["level"] = user_info.level
-    data["logins_days"] = cal_num(user_info.login_days)
-    data["sponson_num"] = cal_num(user_info.sponsor_num)
-    data["participat_num"] = cal_num(user_info.participate_num)
-    data["likes"] = cal_num(user_info.likes)
-    data["interest"] = []
+        user_dic["birth"] = user_info.birth.strftime('%Y-%m-%d')
+    user_dic["city"] = judge_null_data(user_info.city)
+    user_dic["url"] = user_info.portrait.name
+    user_dic["credit"] = user_info.credit
+    user_dic["level"] = user_info.level
+    user_dic["logins_days"] = cal_num(user_info.login_days)
+    user_dic["sponson_num"] = cal_num(user_info.sponsor_num)
+    user_dic["participat_num"] = cal_num(user_info.participate_num)
+    user_dic["likes"] = cal_num(user_info.likes)
+    user_dic["interest"] = []
     for i in user_info.interest.all():
-        data['interest'].append(('%s ' % i.interests))
-        print(data['interest'])
+        user_dic['interest'].append(('%s ' % i.interests))
     # 发起的活动
     # 获取对象发起的所有活动
+    data['user_info'] = user_dic
     try:
+        act_list = []
         user_act = Activity.objects.filter(user_id=user_id).order_by('-created_time')[:10]
-        print(user_act)
-        data["act_id"] = []
-        data["tag"] = []
-        data["subject"] = []
-        data["create_time"] = []
-        data["click_num"] = []
-        data["update_time"] = []
-        data["status"] = []
-        if len(user_act) == 0:
-            data = get_active_join(data=data, user_info=user_info)
-            return data
+        data = get_active_join(data=data, user_info=user_info)
         for i in user_act:
-            print(type(user_act))
-            print(user_act)
-            data["act_id"].append(i.id)
-            data["tag"].append(i.tag.interests)
-            data["subject"].append(i.subject)
-            data["create_time"].append(str(i.created_time.date()))
-            data["click_num"].append(cal_num(i.click_nums))
-            data["update_time"].append(str(i.updated_time.date()))
-            data["status"].append(i.status)
+            act_dic = {}
+            act_dic["act_id"] = i.id
+            act_dic["tag"] = i.tag.interests
+            act_dic["subject"] = i.subject
+            act_dic["create_time"] = str(i.created_time.date())
+            act_dic["click_num"] = cal_num(i.click_nums)
+            act_dic["update_time"] = str(i.updated_time.date())
+            act_dic["status"] = i.status
+            act_list.append(act_dic)
+        data['create_act_info'] = act_list
     except Exception as e:
         print(e)
         return {'code': 10111, 'message': e}
-    data = get_active_join(data=data, user_info=user_info)
     return data
 
 
@@ -129,31 +115,21 @@ def get_active_join(data, user_info):
     # 获取该用户对象参与的所有活动对象
     try:
         user_part = user_info.activityparticipant_set.all()
-        data["act_id_p"] = []
-        data["tag_p"] = []
-        data["subject_p"] = []
-        data["create_time_p"] = []
-        data["click_num_p"] = []
-        data["update_time_p"] = []
-        data["status_p"] = []
-        data["collection"] = []
-        if len(user_part) == 0:
-            return data
+        act_list = []
         for up in user_part:
-            data["act_id_p"].append(up.activity.id)
-            data["tag_p"].append(up.activity.tag.interests)
-            data["subject_p"].append(up.activity.subject)
-            data["create_time_p"].append(up.created_time)
-            data["click_num_p"].append(up.activity.click_nums)
-            data["update_time_p"].append(up.updated_time)
-            data["collection"].append(up.activity.collection)
+            act_dic = {}
+            act_dic["act_id_p"].append(up.activity.id)
+            act_dic["tag_p"].append(up.activity.tag.interests)
+            act_dic["subject_p"].append(up.activity.subject)
+            act_dic["create_time_p"].append(up.created_time)
+            act_dic["click_num_p"].append(up.activity.click_nums)
+            act_dic["update_time_p"].append(up.updated_time)
+            act_dic["collection"].append(up.activity.collection)
+            act_list.append(act_dic)
+        data['join_act_info'] = act_list
     except Exception as e:
-        print(e)
         return {'code': 10112, 'message': e}
-    print('-=-=-=-=-=-=-=******************')
-    print(data)
     return data
-
 
 def judge_null_data(data):
     if not data:

@@ -55,7 +55,7 @@ def login_view(request):
         # 签发token
         token = make_token(username)
         # 生成的token为字节串  需要转换为字符串
-        result = {'code': 200, 'username': username, 'id': users.id, 'token': token.decode()}
+        result = {'code': 200, 'username': username, 'id': users.id, 'token': token}
         return JsonResponse(result)
 
 

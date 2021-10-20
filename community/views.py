@@ -4,7 +4,6 @@ from .models import Article
 from dwebsocket.decorators import accept_websocket
 from django.core.paginator import Paginator
 
-@accept_websocket
 def community_index(request):
 	if request.is_websockte():
 		currnet_page = request.GET.get('page')

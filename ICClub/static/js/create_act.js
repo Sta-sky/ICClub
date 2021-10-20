@@ -50,7 +50,7 @@ $('#add_act').on('click', function () {
     let img_data = ''
     let reads = new FileReader();
     var files = document.getElementById('myfile').files; 
-    if (files.length == 0){
+    if (files.length === 0){
         console.log('用户没有上传图片')
         img_data = ''
         var data = {
@@ -112,6 +112,7 @@ function request(data, token) {
         }
     });
 }
+
 
 $.ajax({
     type: 'GET',

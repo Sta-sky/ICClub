@@ -24,7 +24,7 @@ redis_obj = get_redis_connection('user')
 # 网站用户注册
 def regist_view(request):
     if request.method == "GET":
-        return render(request, '../templates/dyy/../regist.html')
+        pass
 
     if request.method == 'POST':
         # 前端使用了stringify  转换成了json的字符串 所以  需要loads（）一下  转换成json对象
@@ -83,7 +83,7 @@ def regist_view(request):
         except Exception as e:
             code[10208]['message'] = f'邮箱发送失败 !请核对邮箱, {e}'
             return JsonResponse(code[10208])
-        result = {'code': 200, 'username': username, 'id': user.id, 'token': token.decode()}
+        result = {'code': 200, 'username': username, 'id': user.id, 'token': token}
         return JsonResponse(result)
 
 
@@ -158,7 +158,7 @@ def weibo_regist_grant(request):
                 # 以前登录过绑定过 正常签发token
                 token = make_token(users.username)
                 print(token)
-                result = {'code': 200, 'username': users.username, 'data': token.decode()}
+                result = {'code': 200, 'username': users.username, 'data': token}
                 return JsonResponse(result)
             else:
                 # 之前微博登陆过，但是没有执行微博绑定注册
@@ -218,7 +218,7 @@ def weibo_bind(request):
         # 签发token
         token = make_token(info_dic['username'])
         print(token)
-        result = {'code': '200', 'username': info_dic['username'], 'token': token.decode()}
+        result = {'code': '200', 'username': info_dic['username'], 'token': token}
         return JsonResponse(result)
 
 

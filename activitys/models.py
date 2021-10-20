@@ -71,7 +71,7 @@ class Activity(models.Model):
     version = models.IntegerField(default=0, verbose_name="库存版本")
     is_visiable = models.BooleanField(default=True, verbose_name='是否可见')
     condition = models.SmallIntegerField(verbose_name='活动人数条件', default=10)
-    activ_address = models.CharField(max_length=100, verbose_name='活动地点', default=None)
+    active_address = models.CharField(max_length=100, verbose_name='活动地点', default=None)
     likes = models.IntegerField(default=0, verbose_name='点赞数')
     collection = models.IntegerField(default=0, verbose_name='收藏数')
 
@@ -79,9 +79,6 @@ class Activity(models.Model):
         db_table = 'activity'
         # 该对象复数形式的名称(复数), 用于显示在admin管理界面中
         verbose_name_plural = '活动创建表'
-
-    def __str__(self):
-        return 'id:%s activity_subject:%s' % (self.id, self.subject)
 
 
 # 官方活动创建表 官方 官方

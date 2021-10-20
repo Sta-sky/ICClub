@@ -2,13 +2,12 @@
  var tags = encodeURI(encodeURI(tag))
 
 function webrequestpage(page) {
-    act_nh = 'new'
+       act_nh = 'new'
 // 页面加载初始化请求第一页
     if (typeof WebSocket != 'undefined') {
             console.log("您的浏览器支持Websocket通信协议")
         // 创建websockter对象
-        ws = new WebSocket(WEBSOCKET_URL + 'active/new/' + page + '?tag=' + tag)
-
+        ws = new WebSocket(WEBSOCKET_URL + 'active/new/' + page+ '?tag=' + tag)
         // 开始通信时的处理
         ws.onopen = function () {
             // 最新活动点击事件
@@ -20,12 +19,11 @@ function webrequestpage(page) {
         }
 
         ws.onmessage = function (mes) {
-
-            // console.log(JSON.parse(mes.data).data)
+            console.log('websocket 收到消息')
+            var response = JSON.parse(mes.data)
             // 将数据转换成JSON格式
-            var respon = JSON.parse(mes.data)
-            if (respon.code === 200) {
-                var message = respon.data
+            if (response.code === 200) {
+                var message = response.data
                 var res = ''
                 $.each(message, function (index, val) {
                     res += '<div id="new_act_">'
@@ -45,7 +43,7 @@ function webrequestpage(page) {
                     res += '</div></div></div>'
                 })
                 $('#b2_l2').html(res)
-                var pagearr = JSON.parse(mes.data).page
+                var pagearr = response.page
                 getpage(pagearr[0], pagearr[1])
             } else {
                 $('#b2_l2').html('')
