@@ -23,68 +23,67 @@ redis_obj = get_redis_connection('user')
 
 # 网站用户注册
 def regist_view(request):
-    if request.method == "GET":
-        pass
+    if request.method != 'POST':
+        return
 
-    if request.method == 'POST':
-        # 前端使用了stringify  转换成了json的字符串 所以  需要loads（）一下  转换成json对象
-        data = request.body
-        # 将json字符串转换成为 接送对象
-        json_data = json.loads(data)
-        if not json_data:
-            return JsonResponse(code[10209])
-        # TODO  邮箱正则
-        username = json_data.get('username')
-        password = json_data.get('password')
-        passwords = json_data.get('passwords')
-        email = json_data.get('email')
-        phone = json_data.get('phone')
-        user_code = json_data.get('code')
-        if not username or not password or not passwords or not phone or not user_code:
-            code[10208]['message'] = '注册信息不完整'
-            return JsonResponse(code[10208])
-        if not email_check(email):
-            code[10208]['message'] = '邮箱格式错误'
-            return JsonResponse(code[10208])
-    
-        # TODO 此处加手机验证码 判断
-        # verify_result = verify_sms_code(redis_obj, username, phone, user_code)
-        # if verify_result:
-        #     return verify_result
-        # 判断两次密码是否一致
-        passwd_one = decode_md5(password)
-        passwd_tow = decode_md5(passwords)
-        if passwd_one != passwd_tow:
-            code[10208]['message'] = '两次密码不一致'
-            return JsonResponse(code[10208])
-        # 从数据库中过滤  是否已经有了前端传来的username
-        user = UserRegist.objects.filter(username=username)
-        if user:
-            code[10208]['message'] = '用户名已经存在,请换个昵称试试'
-            return JsonResponse(code[10208])
-        try:
-            user = UserRegist.objects.create(username=username, password=passwd_one, email=email,
-                                             phone=phone, code=user_code)
-            UserInfo.objects.create(nickname=username, user_id=user.id)
-        except Exception as e:
-            code[10208]['message'] = '插入用户数据失败'
-            return JsonResponse(code[10208])
-        # 签发token
-        token = make_token(username)
-        # TODO 激活邮件
-        random_num = random.randint(1000, 9999)
-        code_random = username + '_' + str(random_num)
-        base_code = base64.urlsafe_b64encode(code_random.encode()).decode('utf-8')
-        # 将数据存入缓存中  等待用户发送请求验证  激活
-        redis_obj.set('email_code%s' % username, base_code)
-        email_url = settings.EMAIL_URL.format(base_code)
-        try:
-            send_act_email.delay(email, email_url)
-        except Exception as e:
-            code[10208]['message'] = f'邮箱发送失败 !请核对邮箱, {e}'
-            return JsonResponse(code[10208])
-        result = {'code': 200, 'username': username, 'id': user.id, 'token': token}
-        return JsonResponse(result)
+    # 前端使用了stringify  转换成了json的字符串 所以  需要loads（）一下  转换成json对象
+    data = request.body
+    # 将json字符串转换成为 接送对象
+    json_data = json.loads(data)
+    if not json_data:
+        return JsonResponse(code[10209])
+    # TODO  邮箱正则
+    username = json_data.get('username')
+    password = json_data.get('password')
+    passwords = json_data.get('passwords')
+    email = json_data.get('email')
+    phone = json_data.get('phone')
+    user_code = json_data.get('code')
+    if not username or not password or not passwords or not phone or not user_code:
+        code[10208]['message'] = '注册信息不完整'
+        return JsonResponse(code[10208])
+    if not email_check(email):
+        code[10208]['message'] = '邮箱格式错误'
+        return JsonResponse(code[10208])
+
+    # TODO 此处加手机验证码 判断
+    # verify_result = verify_sms_code(redis_obj, username, phone, user_code)
+    # if verify_result:
+    #     return verify_result
+    # 判断两次密码是否一致
+    passwd_one = decode_md5(password)
+    passwd_tow = decode_md5(passwords)
+    if passwd_one != passwd_tow:
+        code[10208]['message'] = '两次密码不一致'
+        return JsonResponse(code[10208])
+    # 从数据库中过滤  是否已经有了前端传来的username
+    user = UserRegist.objects.filter(username=username)
+    if user:
+        code[10208]['message'] = '用户名已经存在,请换个昵称试试'
+        return JsonResponse(code[10208])
+    try:
+        user = UserRegist.objects.create(username=username, password=passwd_one, email=email,
+                                         phone=phone, code=user_code)
+        UserInfo.objects.create(nickname=username, user_id=user.id)
+    except Exception as e:
+        code[10208]['message'] = '插入用户数据失败'
+        return JsonResponse(code[10208])
+    # 签发token
+    token = make_token(username)
+    # TODO 激活邮件
+    random_num = random.randint(1000, 9999)
+    code_random = username + '_' + str(random_num)
+    base_code = base64.urlsafe_b64encode(code_random.encode()).decode('utf-8')
+    # 将数据存入缓存中  等待用户发送请求验证  激活
+    redis_obj.set('email_code%s' % username, base_code)
+    email_url = settings.EMAIL_URL.format(base_code)
+    try:
+        send_act_email.delay(email, email_url)
+    except Exception as e:
+        code[10208]['message'] = f'邮箱发送失败 !请核对邮箱, {e}'
+        return JsonResponse(code[10208])
+    result = {'code': 200, 'username': username, 'id': user.id, 'token': token}
+    return JsonResponse(result)
 
 
 # 微博地址发送前端
@@ -178,8 +177,7 @@ def weibo_bind(request):
         uid = js_data.get('uid')
         if not uid:
             return JsonResponse(code[10209])
-        info_dic = {}
-        info_dic['username'] = js_data.get('username')
+        info_dic = {'username': js_data.get('username')}
         info_dic['passwd_one'] = js_data.get('password')
         info_dic['passwd_tow'] = js_data.get('passwords')
         info_dic['email'] = js_data.get('email')
@@ -195,10 +193,10 @@ def weibo_bind(request):
             if key == 'code_sms' and type(key) != int or len(key) != 11:
                 code[10208]['message'] = '验证码为空'
                 return JsonResponse(code[10208])
-                
+
         passwd_one = decode_md5(info_dic['passwd_one'])
         passwd_tow = decode_md5(info_dic['passwd_tow'])
-        
+
         if passwd_one != passwd_tow:
             code[10208]['message'] = '密码不一致，请重新输入'
             return JsonResponse(code[10208])
@@ -237,9 +235,7 @@ def make_token(username, exp=3600 * 24):
 # 邮箱验证函数
 def email_check(s):
     a = re.findall(r'^[a-z0-9A-Z]{1,10}@[0-9a-z]\.{2,4}com|cn', s)
-    if a == None:
-        return False
-    return True
+    return a is not None
 
 
 
@@ -252,8 +248,7 @@ def get_weibo_login_url():
     params = {'response_type': 'code', 'client_id': settings.WEIBO_CLIENT_ID,
               'redirect_uri': settings.WEIBO_REDIRECT_URI, 'scope': ''}
     weibo_url = 'https://api.weibo.com/oauth2/authorize?'
-    url = weibo_url + urlencode(params)
-    return url
+    return weibo_url + urlencode(params)
 
 
 def get_access_token(code):

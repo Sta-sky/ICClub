@@ -124,8 +124,14 @@ class Find_passwd(View):
 
 # 邮箱验证正则
 def isEmail(email):
-    if len(email) > 7:
-        if re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) != None:
-            return 1
+    if (
+        len(email) > 7
+        and re.match(
+            "^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$",
+            email,
+        )
+        != None
+    ):
+        return 1
     return 0
     

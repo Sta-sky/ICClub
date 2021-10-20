@@ -8,8 +8,7 @@ def parse_imgname(img):
         img_name = list_url[-1].split('.')
         new_name = parse.quote(img_name[0]) + '.' + img_name[1]
         list_left.append(new_name)
-        result = '/'.join(list_left)
-        return result
+        return '/'.join(list_left)
     else:
         return None
 
