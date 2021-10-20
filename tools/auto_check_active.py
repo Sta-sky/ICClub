@@ -3,10 +3,10 @@ from datetime import datetime
 import threading
 from threading import Timer
 from django_redis import get_redis_connection
-from activ.models import Activity
+from activitys.models import Activity
 
 def auto_check():
-    redis_conn = get_redis_connection('activity')
+    redis_conn = get_redis_connection('activitys')
     redis_conn=json.dumps(redis_conn)
     keys = redis_conn.keys()
     for item in keys:

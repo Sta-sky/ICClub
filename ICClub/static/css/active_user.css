@@ -1,16 +1,13 @@
 /* 活动达人标签开始 */
 .actv_user{
-    width: 290px;
+    width: 245px;
     height: 80px;
     padding: 5px;
-    border-radius: 6px;
-    background-color: #be465b;
+    border-radius: 10px;
+    background-color: rgba(140, 65, 140, 0.9);
     margin: 8px 0 20px 0;
-    /* margin-bottom: 20px; */
     position: relative;
-    /* overflow: hidden; */
-    /* border: solid 1px royalblue; */
-    /* z-index: 5; */
+
 }
 
 .actv_user .hd_pic{
@@ -47,25 +44,30 @@
     /* border: solid 1px blue; */
 }
 .actv_user ._user .gender{
-    float: left;
-    width: 18px;
+    float: right;
+    width: 20px;
     height: 18px;
-    margin-top:2px; 
-    /* position: absolute;
-    left: 10px; */
-
+    margin-right: 100px;
+    border-radius: 8px 3px 8px 8px;
 }
+
 .actv_user .sign_words{
     position: absolute;
+    color: rgb(191, 207, 211);
+    font-weight: 600px;
     left: 90px;
     top: 33px;
     width: 180px;
     height: 18px;
-    /* border: solid 1px blue; */
     font-size: 14px;
+    font-weight: 600;
+    text-overflow: -o-ellipsis-lastline;
     overflow: hidden;
-    text-overflow: ellipsis; /**显示省略号**/
-    /* -webkit-line-clamp: 2; * 显示的行数 * */
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
     /* white-space: nowrap; */
 }
 .actv_user #tags{
@@ -77,15 +79,11 @@
     height: 19px;
     margin: 0;
     padding: 0;
-    /* border: solid 1px red; */
 }
 .actv_user .us_tag{
-    /* position: absolute;
-    right: 15px;
-    bottom:20px; */
-    /* border:solid 1px red; */
+
     overflow: hidden;
-    padding: 0;
+    padding-left: 60px;
     margin: 0 auto;
     color: #fff;
 }
@@ -93,25 +91,27 @@
     list-style-type: none;
     float: left;
     font-size: 14px;
-    width:55px;
+    width:40px;
     height: 18px;
-    /* padding: 1px; */
-    margin-right: 5px;
+    color: rgb(240, 245, 200);
     line-height: 18px;
-    background-color: #393282;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#806cce), to(#16554c));
     /* border: solid 1px red; */
     border-radius: 9px;
     text-align: center;
+    font-weight: 600;
+
 }
 
 .actv_user .us_atv{
     position: absolute;
-    right: 30px;
+    right: 85px;
     bottom:3px;
     /* border:solid 1px red; */
     overflow: hidden;
     padding: 0;
     font-size:14px;
-    color: #c0ff29;
+    color: yellow;
+    font-weight: 600;
 }
 /* 活动达人标签结束 */

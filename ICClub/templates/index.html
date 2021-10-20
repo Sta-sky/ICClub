@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ICClub首页</title>
-    <link rel="shortcut icon " type="images/x-icon" href="../static/images/favicon1.png">
-    <!-- <link rel="stylesheet" href="../static/css/bkground.css"> -->
+    <link rel="shortcut icon " type="images/x-icon" href="../static/images/favicon.ico">
+<!--    <link rel="shortcut icon" href="source/logo.ico" type="image/x-icon" /> -->
     <link rel="stylesheet" href="../static/css/general.css">
     <link rel="stylesheet" href="../static/css/header.css">
     <link rel="stylesheet" href="../static/css/icclub.css">
@@ -18,7 +18,14 @@
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/tool_kit.js"></script>
 
-
+    <style>
+        strong {
+            color:red;
+            background-color: white;
+            font-weight: 900;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
 <!-- 背景图片 -->
@@ -90,7 +97,7 @@
                 <span id="z_new_act">最新活动</span>
                 <span id="z_his_act">历史活动</span>
                 <div class="search">
-                    <img src="../static/images/search_ico.png" alt="">
+                    <img class="search_submit" src="../static/images/icon/search_ico.png" alt="">
                     <input id="keyword" name="keyword" placeholder="请输入搜索条件" type="text" maxlength="60">
                     <button type="submit" class="btn-submit">搜索</button>
                 </div>
@@ -169,7 +176,10 @@
     <script src="/static/js/tips.js"></script>
 
     <script>
+
         $("#foot").load("footer.html");
+        // 主页搜索点击事件
+
     </script>
 
 

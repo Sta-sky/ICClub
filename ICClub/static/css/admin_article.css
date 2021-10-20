@@ -2,7 +2,7 @@
 /* 推荐 */
 #adminArticle {
     position: relative;
-    width: 1200px;
+    width: 85%;
     height: 320px;
     overflow: hidden;
     margin: 0 auto;
@@ -69,7 +69,6 @@
     font: 12px/1.5 tahoma,arial,"\5b8b\4f53";
     -webkit-font-smoothing: antialiased;
     color: #999;
-
     font-family: "Microsoft YaHei",SimSun,'\5b8b\4f53',sans-serif;
     /*margin: 0;*/
     padding: 0;
@@ -96,7 +95,7 @@
 
 .article .act_img{
     float: left;
-    width: 600px;
+    width: 35%;
     height: 320px;
 }
 
@@ -106,7 +105,7 @@
     position: relative;
     /* top: 0; */
     /* right: 0; */
-    width: 600px;
+    width: 65%;
     height: 320px;
     /* border: solid 2px blue; */
     box-sizing: border-box;
@@ -141,17 +140,16 @@
 
 .tip .content {
     color: #191a29;
+    width: 65%;
     position: absolute;
     margin: 20px 18px;
     text-align: left;
-
+    font-family: "楷体","楷体_GB2312"; 
     font-size: 18px;
-    height: 105px;
+    height: 120px;
     padding: 0 30px;
-    /* border:solid 1px blue; */
     overflow: hidden;
     text-overflow: ellipsis;
-    /* white-space:nowrap; */
 }
 
 

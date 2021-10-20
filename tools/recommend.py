@@ -28,7 +28,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 #     {'游泳': 1, '登山': 1, '音乐': 7, 'IT': 9, '二次元': 1, '动漫': 7},
 #     {'跑步': 1, '音乐': 1}
 # ]
-from activ.models import Activity, UserInfo, InterestTag
+from activitys.models import Activity, UserInfo, InterestTag
 
 
 # 1.构建用户-->兴趣标签的数据结构

@@ -1,9 +1,6 @@
 import json
-from django.conf import settings
 from django.http import JsonResponse
-from activ.models import UserInfo
-
-# from django_redis import get_redis_connection
+from activitys.models import UserInfo
 
 
 def create_activity_check(func):

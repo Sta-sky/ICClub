@@ -81,6 +81,20 @@ $('#lab_btn').on('click', function () {
     get_label(loginName)
 })
 
-get_label()
 
+function static_table(){
+
+        var nums = LOCALLABELLIST.slice(0, 8);
+        var mes = ''
+        var label_list = []
+        $.each(nums, function (index, val) {
+            tit_url = 'label.html?sub=' + val
+            mes += '<li><a' + ' href=' + tit_url + '>' + val + '</a></li>'
+        })
+
+        $('#lab').html(mes)
+    }
+
+// 页面静态标签
+static_table()
 

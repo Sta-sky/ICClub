@@ -69,7 +69,7 @@ $.ajax({
                 for (var j = 0; j < data.tag_p.length; j++) {
                     res5 += '<div class="tz_r">';
                     res5 += '<ul>';
-                    res5 += '<li class="l1">[ <a class="label" href=label.html?sub=' + encodeURI(encodeURI(data.tag_p[i])) + '>' + data.tag_p[i] + '</a> ] ' + '<a class="title" href="activity.html?act_id=' + data.act_id_p[i] + '">' + data.subject_p[i] + '</a></li>';
+                    res5 += '<li class="l1">[ <a class="label" href=label.html?sub=' + encodeURI(encodeURI(data.tag_p[j])) + '>' + data.tag_p[j] + '</a> ] ' + '<a class="title" href="activity.html?act_id=' + data.act_id_p[j] + '">' + data.subject_p[j] + '</a></li>';
                     res5 += '<div><span>浏览 :' + data.click_num_p[j] + '   发帖 : ' + data.create_time_p[j] + '</span>';
                     res5 += '<span>回复 :' + data.collection[j] + '   最新评论 : ' + data.update_time_p[j] + '</span>';
                     res5 += '</div></ul>';
@@ -78,8 +78,9 @@ $.ajax({
                 $('#tz_r').html(res5);
             }
 
-        } else {
+        } else if (response.code === 10201){
             alert(response.message)
+            window.location.href = 'login.html'
         }
 
     },

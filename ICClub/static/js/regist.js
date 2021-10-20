@@ -34,8 +34,6 @@ $(function () {
                         window.localStorage.setItem('user_id', result.id);
                         window.localStorage.setItem('user_token', result.token);
                         window.location.href = 'login.html'
-                    } else if (result.code === 10200) {
-                        alert(result.message)
                     } else {
                         alert(result.message)
                     }
@@ -111,7 +109,7 @@ $('#but_code').on('click', function () {
 function myFun(result) {
     var cityName = result.name;
     if (cityName !== '成都市') {
-        alert('系统检测到您当前地址不在服务区内,部分功能将会有所限制')
+//        alert('系统检测到您当前地址不在服务区内,部分功能将会有所限制')
     }
 //     alert('欢迎使用')
 }

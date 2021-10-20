@@ -111,7 +111,7 @@ $.ajax({
                 var cmt=data[i]
                 html+='<li><div class="cmt">';
                 html+='<div class="cmt-nickname">';
-                html+='<a href="user_info.html?id=' + cmt.user_id+'" class="nickname"><p class="nickname">'+cmt.nickname+'</p></a>';
+                html+='<a href="user_info.html?id=' + cmt.user_id+' class="nickname"><p class="nickname">['+cmt.nickname+']</p></a>';
                 html+='<p class="cmt-time">'+cmt.comment_time+'</p></div>';
                 html+='<div class="cmt-text">&nbsp;&nbsp;&nbsp;&nbsp;'+cmt.comment_text;
                 html+='<a href="javascript:;" review_id="'+cmt.id+'" re_user_id="'+cmt.user_id+'" class="review-btn">回复</a></div></div>';
@@ -122,9 +122,9 @@ $.ajax({
                 for(var j=0;j<reviews.length;j++){
                     rev=reviews[j]
                     html+='<li><div class="review"><div class="nickname">';
-                    html+='<a href="user_info.html?id=' + rev.a_user_id+'" class="nickname"><p class="a-nickname">'+rev.a_nickname+'</p></a>';
-                    html+='<p style="color: black;font-size: 14px;">回复</p>';
-                    html+='<a href="user_info.html?id=' + rev.b_user_id+'" class="nickname"><p class="b-nickname">'+rev.b_nickname+'</p></a></div>';
+                    html+='<a href="user_info.html?id=' + rev.a_user_id+' class="nickname"><p class="a-nickname">['+rev.a_nickname+']</p></a>';
+                    html+='<p style="color: rgb(0, 0, 0);font-size: 10px;">--></p>';
+                    html+='<a href="user_info.html?id=' + rev.b_user_id+' class="nickname"><p class="b-nickname">['+rev.b_nickname+']</p></a></div>';
                     html+='<div class="review-time">'+rev.review_time+'</div>';
                     html+='<div class="review-text">&nbsp;&nbsp;&nbsp;&nbsp;'+rev.review_text;
                     html+='<a href="javascript:;" review_id="'+rev.id+'" re_user_id="'+rev.a_user_id+'" class="review-btn">回复</a></div>';

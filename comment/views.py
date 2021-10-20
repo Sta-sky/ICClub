@@ -1,10 +1,9 @@
-from django.shortcuts import render
 import json
 
 from django.http import JsonResponse
 from django.views.generic.base import View
 from comment.models import ActivityComment, AdminArticleComment
-from response_code import code
+from tools.response_code import code
 from tools.logging_checked import login_check
 
 
@@ -33,7 +32,7 @@ class ActivityCommentView(View):
             comment_info['user_id'] = comment.user_id
             comment_info['act_id'] = comment.activity_id
             comment_info['nickname'] = comment.user.userinfo.nickname
-            comment_info['comment_time'] = str(comment.comment_time.strftime('%m-%d %H:%M:%S'))
+            comment_info['comment_time'] = str(comment.comment_time.strftime('%Y-%m-%d %H:%M:%S'))
             comment_info['comment_text'] = comment.comment_text
             review_data = []
             review_data = self.get_review(review_data, act_id, comment)
@@ -138,7 +137,7 @@ class ActivityCommentView(View):
                 review_info['a_nickname'] = review.user.userinfo.nickname
                 review_info['b_nickname'] = ActivityComment.objects.filter(id=review.review_id)[
                     0].user.userinfo.nickname
-                review_info['review_time'] = str(review.comment_time.strftime('%m-%d %H:%M:%S'))
+                review_info['review_time'] = str(review.comment_time.strftime('%Y-%m-%d %H:%M:%S'))
                 review_info['review_text'] = review.comment_text
                 review_data.append(review_info)
                 self.get_review(review_data, act_id, review)
@@ -170,7 +169,7 @@ class ArticleCommentView(View):
             comment_info['user_id'] = comment.user_id
             comment_info['act_id'] = comment.article_id
             comment_info['nickname'] = comment.user.userinfo.nickname
-            comment_info['comment_time'] = str(comment.comment_time.strftime('%m-%d %H:%M:%S'))
+            comment_info['comment_time'] = str(comment.comment_time.strftime('%Y-%m-%d %H:%M:%S'))
             comment_info['comment_text'] = comment.comment_text
             review_data = []
             review_data = self.get_review(review_data, art_id, comment)
@@ -275,7 +274,7 @@ class ArticleCommentView(View):
                 review_info['a_nickname'] = review.user.userinfo.nickname
                 review_info['b_nickname'] = AdminArticleComment.objects.filter(id=review.review_id)[
                     0].user.userinfo.nickname
-                review_info['review_time'] = str(review.comment_time.strftime('%m-%d %H:%M:%S'))
+                review_info['review_time'] = str(review.comment_time.strftime('%Y-%m-%d %H:%M:%S'))
                 review_info['review_text'] = review.comment_text
                 review_data.append(review_info)
                 self.get_review(review_data, art_id, review)

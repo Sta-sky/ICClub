@@ -62,7 +62,6 @@ a{
     height: 530px;
     overflow: hidden;
     margin-left: 60%;
-
     background-color: #b7fff5;
     padding:20px 30px;
 }
@@ -111,7 +110,6 @@ a{
     display: inline-block;
     background-color: #21f6f9;
     border-radius: 20px;
-    float: left;
     margin-top: -42px;
     margin-left: 175px;
     width: 110px;
@@ -208,15 +206,6 @@ a{
     height: 15px;
 }
 
-
-#nav #box .put1 .weibo img{
-}
-
-
-{
-    float: left;
-
-}
 
 
 

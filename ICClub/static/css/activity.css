@@ -24,48 +24,6 @@
 }
 
 
-/*!*投票栏样式*!*/
-/*#vote {*/
-/*    float: right;*/
-/*    margin-right: 10px;*/
-/*    border: solid 1px #a4a4a4;*/
-/*    background-color: #c9c9c9;*/
-/*    display: inline-block;*/
-/*}*/
-
-/*#hid {*/
-/*    width: 100px;*/
-/*    height: 40px;*/
-/*    font-weight: 800;*/
-/*    margin: 20px 30px 0 180px;*/
-
-/*}*/
-
-/*#tdone {*/
-/*    margin: 0 40px -30px 0;*/
-/*    display: inline-block;*/
-/*    float: right;*/
-/*    color: red;*/
-/*}*/
-
-/*#main {*/
-/*    margin: 10px 0;*/
-/*}*/
-
-
-/*tr {*/
-
-/*    padding: 10px;*/
-/*}*/
-
-/*td {*/
-/*    margin: 20px;*/
-/*    padding: 10px;*/
-/*}*/
-
-/*input {*/
-/*    margin: 10px;*/
-/*}*/
 
 /*主题样式*/
 #top .title_txt {
@@ -75,10 +33,13 @@
 
 #top #title {
     height: 100%;
-    font-size: 30px;
+    font-size: 25px;
     line-height: 100px;
     text-align: center;
-
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:  700px;
 }
 
 
@@ -92,7 +53,7 @@
     font-weight: 400;
     font-size: 20px;
     line-height: 30px;
-    color: powderblue;
+    color: black;
 }
 
 #brx {

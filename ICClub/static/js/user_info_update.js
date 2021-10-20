@@ -54,11 +54,15 @@ $.ajax({
 
         } else {
             alert(result.message);
-            if (result.code == 10101) {
-                window.location.replace('login.html');
-            }
-            if (result.code == 10104) {
-                window.location.replace('index.html')
+            if (result.code === 10203 || result.code === 10201 ) {
+                alert(result.message)
+                window.location.href('login.html');
+            } else if (result.code === 10206) {
+                alert(result.message)
+                window.location.href('index.html')
+            } else {
+                alert(result.message)
+                window.location.href('index.html')
             }
         }
     }
@@ -110,18 +114,6 @@ $(function () {
         })
     });
 });
-
-
-// 上传image 更新用户头像
-function uploadfile() {
-    let reads = new FileReader();
-    file = document.getElementById('file').files[0];
-    reads.readAsDataURL(file);
-    alert(reads);
-    reads.onload = function (e) {
-        document.getElementById('img').src = this.result;
-    };
-}
 
 
 // 上传头像

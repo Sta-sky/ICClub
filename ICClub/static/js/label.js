@@ -1,21 +1,21 @@
  var tag = GetUrlString('sub')
  var tags = encodeURI(encodeURI(tag))
 
-function webrequestpage(pag) {
+function webrequestpage(page) {
     act_nh = 'new'
 // 页面加载初始化请求第一页
-    if ('WebSocket' in window) {
-        // ws = new WebSocket(WEBSOCKET_URL + 'active/new/'+pag)
-        ws = new WebSocket(WEBSOCKET_URL + 'active/new/' + pag + '?tag=' + tag)
-        // ws = new WebSocket(WEBSOCKET_URL + 'active/new/1?tag='+tag)
+    if (typeof WebSocket != 'undefined') {
+            console.log("您的浏览器支持Websocket通信协议")
+        // 创建websockter对象
+        ws = new WebSocket(WEBSOCKET_URL + 'active/new/' + page + '?tag=' + tag)
 
+        // 开始通信时的处理
         ws.onopen = function () {
             // 最新活动点击事件
             $('#z_new_act').on('click', function () {
                 act_nh = 'new'
                 ws.close()
                 webrequestpage('1')
-                // ws.send(JSON.stringify({'page': '1'}))
             })
         }
 
@@ -52,10 +52,11 @@ function webrequestpage(pag) {
                 getpage(1, 1)
             }
         }
-
         ws.onclose = function () {
             console.log('连接关闭')
         }
+    } else {
+        alert("您的浏览器不支持Websocket通信协议，请使用Chrome或者Firefox浏览器！")
     }
 }
 
@@ -144,12 +145,6 @@ $('#l_num>#ul').on('click', '.page', function () {
     if (page == page_now) {
         alert('您已经在当前页面')
         return
-    }
-    if (act_nh === 'search') {
-        if (searchmes) {
-            search_data({state: 'search', cond: page, mes: searchmes, acttag: tags})
-        }
-        return;
     }
     if (act_nh === 'history') {
         request_data({state: act_nh, cond: page})

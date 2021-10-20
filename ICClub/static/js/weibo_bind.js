@@ -82,14 +82,14 @@ $(function () {
                         window.localStorage.clear();
                         window.localStorage.setItem('username',result.username);
                         window.localStorage.setItem('user_token',result.token);
-                        window.location.href = 'http://176.209.104.17:7001/templates/index.html';
+                        window.location.href = 'index.html';
                     }else if (result.code == 10206){
                         alert(result.message.error)
                     }else if (result.code == 10200){
                         alert(result.message.error);
                     } else if (result.code == 10207) {
                         alert('用户已绑定  请点击跳转首页');
-                        window.location.href = 'http://176.209.104.17:7001/templates/index.html'
+                        window.location.href = 'index.html'
                         }
                     alert('nihao')
                     }

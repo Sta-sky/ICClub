@@ -1,17 +1,13 @@
 import json
-import time, re, base64
-
-import jwt
+import base64
 from django.http import JsonResponse
-from ICClub.settings import JWT_TOKEN_KEY
-from activ.models import UserInfo, InterestTag, Activity
-from tools.util import DateEnconding
+from activitys.models import UserInfo, InterestTag, Activity
+from tools.response_code import code
+from tools.util import DateEnconding, upload_img_save, judge_token_expire
 from users.models import UserRegist
 from ICClub import settings
 
 
-
-# todo toekn过期后逻辑尚未处理??????
 def user_info(request):
     """
     用户信息详情获取
@@ -21,12 +17,12 @@ def user_info(request):
     data = {}
     # 获取用户的token
     token = request.META.get('HTTP_AUTHORIZATION')
-    # print('进入用户信息')
-    print(token)
     # 判断用户是否拥有token
+    print('进来了')
     if token == 'null':
         # 没有token
         user_id = request.GET.get('id')
+        print(user_id, '用户id')
         if not user_id:
             return JsonResponse({'code': 404, 'message': '页面不存在'})
         # 不是本人登录
@@ -41,14 +37,14 @@ def user_info(request):
         return JsonResponse(result, safe=False)
     # 有token 用户已登录
     elif token:
-        print('用户已登录,进入用户信息页面')
-        res = jwt.decode(token, JWT_TOKEN_KEY, algorithms='HS256')
+        res = judge_token_expire(token)
+        if not res:
+            return JsonResponse(code[10201])
         username = res['username']
-        print(username)
         # 获取用户id
         user_id = request.GET.get('id')
         if not user_id:
-            return JsonResponse({'code': 404, 'message': '页面不存在'})
+            return JsonResponse(code[10205])
         # 获取用户对象
         try:
             user_1 = UserRegist.objects.filter(id=user_id)[0]
@@ -60,13 +56,12 @@ def user_info(request):
                 data['is_self'] = 'no'
         except Exception as e:
             print(e)
+            return JsonResponse(code[10205])
         # 从数据库中提取数据
         res_data = get_date(data=data, user_id=user_id)
         data = json.loads(json.dumps(dict(res_data), cls=DateEnconding))
-        print('是本人登录返回')
-        result = {'code': 200, 'data': data}
-        print(result)
-        return JsonResponse(result, safe=False)
+        code[200]['data'] = data
+        return JsonResponse(code[200], safe=False)
 
 
 # 获取用用户信息
@@ -79,14 +74,14 @@ def get_date(data, user_id):
         return {'code': 10122, 'message': '该用户不存在'}
     # print(user_info.portrait)
     data["nickname"] = user_info.nickname
-    data["introduction"] = jg_data(user_info.introduction)
-    data["gender"] = jg_data(user_info.gender)
+    data["introduction"] = judge_null_data(user_info.introduction)
+    data["gender"] = judge_null_data(user_info.gender)
     if not user_info.birth:
         data["birth"] = user_info.created_time.strftime('%Y-%m-%d')
     else:
         data["birth"] = user_info.birth.strftime('%Y-%m-%d')
         print(data['birth'])
-    data["city"] = jg_data(user_info.city)
+    data["city"] = judge_null_data(user_info.city)
     data["url"] = user_info.portrait.name
     data["credit"] = user_info.credit
     data["level"] = user_info.level
@@ -133,11 +128,7 @@ def get_date(data, user_id):
 def get_active_join(data, user_info):
     # 获取该用户对象参与的所有活动对象
     try:
-        print('=============================')
-        print(user_info)
-        print(type(user_info))
         user_part = user_info.activityparticipant_set.all()
-        print(user_part)
         data["act_id_p"] = []
         data["tag_p"] = []
         data["subject_p"] = []
@@ -155,15 +146,16 @@ def get_active_join(data, user_info):
             data["create_time_p"].append(up.created_time)
             data["click_num_p"].append(up.activity.click_nums)
             data["update_time_p"].append(up.updated_time)
-            # data["collection"].append(up.collection)
+            data["collection"].append(up.activity.collection)
     except Exception as e:
         print(e)
         return {'code': 10112, 'message': e}
     print('-=-=-=-=-=-=-=******************')
+    print(data)
     return data
 
 
-def jg_data(data):
+def judge_null_data(data):
     if not data:
         return ''
     return data
@@ -188,9 +180,10 @@ def update_user_info(request):
     print('*' * 50)
     # 判断用户是否拥有token
     if token == 'null':
-        print('8' * 50)
-        return JsonResponse({'code': 10101, 'message': '请先登录'})
-    res = jwt.decode(token, JWT_TOKEN_KEY, algorithms='HS256')
+        return JsonResponse(code[10203])
+    res = judge_token_expire(token)
+    if not res:
+        return JsonResponse(code[10201])
     username = res['username']
 
     if request.method == "GET":
@@ -228,20 +221,21 @@ def update_user_info(request):
                     data1['interest'].append(i.interests)
                 print(data1)
                 # data = json.dumps(data1)
-                return JsonResponse({'code': 200, 'data': data1})
+                code[200]['data'] = data1
+                return JsonResponse(code[200])
             else:
-                return JsonResponse({'code': 10104, 'message': '你无权查看该页面'})
+                return JsonResponse(code[10206])
         except Exception as e:
-            print('*' * 50)
             print(e)
-            return JsonResponse({'code': 404, 'message': '用户不存在'})
+            return JsonResponse(code[10205])
 
     if request.method == "POST":
         print('post...............')
         # 获取上传数据
         data = request.body
         if not data:
-            return JsonResponse({'code': 10105, 'message': '无数据传输'})
+            code[10207]['message'] = '没有数据传输'
+            return JsonResponse(code[10207])
         # 转换为json格式
         json_data = json.loads(data)
         # 获取具体数据 并赋值
@@ -251,21 +245,24 @@ def update_user_info(request):
         birth = json_data.get('birth')
         pro = json_data.get('pro')
         city = json_data.get('city')
-        interest = json_data.get('interest')
+        interests = json_data.get('interest')
         print('posy...........')
         print(birth)
 
         # 获取用户id
         user_id = request.GET.get('id')
         if not user_id:
-            return JsonResponse({'code': 10102, 'message': '页面不存在33'})
+            code[10207]['message'] = '页面不存在'
+            return JsonResponse(code[10207])
         # 判断用户昵称是否重复
         try:
             user_1 = UserInfo.objects.filter(nickname=nickname)
             if user_1[0] != UserInfo.objects.get(user_id=user_id):
-                return JsonResponse({'code': 10120, 'message': '昵称已存在'})
+                code[10207]['message'] = '昵称已存在'
+                return JsonResponse(code[10207])
         except Exception as e:
             print(e)
+            return JsonResponse(code[10205])
         # 获取用户对象
         try:
             user_2 = UserRegist.objects.filter(id=user_id)[0]
@@ -275,52 +272,50 @@ def update_user_info(request):
                 user = UserInfo.objects.filter(user_id=user_id)
                 user.update(nickname=nickname, introduction=signature,
                             gender=gender, birth=birth, city=pro + city)
-                # print('*' * 50)
                 user[0].interest.clear()
-                # print('老子来了')
-                if len(interest) == 0:
-                    return JsonResponse({'code': 200})
-                for i in interest:
-                    xq = InterestTag.objects.get(interests=i)
-                    user[0].interest.add(xq.id)
-
-                # print('老子又走了')
-                return JsonResponse({'code': 200})
-
+                if len(interests) == 0:
+                    return JsonResponse(code[200])
+                for interest in interests:
+                    user_interest = InterestTag.objects.get(interests=interest)
+                    user[0].interest.add(user_interest.id)
+                return JsonResponse(code[200])
         except Exception as e:
             print(e)
-            return JsonResponse({'code': 10111, 'message': e})
-    return JsonResponse({'code': 10107, 'message': '未知错误'})
+            code[10207]['message'] = e
+            return JsonResponse(code[10207])
 
 
 
 
-# 上传图片测试
+# 上传图片
 def upload_img(request):
     print(request.method)
     if request.method == 'POST':
         # 获取token
         token = request.META.get('HTTP_AUTHORIZATION')
-        res = jwt.decode(token, JWT_TOKEN_KEY, algorithms='HS256')
+        if not token:
+            return JsonResponse(code[10203])
+        res = judge_token_expire(token)
+        if not res:
+            return JsonResponse(code[10201])
         username = res['username']
         # 获取图片数据
         json_data = request.body
         data = json.loads(json_data)
         file = data.get('data').split(',')
-        img = base64.b64decode(file[1])
-        # 用正则匹配出图片文件格式
-        # img_end = re.findall(r'^.+?/(.+?);base64', file[0])[0]
-        img_end = 'jpg'
+        img_data = base64.b64decode(file[1])
         # 服务器本地存储路径+图片名
-        filename = settings.USERIMAGE_DIR + username + '.' + img_end
-
-        # 通过token 获取登录对象 并添加头像的本地存储路径
-        user = UserRegist.objects.filter(username=username)[0]
-        user.userinfo.portrait = settings.DBUSEIMG + username + '.' + img_end
-        user.userinfo.save()
+        file_path = settings.USERIMAGE_DIR + username + settings.IMG_END
         # 将上传的头像存储到本地
-        with open(filename, 'wb') as f:
-            f.write(img)
-        return JsonResponse({'code': 200, 'message': '收到'})
-    return JsonResponse({'code': 200, 'message': '??????????'})
+        save_res = upload_img_save(img_data, file_path)
+        if save_res['code'] == 10501:
+            print(save_res['message'])
+            return JsonResponse(code[10501])
+        # 通过token 获取登录对象 并添加头像的本地存储路径
+        else:
+            user = UserRegist.objects.filter(username=username)[0]
+            user.userinfo.portrait = settings.DBUSEIMG + username + settings.IMG_END
+            user.userinfo.save()
+        code[200]['message'] = '头像修改成功'
+        return JsonResponse(code[200])
 
