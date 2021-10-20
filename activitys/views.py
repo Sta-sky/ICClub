@@ -78,12 +78,12 @@ class Active(View):
         except Exception as e:
             print(e, '插入数据库异常')
             return JsonResponse(code[10001])
-        
+
         # 修改活动图片
         img_data = res.get('img_data')
-        user_str_id = str(act.id)
         if img_data:
             file_data = base64.b64decode(img_data.split(',')[1])
+            user_str_id = str(act.id)
             filename = user_str_id + settings.IMG_END
             img_path = settings.DBACTIMG + filename
             save_res = upload_img_save(file_data, img_path)
@@ -102,7 +102,7 @@ class Active(View):
             activity = get_redis_connection('activitys')
             try:
                 activity.hset(act.id, act.created_time.strftime('%Y-%m-%d'), user_lists)
-                activity.expire(act.id, 60 * 60 * 24)
+                activity.expire(act.id, 60**2 * 24)
             except Exception as e:
                 print('redis写入失败', e)
                 act.delete()
@@ -116,10 +116,12 @@ class Active(View):
             act.delete()
             return JsonResponse(code[201])
         channel_layer = get_channel_layer()
-        
+
         online_list = get_result(page=1, label='')
-        async_to_sync(channel_layer.group_send)(f"active_1",
-                                                {"type": "send_info", "message": online_list})
+        async_to_sync(channel_layer.group_send)(
+            'active_1', {"type": "send_info", "message": online_list}
+        )
+
         return JsonResponse(result)
 
 
@@ -141,7 +143,7 @@ def get_result(page, label):
         # TODO 把 pagintor 存放在redis中 保存1天
         redisname = 'new_act' + label
         newact = get_redis_connection('newact')
-        newact.set(redisname, pickle.dumps(paginator), ex=60 * 60 * 24)
+        newact.set(redisname, pickle.dumps(paginator), ex=60**2 * 24)
         # 数据格式化，后返回结果
         return make_result(paginator, page)
     except Exception as e:
@@ -171,8 +173,7 @@ def make_result(paginator, page):
             'click_num': act.click_nums,
             'update_time': act.updated_time.strftime('%Y-%m-%d')
         })
-    result = {'code': 200, 'data': data, 'page': [now_page, numpages]}
-    return result
+    return {'code': 200, 'data': data, 'page': [now_page, numpages]}
 
 
 def hyistorical_activities(request, page):
@@ -186,35 +187,37 @@ def hyistorical_activities(request, page):
     :param request:
     :return:
     """
-    if request.method == 'GET':
-        label = request.GET.get('tag', '')
-        if label:
-            lab = parse.unquote(label)
-            labelobj = InterestTag.objects.filter(interests=lab)
-            activity = Activity.objects.filter(status=3, tag=labelobj[0]).order_by('-created_time')[:80]
-        else:
-            activity = Activity.objects.filter(status=3).order_by('-created_time')[:80]
-        if not activity:
-            return JsonResponse(code[10007])
-        paginator = Paginator(activity, 8)
-        # TODO 把pagintor存放在redis中
-        act_list = paginator.page(page)
-        numpages = paginator.num_pages
-        now_page = act_list.number
-        data = []
-        for act in act_list:
-            content = act.content
-            title = act.subject
-            data.append({
-                'id': act.id,
-                'title': title,
-                'content': content,
-                'date': act.created_time.strftime('%Y-%m-%d'),
-                'actimg': act.act_img.name,
-                'label': act.tag.interests
-            })
-        result = {'code': 200, 'data': data, 'page': [now_page, numpages]}
-        return JsonResponse(result)
+    if request.method != 'GET':
+        return
+
+    label = request.GET.get('tag', '')
+    if label:
+        lab = parse.unquote(label)
+        labelobj = InterestTag.objects.filter(interests=lab)
+        activity = Activity.objects.filter(status=3, tag=labelobj[0]).order_by('-created_time')[:80]
+    else:
+        activity = Activity.objects.filter(status=3).order_by('-created_time')[:80]
+    if not activity:
+        return JsonResponse(code[10007])
+    paginator = Paginator(activity, 8)
+    # TODO 把pagintor存放在redis中
+    act_list = paginator.page(page)
+    numpages = paginator.num_pages
+    now_page = act_list.number
+    data = []
+    for act in act_list:
+        content = act.content
+        title = act.subject
+        data.append({
+            'id': act.id,
+            'title': title,
+            'content': content,
+            'date': act.created_time.strftime('%Y-%m-%d'),
+            'actimg': act.act_img.name,
+            'label': act.tag.interests
+        })
+    result = {'code': 200, 'data': data, 'page': [now_page, numpages]}
+    return JsonResponse(result)
 
 
 class ActHotIndex(View):
@@ -239,9 +242,7 @@ class ActHotIndex(View):
         try:
             index_data = []
             for item in all_list:
-                index = {}
-                index['act_id'] = str(item.id)
-                index['subject'] = item.subject
+                index = {'act_id': str(item.id), 'subject': item.subject}
                 imgname = chang_imgname.parse_imgname(item.act_img.name)
                 index['imgurl'] = imgname
                 index_data.append(index)
@@ -262,18 +263,12 @@ def active_users(request):
     # 从数据库获取发起活动数前60名
     users1 = UserInfo.objects.order_by('-sponsor_num')
     # print('users1:', len(users1))
-    if len(users1) > 60:
-        set_users1 = set(users1[:10])
-    else:
-        set_users1 = set(users1)
+    set_users1 = set(users1[:10]) if len(users1) > 60 else set(users1)
     # print('set_users1:', len(set_users1))
     # 从数据库获取参与活动前60名
     users2 = UserInfo.objects.order_by('-participate_num')
     # print('users2:', len(users2))
-    if len(users2) > 60:
-        set_users2 = set(users2[:10])
-    else:
-        set_users2 = set(users2)
+    set_users2 = set(users2[:10]) if len(users2) > 60 else set(users2)
     set_active_users = set_users1 | set_users2  # miao!
 
     # 从集合中随机取8个用户
@@ -285,15 +280,17 @@ def active_users(request):
     # 将用户信息整理成列表
     data = []
     for _user in active_users:
-        user_info = {}
-        user_info['user_id'] = str(_user.user.id)
-        user_info['nickname'] = _user.nickname
-        user_info['gender'] = _user.gender
-        user_info['hd_pic'] = str(_user.portrait)
-        user_info['sign_words'] = _user.introduction
-        user_info['sponsor_num'] = _user.sponsor_num
-        user_info['participate_num'] = _user.participate_num
-        user_info['tags'] = []
+        user_info = {
+            'user_id': str(_user.user.id),
+            'nickname': _user.nickname,
+            'gender': _user.gender,
+            'hd_pic': str(_user.portrait),
+            'sign_words': _user.introduction,
+            'sponsor_num': _user.sponsor_num,
+            'participate_num': _user.participate_num,
+            'tags': [],
+        }
+
         # 取用户兴趣标签
         j = 0
         for tag in _user.interest.all():
@@ -321,16 +318,10 @@ def get_active_users(request):
 
     # 从数据库获取发起活动数前60名
     users1 = UserInfo.objects.order_by('-sponsor_num')
-    if len(users1) > 10:
-        set_users1 = set(users1[:10])
-    else:
-        set_users1 = set(users1)
+    set_users1 = set(users1[:10]) if len(users1) > 10 else set(users1)
     # 从数据库获取参与活动前60名
     users2 = UserInfo.objects.order_by('-participate_num')
-    if len(users2) > 10:
-        set_users2 = set(users2[:10])
-    else:
-        set_users2 = set(users2)
+    set_users2 = set(users2[:10]) if len(users2) > 10 else set(users2)
     set_active_users = set_users1 | set_users2
 
     users_data = []
@@ -342,15 +333,17 @@ def get_active_users(request):
     if redis_index is None:
 
         for _user in set_active_users:
-            user_info = {}
-            user_info['user_id'] = _user.user.id
-            user_info['nickname'] = _user.nickname
-            user_info['gender'] = _user.gender
-            user_info['hd_pic'] = str(_user.portrait)
-            user_info['sign_words'] = _user.introduction
-            user_info['sponsor_num'] = _user.sponsor_num
-            user_info['participate_num'] = _user.participate_num
-            user_info['tags'] = []
+            user_info = {
+                'user_id': _user.user.id,
+                'nickname': _user.nickname,
+                'gender': _user.gender,
+                'hd_pic': str(_user.portrait),
+                'sign_words': _user.introduction,
+                'sponsor_num': _user.sponsor_num,
+                'participate_num': _user.participate_num,
+                'tags': [],
+            }
+
             # 取用户兴趣标签
             j = 0
             for tag in _user.interest.all():
@@ -359,15 +352,12 @@ def get_active_users(request):
                 if j == 3:
                     break
             users_data.append(user_info)
-            # 写入缓存
+                    # 写入缓存
         # 可考虑如缓存时压缩json串 zlib
         redis_conn.set("active_users", json.dumps(users_data), ex=30)
     else:
         users_data = json.loads(redis_index)
-    if len(users_data) >= 8:
-        data = random.sample(users_data, 8)
-    else:
-        data = users_data
+    data = random.sample(users_data, 8) if len(users_data) >= 8 else users_data
     code[200]['data'] = data
     return JsonResponse(code[200])
 
@@ -396,18 +386,20 @@ def get_admin_articles(request):
     if redis_index is None:
         print("未使用缓存")
         for article in obj_articles:
-            article_info = {}
-            article_info['article_id'] = article.id
-            article_info['user_id'] = article.user.id
-            article_info['subject'] = article.subject
-            article_info['content'] = article.content
-            article_info['label'] = article.tag_id.interests
-            article_info['act_img'] = str(article.act_img)
-            article_info['click_nums'] = article.click_nums
-            article_info['created_time'] = str(article.created_time.date())
+            article_info = {
+                'article_id': article.id,
+                'user_id': article.user.id,
+                'subject': article.subject,
+                'content': article.content,
+                'label': article.tag_id.interests,
+                'act_img': str(article.act_img),
+                'click_nums': article.click_nums,
+                'created_time': str(article.created_time.date()),
+            }
+
             article_info['updated_time'] = str(article.updated_time.date())
             article_data.append(article_info)
-            # 写入缓存
+                    # 写入缓存
         # 可考虑如缓存时压缩json串 zlib
         redis_conn.set("admin_articles", json.dumps(article_data), ex=30)
     else:
@@ -495,7 +487,7 @@ class ActivityDetailView(View):
 
 
 def activitySearchView(request, page_now):
-        """
+    """
         首⻚，table页查询功能
         1、通过前端传入的tag是否为空，决定是主页还是table搜索
         1、 通过ModelSearchForm判断查询字符串是否有效
@@ -505,51 +497,48 @@ def activitySearchView(request, page_now):
         TODO 待添加各种搜索，  根据 活动标题关键字，点击量最高排序，活动id等
         """
         # 127.0.0.1:8000/active/search/1
-        try:
-            search_key = request.POST.get('q')
-            tag_key = request.POST.get('tag')
-            print('进来了哇')
-            if not search_key:
-                return JsonResponse(code[10010])
+    try:
+        search_key = request.POST.get('q')
+        tag_key = request.POST.get('tag')
+        print('进来了哇')
+        if not search_key:
+            return JsonResponse(code[10010])
             # 如果传入的tag有值， 表明是从table页发过来的请求；获取对应tag中的所有带有关键字的活动
-            if tag_key:
-                # table页搜索
-                form_obj = ModelSearchForm(request.POST, load_all=True)
-                tag_obj = InterestTag.objects.filter(interests=tag_key)[0]
+        if tag_key:
+            # table页搜索
+            form_obj = ModelSearchForm(request.POST, load_all=True)
+            tag_obj = InterestTag.objects.filter(interests=tag_key)[0]
                 # 根据标签名查询标签id
-                if form_obj.is_valid():
-                    tag = "id:{} nickname:{}".format(str(tag_obj.id), tag_key)
-                    first_sqs = SearchQuerySet().filter(content=tag)
-                    sqs = first_sqs.filter(content=search_key).highlight(pre_tags=['<strong>'], post_tags=['</strong>'])
-                    print(f'从tabl总共查询出了{len(sqs)}条数据')
-                    if not len(sqs):
-                        results = return_all_activ(tag, page_now)
-                        return JsonResponse(results)
-                    res_data_list = parse_sqs_data(sqs)
-                else:
-                    return JsonResponse(code[10011])
-    
-            # 主页搜索
-            else:
-                tag = None
-                form_obj = ModelSearchForm(request.POST, load_all=True)
-                if form_obj.is_valid():
-                    query = form_obj.cleaned_data['q']
-                    sqs = SearchQuerySet().filter(content=AutoQuery(query)).highlight(pre_tags=['<strong>'], post_tags=['</strong>'])
-                    if not len(sqs):
-                        results = return_all_activ(tag, page_now)
-                        return JsonResponse(results)
-                else:
-                    return JsonResponse(code[10011])
-                print(f'当前从主页中查询出了{len(sqs)}条数据')
-                res_data_list = parse_sqs_data(sqs)
-                if not res_data_list:
-                    return JsonResponse(return_all_activ(tag, page_now))
-            all_page = return_page_num(sqs)
-            result = {"code": 200, "data": res_data_list, 'page': [int(page_now), all_page]}
-            return JsonResponse(result)
-        except Exception as e:
-            print(e)
+            if not form_obj.is_valid():
+                return JsonResponse(code[10011])
+
+            tag = "id:{} nickname:{}".format(str(tag_obj.id), tag_key)
+            first_sqs = SearchQuerySet().filter(content=tag)
+            sqs = first_sqs.filter(content=search_key).highlight(pre_tags=['<strong>'], post_tags=['</strong>'])
+            print(f'从tabl总共查询出了{len(sqs)}条数据')
+            if not len(sqs):
+                results = return_all_activ(tag, page_now)
+                return JsonResponse(results)
+            res_data_list = parse_sqs_data(sqs)
+        else:
+            tag = None
+            form_obj = ModelSearchForm(request.POST, load_all=True)
+            if not form_obj.is_valid():
+                return JsonResponse(code[10011])
+            query = form_obj.cleaned_data['q']
+            sqs = SearchQuerySet().filter(content=AutoQuery(query)).highlight(pre_tags=['<strong>'], post_tags=['</strong>'])
+            if not len(sqs):
+                results = return_all_activ(tag, page_now)
+                return JsonResponse(results)
+            print(f'当前从主页中查询出了{len(sqs)}条数据')
+            res_data_list = parse_sqs_data(sqs)
+            if not res_data_list:
+                return JsonResponse(return_all_activ(tag, page_now))
+        all_page = return_page_num(sqs)
+        result = {"code": 200, "data": res_data_list, 'page': [int(page_now), all_page]}
+        return JsonResponse(result)
+    except Exception as e:
+        print(e)
 
 
 def return_page_num(sqs):
@@ -571,8 +560,12 @@ def return_all_activ(tag, page_now):
         all_sqs = SearchQuerySet().all()
     res_data_list = parse_sqs_all_type(all_sqs)
     all_page = return_page_num(all_sqs)
-    result = {"code": 10015, 'info': '没有匹配到信息，展示所有信息', "data": res_data_list, 'page': [int(page_now), all_page]}
-    return result
+    return {
+        "code": 10015,
+        'info': '没有匹配到信息，展示所有信息',
+        "data": res_data_list,
+        'page': [int(page_now), all_page],
+    }
 
 
 def parse_sqs_data(sqs):
@@ -600,8 +593,7 @@ def parse_sqs_all_type(sqs):
     """ 根据字段类型查询的数据解析函数"""
     res_search_list = []
     for search_result_obj in sqs:
-        res_search_dic = {}
-        res_search_dic["act_id"] = search_result_obj.id.split('.')[2]
+        res_search_dic = {'act_id': search_result_obj.id.split('.')[2]}
         res_search_dic["tag"] = search_result_obj.tag.split(':')[2]
         res_search_dic["subject"] = search_result_obj.subject
         res_search_dic["content"] = search_result_obj.content
