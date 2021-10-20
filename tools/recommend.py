@@ -62,12 +62,11 @@ def getALLDataStruct():
         uinfo = Activity.objects.filter(user=userid)
         if uinfo is None:
             continue
-        else:
-            for inst in uinfo:
-                tid = inst.tag_id
-                ints = InterestTag.objects.get(id=tid)
-                iname = ints.interests
-                user_tmp[userid].append(iname)
+        for inst in uinfo:
+            tid = inst.tag_id
+            ints = InterestTag.objects.get(id=tid)
+            iname = ints.interests
+            user_tmp[userid].append(iname)
 
     #TODO 增加用户的兴趣权重的参考字段 比如关于兴趣标签的点击量
     print("----1.{用户：[兴趣1,兴趣2,兴趣1,兴趣1]} ----")
@@ -89,10 +88,9 @@ def getUserInstData(user_tmp):
         user_data.setdefault(uid, {})
         if items is None:
             continue
-        else:
-            unique = set(items)
-            for term in unique:
-                user_data[uid][term] = items.count(term)
+        unique = set(items)
+        for term in unique:
+            user_data[uid][term] = items.count(term)
     print("----1.{用户：{兴趣:权重}} ----")
     print(user_data)
     print("####1.{用户：{兴趣:权重}} ####")
@@ -112,10 +110,7 @@ def getInterestList(user_data):
 
 
 def getUserIndex(user_data):
-    user_index = []
-    for uid in user_data:
-        user_index.append(uid)
-    return user_index
+    return [uid for uid in user_data]
 
 
 # def getUserSimilaryData(user_tmp, result):
@@ -141,14 +136,6 @@ def similarity(inst_list):
 
     # 所有的兴趣
     inst = dict_vectorizer.get_feature_names()
-    #print('@@@@@@@@@@inst@@@@@@@@@@@')
-    #print(inst)
-    #print('@@@@@@@@@@inst@@@@@@@@@@@')
-    # print(result)
-    # print(inst)
-
-    # 余弦相似度矩阵
-    user_similar = cosine_similarity(result)
     #print('############user_similar#############')
     #print(user_similar)
     #print('############user_similar#############')
@@ -157,7 +144,7 @@ def similarity(inst_list):
     # for i in user_similar.std:
     #     print('iiiiiiiiiiii',i)
 
-    return user_similar
+    return cosine_similarity(result)
 
 
 # #获取相似度最接近的用户,根据用户推荐兴趣

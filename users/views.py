@@ -35,7 +35,6 @@ def user_info(request):
         print(result)
         print('NOT 本人 登录返回')
         return JsonResponse(result, safe=False)
-    # 有token 用户已登录
     elif token:
         res = judge_token_expire(token)
         if not res:
@@ -50,10 +49,7 @@ def user_info(request):
             user_1 = UserRegist.objects.filter(id=user_id)[0]
             print(user_1.username)
             # 判断是否是本人登录
-            if username == user_1.username:
-                data['is_self'] = 'yes'
-            else:
-                data['is_self'] = 'no'
+            data['is_self'] = 'yes' if username == user_1.username else 'no'
         except Exception as e:
             print(e)
             return JsonResponse(code[10205])
@@ -197,34 +193,31 @@ def update_user_info(request):
             user_2 = UserRegist.objects.filter(id=user_id)[0]
             inttag = InterestTag.objects.all()
             print(inttag)
-            data1['tag'] = []
-            for i in inttag:
-                data1['tag'].append(i.interests)
+            data1['tag'] = [i.interests for i in inttag]
             print(data1['tag'])
             # 判断是否是本人登录
-            if username == user_2.username:
-                print('2444444444444444')
-                # 渲染数据库数据
-                data1['nickname'] = user_2.userinfo.nickname
-                data1['introduction'] = user_2.userinfo.introduction
-                data1['gender'] = user_2.userinfo.gender
-                data1['url'] = user_2.userinfo.portrait.name
-                print(user_2.userinfo.birth)
-                if not user_2.userinfo.birth:
-                    data1['birth'] = user_2.userinfo.created_time.strftime('%Y-%m-%d')
-                    print('??????????????')
-                else:
-                    data1['birth'] = user_2.userinfo.birth.strftime('%Y-%m-%d')
-                data1['city'] = user_2.userinfo.city
-                data1['interest'] = []
-                for i in user_2.userinfo.interest.all():
-                    data1['interest'].append(i.interests)
-                print(data1)
-                # data = json.dumps(data1)
-                code[200]['data'] = data1
-                return JsonResponse(code[200])
-            else:
+            if username != user_2.username:
                 return JsonResponse(code[10206])
+            print('2444444444444444')
+            # 渲染数据库数据
+            data1['nickname'] = user_2.userinfo.nickname
+            data1['introduction'] = user_2.userinfo.introduction
+            data1['gender'] = user_2.userinfo.gender
+            data1['url'] = user_2.userinfo.portrait.name
+            print(user_2.userinfo.birth)
+            if not user_2.userinfo.birth:
+                data1['birth'] = user_2.userinfo.created_time.strftime('%Y-%m-%d')
+                print('??????????????')
+            else:
+                data1['birth'] = user_2.userinfo.birth.strftime('%Y-%m-%d')
+            data1['city'] = user_2.userinfo.city
+            data1['interest'] = []
+            for i in user_2.userinfo.interest.all():
+                data1['interest'].append(i.interests)
+            print(data1)
+            # data = json.dumps(data1)
+            code[200]['data'] = data1
+            return JsonResponse(code[200])
         except Exception as e:
             print(e)
             return JsonResponse(code[10205])

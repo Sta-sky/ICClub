@@ -178,8 +178,7 @@ def weibo_bind(request):
         uid = js_data.get('uid')
         if not uid:
             return JsonResponse(code[10209])
-        info_dic = {}
-        info_dic['username'] = js_data.get('username')
+        info_dic = {'username': js_data.get('username')}
         info_dic['passwd_one'] = js_data.get('password')
         info_dic['passwd_tow'] = js_data.get('passwords')
         info_dic['email'] = js_data.get('email')
@@ -195,10 +194,10 @@ def weibo_bind(request):
             if key == 'code_sms' and type(key) != int or len(key) != 11:
                 code[10208]['message'] = '验证码为空'
                 return JsonResponse(code[10208])
-                
+
         passwd_one = decode_md5(info_dic['passwd_one'])
         passwd_tow = decode_md5(info_dic['passwd_tow'])
-        
+
         if passwd_one != passwd_tow:
             code[10208]['message'] = '密码不一致，请重新输入'
             return JsonResponse(code[10208])
@@ -237,9 +236,7 @@ def make_token(username, exp=3600 * 24):
 # 邮箱验证函数
 def email_check(s):
     a = re.findall(r'^[a-z0-9A-Z]{1,10}@[0-9a-z]\.{2,4}com|cn', s)
-    if a == None:
-        return False
-    return True
+    return a is not None
 
 
 
@@ -252,8 +249,7 @@ def get_weibo_login_url():
     params = {'response_type': 'code', 'client_id': settings.WEIBO_CLIENT_ID,
               'redirect_uri': settings.WEIBO_REDIRECT_URI, 'scope': ''}
     weibo_url = 'https://api.weibo.com/oauth2/authorize?'
-    url = weibo_url + urlencode(params)
-    return url
+    return weibo_url + urlencode(params)
 
 
 def get_access_token(code):

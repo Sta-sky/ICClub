@@ -27,12 +27,16 @@ class ActivityCommentView(View):
         comment_list = ActivityComment.objects.filter(activity_id=act_id, review_id=0).order_by('comment_time')
         data = []
         for comment in comment_list:
-            comment_info = {}
-            comment_info['id'] = comment.id
-            comment_info['user_id'] = comment.user_id
-            comment_info['act_id'] = comment.activity_id
-            comment_info['nickname'] = comment.user.userinfo.nickname
-            comment_info['comment_time'] = str(comment.comment_time.strftime('%Y-%m-%d %H:%M:%S'))
+            comment_info = {
+                'id': comment.id,
+                'user_id': comment.user_id,
+                'act_id': comment.activity_id,
+                'nickname': comment.user.userinfo.nickname,
+                'comment_time': str(
+                    comment.comment_time.strftime('%Y-%m-%d %H:%M:%S')
+                ),
+            }
+
             comment_info['comment_text'] = comment.comment_text
             review_data = []
             review_data = self.get_review(review_data, act_id, comment)
@@ -43,8 +47,6 @@ class ActivityCommentView(View):
             data.append(comment_info)
         result = {'code': 200, 'data': data}
         return JsonResponse(result)
-
-        pass
 
     @login_check
     def post(self, request):
@@ -98,12 +100,16 @@ class ActivityCommentView(View):
         comment_list = ActivityComment.objects.filter(activity_id=act_id, review_id=0).order_by('comment_time')
         data = []
         for comment in comment_list:
-            comment_info = {}
-            comment_info['id'] = comment.id
-            comment_info['user_id'] = comment.user_id
-            comment_info['act_id'] = comment.activity_id
-            comment_info['nickname'] = comment.user.userinfo.nickname
-            comment_info['comment_time'] = str(comment.comment_time.strftime('%Y-%m-%d %H:%M:%S'))
+            comment_info = {
+                'id': comment.id,
+                'user_id': comment.user_id,
+                'act_id': comment.activity_id,
+                'nickname': comment.user.userinfo.nickname,
+                'comment_time': str(
+                    comment.comment_time.strftime('%Y-%m-%d %H:%M:%S')
+                ),
+            }
+
             comment_info['comment_text'] = comment.comment_text
             review_data = []
             review_data = self.get_review(review_data, act_id, comment)
@@ -115,7 +121,6 @@ class ActivityCommentView(View):
         result = {'code': 201, 'data': data}
         # result = {'code': 201, 'data': '评论已提交保存'}
         return JsonResponse(result)
-        pass
 
     def get_review(self, review_data, act_id, comment):
         """
@@ -126,14 +131,16 @@ class ActivityCommentView(View):
         :return:
         """
         review_list = ActivityComment.objects.filter(activity_id=act_id, review_id=comment.id).order_by('comment_time')
-        if not review_list:
-            return review_data
-        else:
+        if review_list:
             for review in review_list:
-                review_info = {}
-                review_info['id'] = review.id
-                review_info['a_user_id'] = review.user_id
-                review_info['b_user_id'] = ActivityComment.objects.filter(id=review.review_id)[0].user_id
+                review_info = {
+                    'id': review.id,
+                    'a_user_id': review.user_id,
+                    'b_user_id': ActivityComment.objects.filter(
+                        id=review.review_id
+                    )[0].user_id,
+                }
+
                 review_info['a_nickname'] = review.user.userinfo.nickname
                 review_info['b_nickname'] = ActivityComment.objects.filter(id=review.review_id)[
                     0].user.userinfo.nickname
@@ -141,9 +148,7 @@ class ActivityCommentView(View):
                 review_info['review_text'] = review.comment_text
                 review_data.append(review_info)
                 self.get_review(review_data, act_id, review)
-            return review_data
-
-        pass
+        return review_data
 
 # 公告评论
 class ArticleCommentView(View):
@@ -164,12 +169,16 @@ class ArticleCommentView(View):
         comment_list = AdminArticleComment.objects.filter(article_id=art_id, review_id=0).order_by('comment_time')
         data = []
         for comment in comment_list:
-            comment_info = {}
-            comment_info['id'] = comment.id
-            comment_info['user_id'] = comment.user_id
-            comment_info['act_id'] = comment.article_id
-            comment_info['nickname'] = comment.user.userinfo.nickname
-            comment_info['comment_time'] = str(comment.comment_time.strftime('%Y-%m-%d %H:%M:%S'))
+            comment_info = {
+                'id': comment.id,
+                'user_id': comment.user_id,
+                'act_id': comment.article_id,
+                'nickname': comment.user.userinfo.nickname,
+                'comment_time': str(
+                    comment.comment_time.strftime('%Y-%m-%d %H:%M:%S')
+                ),
+            }
+
             comment_info['comment_text'] = comment.comment_text
             review_data = []
             review_data = self.get_review(review_data, art_id, comment)
@@ -180,8 +189,6 @@ class ArticleCommentView(View):
             data.append(comment_info)
         result = {'code': 200, 'data': data}
         return JsonResponse(result)
-
-        pass
 
     @login_check
     def post(self, request):
@@ -235,12 +242,16 @@ class ArticleCommentView(View):
         comment_list = AdminArticleComment.objects.filter(article_id=art_id, review_id=0).order_by('comment_time')
         data = []
         for comment in comment_list:
-            comment_info = {}
-            comment_info['id'] = comment.id
-            comment_info['user_id'] = comment.user_id
-            comment_info['act_id'] = comment.article_id
-            comment_info['nickname'] = comment.user.userinfo.nickname
-            comment_info['comment_time'] = str(comment.comment_time.strftime('%Y-%m-%d %H:%M:%S'))
+            comment_info = {
+                'id': comment.id,
+                'user_id': comment.user_id,
+                'act_id': comment.article_id,
+                'nickname': comment.user.userinfo.nickname,
+                'comment_time': str(
+                    comment.comment_time.strftime('%Y-%m-%d %H:%M:%S')
+                ),
+            }
+
             comment_info['comment_text'] = comment.comment_text
             review_data = []
             review_data = self.get_review(review_data, art_id, comment)
@@ -252,7 +263,6 @@ class ArticleCommentView(View):
         result = {'code': 201, 'data': data}
         # result = {'code': 201, 'data': '评论已提交保存'}
         return JsonResponse(result)
-        pass
 
     def get_review(self, review_data, art_id, comment):
         """
@@ -263,14 +273,16 @@ class ArticleCommentView(View):
         :return:
         """
         review_list = AdminArticleComment.objects.filter(article_id=art_id, review_id=comment.id).order_by('comment_time')
-        if not review_list:
-            return review_data
-        else:
+        if review_list:
             for review in review_list:
-                review_info = {}
-                review_info['id'] = review.id
-                review_info['a_user_id'] = review.user_id
-                review_info['b_user_id'] = AdminArticleComment.objects.filter(id=review.review_id)[0].user_id
+                review_info = {
+                    'id': review.id,
+                    'a_user_id': review.user_id,
+                    'b_user_id': AdminArticleComment.objects.filter(
+                        id=review.review_id
+                    )[0].user_id,
+                }
+
                 review_info['a_nickname'] = review.user.userinfo.nickname
                 review_info['b_nickname'] = AdminArticleComment.objects.filter(id=review.review_id)[
                     0].user.userinfo.nickname
@@ -278,6 +290,4 @@ class ArticleCommentView(View):
                 review_info['review_text'] = review.comment_text
                 review_data.append(review_info)
                 self.get_review(review_data, art_id, review)
-            return review_data
-
-        pass
+        return review_data

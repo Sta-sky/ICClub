@@ -31,9 +31,7 @@ class SendSms(View):
 
 # 随机生成六位验证码
 def generate_sex_number(len=6):
-	code_list = []
-	for i in range(10):
-		code_list.append(str(i))
+	code_list = [str(i) for i in range(10)]
 	code = random.sample(code_list, len)
 	code = ''.join(code)  # 将列表转为字符串
 	return code

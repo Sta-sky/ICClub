@@ -30,12 +30,11 @@ class Mymiddle(MiddlewareMixin):
             if re_result:
                 if target_time <= 1:  # 单击时间小于１秒
                     self.dic[id] = num + 1
-                    return response
-
                 else:
                     self.dic[id] = 0  # 单击时间大于１秒,重新记０
                     self.dic['time'] = self.first_time
-                    return response
+                return response
+
             else:
                 return Http404
         return Http404

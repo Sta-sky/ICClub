@@ -18,9 +18,8 @@ class DateEnconding(json.JSONEncoder):
         
         
 def format_str(source_str):
-    parse_str = source_str.strip().replace(' ', '').\
+    return source_str.strip().replace(' ', '').\
         replace('\t', ' ').replace('\r', '').replace('\n', '')
-    return parse_str
 
 
 def upload_img_save(img_data, img_save_path):
@@ -39,8 +38,7 @@ def upload_img_save(img_data, img_save_path):
     
 def judge_token_expire(token):
     try:
-        res = jwt.decode(token, JWT_TOKEN_KEY, algorithms='HS256')
-        return res
+        return jwt.decode(token, JWT_TOKEN_KEY, algorithms='HS256')
     except Exception as e:
         print(e)
         return None
@@ -51,8 +49,7 @@ def decode_md5(passwd):
     try:
         m = hashlib.md5()
         m.update(passwd.encode())
-        password = m.hexdigest()
-        return password
+        return m.hexdigest()
     except Exception as e:
         return False
 

@@ -31,7 +31,7 @@ def video_play(request):
     if range_match:
         first_byte, last_byte = range_match.groups()
         first_byte = int(first_byte) if first_byte else 0
-        last_byte = first_byte + 1024 * 1024 * 8  # 8M 每片,响应体最大体积
+        last_byte = first_byte + 1024**2 * 8
         if last_byte >= size:
             last_byte = size - 1
         length = last_byte - first_byte + 1
