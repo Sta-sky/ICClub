@@ -1,2 +1,14 @@
 .idea
 venv
+ICClub/__pycache__/
+activitys/__pycache__/
+activitys/migrations/__pycache__/
+celery_tasks/__pycache__/
+comment/__pycache__/
+comment/__pycache__/
+comment/migrations/
+community/migrations/__pycache__/
+middleware/__pycache__/
+tools/__pycache__/
+users/__pycache__/
+users/migrations/
