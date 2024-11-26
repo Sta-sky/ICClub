@@ -36,13 +36,14 @@ def param_community_data(comm_obj, page_obj):
 	try:
 		if comm_obj and page_obj:
 			for comm in page_obj.object_list:
-				comm_data_dic = {}
-				comm_data_dic['commnuity_user'] = comm.commnuity_user.username
-				comm_data_dic['lable'] = comm.lable.lable_name
-				comm_data_dic['commnuit_content'] = comm.commnuit_content
-				comm_data_dic['create_time'] = comm.create_time
-				comm_data_dic['click_num'] = comm.click_num
-				comm_data_dic['commnuit_img'] = comm.commnuit_img
+				comm_data_dic = {
+				    'commnuity_user': comm.commnuity_user.username,
+				    'lable': comm.lable.lable_name,
+				    'commnuit_content': comm.commnuit_content,
+				    'create_time': comm.create_time,
+				    'click_num': comm.click_num,
+				    'commnuit_img': comm.commnuit_img,
+				}
 				comm_data_list.append(comm_data_dic)
 	except Exception as e:
 		code[10508]['message'] = e

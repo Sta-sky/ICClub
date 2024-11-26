@@ -32,7 +32,6 @@ def user_info(request):
         result = {'code': 200, 'data': data}
         print('NOT 本人 登录返回')
         return JsonResponse(result, safe=False)
-    # 有token 用户已登录
     elif token:
         print('token')
         res = judge_token_expire(token)
@@ -47,10 +46,7 @@ def user_info(request):
         try:
             user_1 = UserRegist.objects.filter(id=user_id)[0]
             # 判断是否是本人登录
-            if username == user_1.username:
-                data['is_self'] = 'yes'
-            else:
-                data['is_self'] = 'no'
+            data['is_self'] = 'yes' if username == user_1.username else 'no'
         except Exception as e:
             print(e)
             return JsonResponse(code[10205])
@@ -68,9 +64,11 @@ def get_date(data, user_id):
     except Exception as e:
         print(e, '3333333333')
         return {'code': 10122, 'message': '该用户不存在'}
-    user_dic = {}
-    user_dic["nickname"] = user_info.nickname
-    user_dic["introduction"] = judge_null_data(user_info.introduction)
+    user_dic = {
+        'nickname': user_info.nickname,
+        'introduction': judge_null_data(user_info.introduction),
+    }
+
     user_dic["gender"] = judge_null_data(user_info.gender)
     if not user_info.birth:
         user_dic["birth"] = user_info.created_time.strftime('%Y-%m-%d')
@@ -95,10 +93,7 @@ def get_date(data, user_id):
         user_act = Activity.objects.filter(user_id=user_id).order_by('-created_time')[:10]
         data = get_active_join(data=data, user_info=user_info)
         for i in user_act:
-            act_dic = {}
-            act_dic["act_id"] = i.id
-            act_dic["tag"] = i.tag.interests
-            act_dic["subject"] = i.subject
+            act_dic = {'act_id': i.id, 'tag': i.tag.interests, 'subject': i.subject}
             act_dic["create_time"] = str(i.created_time.date())
             act_dic["click_num"] = cal_num(i.click_nums)
             act_dic["update_time"] = str(i.updated_time.date())
